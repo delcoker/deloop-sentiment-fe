@@ -8,7 +8,6 @@ const axiosConfig = axios.create({
   baseURL: 'http://192.168.0.54:8000',
   headers: {
     'access_token': localStorage.getItem('access_token'),
-
   }
 });
 

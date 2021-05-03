@@ -3,7 +3,7 @@ import { Redirect, Route } from 'react-router-dom';
 
 import { accountService } from '../_services';
 
-function PrivateRoute({component: Component, roles, ...rest}) {
+function PrivateRoute({component: Component, /**roles,**/ ...rest}) {
 
 		// const b = getUserSession;
 		// console.log(b)
@@ -29,4 +29,4 @@ function PrivateRoute({component: Component, roles, ...rest}) {
 		);
 }
 
-export { PrivateRoute };
+export default PrivateRoute;

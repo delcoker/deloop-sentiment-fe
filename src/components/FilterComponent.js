@@ -12,6 +12,7 @@ const FilterComponent = (props) => (
             value={props.filterText}
             onChange={props.onFilter}
             placeholder={props.placeholder}
+            // styling={props.styling}
         />
         <Tooltip title="Clear Text">
             <IconButton onClick={props.onClear}>

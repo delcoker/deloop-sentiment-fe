@@ -3,7 +3,7 @@ import React from "react";
 // import XMLParser from "react-xml-parser";
 // import SvgGhPath from "../svgMapXML/XMLGhPath";
 
-const LocationPage = ({ withTime }) => {
+const ProfilePage = ({ withTime }) => {
     const map = {};
     // const xml = new XMLParser().parseFromString('
     // '); // Assume xmlText contains the example XML
@@ -25,4 +25,4 @@ const LocationPage = ({ withTime }) => {
     );
 };
 
-export default LocationPage;
+export default ProfilePage;

@@ -5,8 +5,6 @@ import { history } from './_helpers';
 import './App.css';
 import AppRoutes from "./router/Router";
 
-// import { render } from 'react-dom';
-
 
 function App() {
 		return (

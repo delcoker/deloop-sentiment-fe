@@ -1,14 +1,14 @@
 // import { BehaviorSubject } from 'rxjs';
 //
 // import config from 'config';
-// import { fetchWrapper, history } from '@/_helpers';
+import { axiosWrapper, history } from '../_helpers';
 //
 // const userSubject = new BehaviorSubject(null);
 // // const baseUrl = `${config.apiUrl}/accounts`;
 // const baseUrl = `${config.apiUrl}`;
 //
 export const accountService = {
-		// login, logout,
+		login, logout,
 		// refreshToken,
 		// register,
 		// verifyEmail,
@@ -26,29 +26,28 @@ export const accountService = {
 		// },
 		getUserSession
 };
-//
-// function login(username, password) {
-// 		let bodyFormData = new FormData();
-// 		bodyFormData.append("username", username);
-// 		bodyFormData.append("password", password);
-// 		return fetchWrapper.post(`${baseUrl}/login`, bodyFormData)
-// 			.then(user => {
-// 					// publish user to subscribers and start timer to refresh token
-// 					userSubject.next(user);
-// 					// startRefreshTokenTimer();
-// 					setUserSession(user.token, user, user.token_type);
-// 					return user;
-// 			});
-// }
-//
-// function logout() {
-// 		// revoke token, stop refresh timer, publish null to user subscribers and redirect to login page
-// 		// fetchWrapper.post(`${baseUrl}/revoke-token`, {});
-// 		// stopRefreshTokenTimer();
-// 		removeUserSession();
-// 		userSubject.next(null);
-// 		history.push('/login');
-// }
+
+function login(username, password) {
+		let bodyFormData = new FormData();
+		bodyFormData.append("username", username);
+		bodyFormData.append("password", password);
+		return axiosWrapper.post(`/login`, bodyFormData)
+			.then(user => {
+					// publish user to subscribers and start timer to refresh token
+					// userSubject.next(user);
+					// startRefreshTokenTimer();
+					setUserSession(user.token, user, user.token_type);
+					return user;
+			});
+}
+
+function logout() {
+		// revoke token, stop refresh timer, publish null to user subscribers and redirect to login page
+		// fetchWrapper.post(`${baseUrl}/revoke-token`, {});
+		// stopRefreshTokenTimer();
+		removeUserSession();
+		history.push('/login');
+}
 //
 // // function refreshToken() {
 // //
@@ -144,9 +143,6 @@ export const accountService = {
 
 function getUserSession() {
 		const userStr = localStorage.getItem('user');
-
-		// userSubject.next(userStr);
-		console.log(userStr)
 		if (userStr) return (userStr);
 		else return null;
 }
