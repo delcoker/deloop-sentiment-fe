@@ -3,19 +3,19 @@ import React from "react";
 // import MissionControlPage from "./pages/MissionControlPage";
 // import PeoplePage from "./pages/PeoplePage";
 // import IssuesPage from "./pages/IssuesPage";
-import TrackPage from "../pages/TrackPage";
+import TopicsPage from "../pages/TopicsPage";
 import SettingsPage from "../pages/SettingsPage";
 import HomePage from "../pages/HomePage";
 import { blue } from "@material-ui/core/colors";
 import {
+		AlternateEmail as AlternateEmailIcon,
 		Dashboard as DashboardIcon,
-		Lock as LockIcon,
 		Settings as SettingsIcon,
 		VerifiedUser as VerifiedUserIcon,
 		Web as WebIcon
 } from "@material-ui/icons";
 import ProfilePage from "../pages/ProfilePage";
-import Login from "../pages/Login";
+import FollowingPage from "../pages/FollowingPage";
 
 const routes = [
 		{
@@ -26,12 +26,39 @@ const routes = [
 				icon: <DashboardIcon/>,
 		},
 		{
-				path: "/track",
+				path: "/following",
 				// parentPage: ReportPage,
-				page: TrackPage,
-				title: "Track",
+				page: FollowingPage,
+				title: "Following",
+				icon: <AlternateEmailIcon/>,
+		},
+		{
+				path: "/topics",
+				// parentPage: ReportPage,
+				page: TopicsPage,
+				title: "Topics",
 				icon: <WebIcon/>,
 				children: [
+
+						[{
+								id: 1,
+								kcg:
+									{
+											keywords: ["apple", "pine"]
+									},
+								category: "fruit",
+								group_category: "food",
+
+
+						}, {
+								id: 2,
+								kcg:
+									{
+											keywords: ["apple", "pine"]
+									},
+								category: "fruit",
+								group_category: "food"
+						}]
 						// { path: "account", element: <IssuesPage /> },
 						// { path: "settings", element: <IssuesPage /> },
 						//   { path: 'dashboard', element: <DashboardView /> },
@@ -48,7 +75,7 @@ const routes = [
 				icon: <VerifiedUserIcon/>,
 		},
 		{
-				path: "/setting",
+				path: "/settings",
 				// parentPage: ReportPage,
 				page: SettingsPage,
 				title: "Settings",

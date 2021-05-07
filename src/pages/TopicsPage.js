@@ -5,7 +5,6 @@ import Box from "@material-ui/core/Box";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardHeader from "@material-ui/core/CardHeader";
-import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 // core components
 import AddFormDialog from "../components/AddFormDialog";
@@ -13,8 +12,6 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
 import DataTable from "react-data-table-component";
 import ActionComponent from "../components/ActionComponent";
-import useStyles from "../_helpers/use_styles/styles";
-
 
 const data = [{
 		id: 1,
@@ -78,10 +75,8 @@ const columnsIssues = [
 		},
 ];
 
-const TrackPage = () => {
-		const classes = useStyles();
-		// const theme = useTheme();
-		// const { cubejsApi } = React.useContext(CubeContext);
+const TopicsPage = () => {
+		// const classes = useStyles();
 		const [theme, setTheme] = useState("dark");
 		const [theme2, setTheme2] = useState("light");
 		const [filterPeopleText, setFilterPeopleText] = useState("");
@@ -189,131 +184,115 @@ const TrackPage = () => {
 				//     setIssues(resultSet.loadResponses[0].data);
 				//     setFilteredIssues(resultSet.loadResponses[0].data);
 				// });
-				console.log("AdminPage useEffect");
 		}, []);
 
 		return (
 			<>
-					{/* Page content */}
-					<Container
-						maxWidth={false}
-						component={Box}
-						marginTop="-6rem"
-						// classes={{root: classes.containerRoot}}
-					>
-							{/* Table */}
-							<Grid container component={Box} marginBottom="39px">
-									<Grid item xs={12}>
-											<Card>
-													<CardHeader
-														// className={classes.cardHeader}
-														title="People & Issues to follow"
-														titleTypographyProps={{
-																component: Box,
-																marginBottom: "0!important",
-																variant: "h3",
-														}}
+					{/*<TabsComponent/>*/}
+
+					<br/>
+					<br/>
+					<Card>
+							<CardHeader
+								title="let's group our findings"
+								titleTypographyProps={{
+										component: Box,
+										marginBottom: "0!important",
+										variant: "h5",
+								}}
+							/>
+
+							<CardContent>
+									<Grid container spacing={3} justify="space-between">
+											<AddFormDialog
+												open={open}
+												onClose={() => setOpen(false)}
+												showPosition={categoryType === "user"}
+												title={
+														categoryType === "user"
+															? `${addOrEdit} Person`
+															: `${addOrEdit} Issue`
+												}
+												type={categoryType}
+												addOrEdit={addOrEdit}
+												rowData={rowData}
+												setRowData={setRowData}
+												people={people}
+												setFilteredPeople={setFilteredPeople}
+												issues={issues}
+												setFilteredIssues={setFilteredIssues}
+											/>
+
+											<Grid item xs={6}>
+													<FormControlLabel
+														label="Dark Mode"
+														control={
+																<Switch
+																	checked={theme === "dark"}
+																	onChange={handleChange}
+																/>
+														}
 													/>
 
-
-													<CardContent>
-
-															<Grid container spacing={3} justify="space-between">
-																	<AddFormDialog
-																		open={open}
-																		onClose={() => setOpen(false)}
-																		showPosition={categoryType === "user"}
-																		title={
-																				categoryType === "user"
-																					? `${addOrEdit} Person`
-																					: `${addOrEdit} Issue`
-																		}
-																		type={categoryType}
-																		addOrEdit={addOrEdit}
-																		rowData={rowData}
-																		setRowData={setRowData}
-																		people={people}
-																		setFilteredPeople={setFilteredPeople}
-																		issues={issues}
-																		setFilteredIssues={setFilteredIssues}
-																	/>
-
-																	<Grid item xs={6}>
-																			<FormControlLabel
-																				label="Dark Mode"
-																				control={
-																						<Switch
-																							checked={theme === "dark"}
-																							onChange={handleChange}
-																						/>
-																				}
-																			/>
-
-																			<br/>
-																			<br/>
-
-																			<DataTable
-																				title="People to Look Out For"
-																				columns={columnsPeople}
-																				data={data}
-																				theme={theme}
-																				highlightOnHover
-																				pointerOnHover
-																				pagination
-																				selectableRows
-																				expandableRows
-																				actions={actions("user")}
-																				onRowClicked={(row) =>
-																					handleOnRowClicked(row, "user")
-																				}
-																				expandOnRowClicked={false}
-																				expandableRowsComponent={<></>}
-																				// dense
-																			/>
-																	</Grid>
+													<DataTable
+														title="People to Look Out For"
+														columns={columnsPeople}
+														data={data}
+														theme={theme}
+														highlightOnHover
+														pointerOnHover
+														pagination
+														selectableRows
+														expandableRows
+														actions={actions("user")}
+														onRowClicked={(row) =>
+															handleOnRowClicked(row, "user")
+														}
+														expandOnRowClicked={false}
+														expandableRowsComponent={<></>}
+														// dense
+													/>
+											</Grid>
 
 
-																	<Grid item xs={6}>
-																			<FormControlLabel
-																				label="Dark Mode"
-																				control={
-																						<Switch
-																							checked={theme2 === "dark"}
-																							onChange={handleChange2}
-																						/>
-																				}
-																			/>
+											<Grid item xs={6}>
+													<FormControlLabel
+														label="Dark Mode"
+														control={
+																<Switch
+																	checked={theme2 === "dark"}
+																	onChange={handleChange2}
+																/>
+														}
+													/>
 
-																			<br/>
-																			<br/>
+													<br/>
+													<br/>
 
-																			<DataTable
-																				title="Issues to Track"
-																				columns={columnsIssues}
-																				data={filteredIssues}
-																				theme={theme2}
-																				highlightOnHover
-																				pointerOnHover
-																				pagination
-																				selectableRows
-																				expandableRows
-																				actions={actions("issue")}
-																				onRowClicked={(row) =>
-																					handleOnRowClicked(row, "issue")
-																				}
-																				expandOnRowClicked={false}
-																				expandableRowsComponent={<></>}
-																				// dense
-																			/>
-																	</Grid>
-															</Grid>
-													</CardContent>
-											</Card>
+													<DataTable
+														title="Issues to Track"
+														columns={columnsIssues}
+														data={filteredIssues}
+														theme={theme2}
+														highlightOnHover
+														pointerOnHover
+														pagination
+														selectableRows
+														expandableRows
+														actions={actions("issue")}
+														onRowClicked={(row) =>
+															handleOnRowClicked(row, "issue")
+														}
+														expandOnRowClicked={false}
+														expandableRowsComponent={<></>}
+														// dense
+													/>
+											</Grid>
 									</Grid>
-							</Grid>
-					</Container>
+							</CardContent>
+					</Card>
 			</>
 		);
 };
 
-export default TrackPage;
+export default TopicsPage;

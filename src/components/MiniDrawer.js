@@ -1,6 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { useTheme } from '@material-ui/core/styles';
 import { matchPath } from "react-router";
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
@@ -18,7 +18,7 @@ import routes from "../router/routes";
 import Header from "./Header";
 import useStyles from "../_helpers/use_styles/styles";
 
-export default function MiniDrawer({children}) {
+export default function MiniDrawer({children, title}) {
 		const classes = useStyles();
 		const theme = useTheme();
 		const [open, setOpen] = React.useState(true);
@@ -48,7 +48,7 @@ export default function MiniDrawer({children}) {
 			<div className={classes.root}>
 					<CssBaseline/>
 
-					<Header open={open} handleDrawerOpen={handleDrawerOpen} useStyles={useStyles}/>
+					<Header open={open} handleDrawerOpen={handleDrawerOpen} useStyles={useStyles} title={title}/>
 
 					<Drawer
 						variant="permanent"

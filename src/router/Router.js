@@ -11,7 +11,7 @@ import PrivateRoute from "../_components/PrivateRoute";
 // import { Admin } from '@/admin';
 // import { Account } from '@/account';
 
-const AppLayout = ({children}) => <MiniDrawer children={children}/>;
+const AppLayout = ({children, title}) => <MiniDrawer title={title} children={children}/>;
 
 function AppRoutes() {
 		// const {pathname} = useLocation();
@@ -36,9 +36,10 @@ function AppRoutes() {
 									// 				<route.page/>
 									// 		</AppLayout>
 									// }
-									component={() => <AppLayout>
-											<route.page/>
-									</AppLayout>}
+									component={() =>
+										<AppLayout title={route.title}>
+												<route.page/>
+										</AppLayout>}
 								/>
 							)}
 

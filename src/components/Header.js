@@ -12,12 +12,12 @@ import MenuIcon from "@material-ui/icons/Menu";
 import { TimeToLeave } from "@material-ui/icons";
 import { accountService } from "../_services";
 import useStyles from "../_helpers/use_styles/styles";
+import TopicsComponent from "./TabComponent";
 
-const Header = ({open, handleDrawerOpen}) => {
+const Header = ({open, handleDrawerOpen, title}) => {
 		const classes = useStyles();
 		return (
 			<>
-
 					<AppBar
 						position="fixed"
 						className={clsx(classes.appBar, {
@@ -38,7 +38,7 @@ const Header = ({open, handleDrawerOpen}) => {
 											&& <MenuIcon/>}
 									</IconButton>
 									<Typography variant="h6" color="inherit" noWrap className={classes.title}>
-											DWM Sentimento
+											DWM Sentimento : {title}
 									</Typography>
 									<div className={classes.grow}/>
 									<Button
@@ -67,6 +67,9 @@ const Header = ({open, handleDrawerOpen}) => {
 											Logout
 									</Button>}
 							</Toolbar>
+
+							{title === "Topics" && <TopicsComponent />}
+
 					</AppBar>
 			</>
 		)
