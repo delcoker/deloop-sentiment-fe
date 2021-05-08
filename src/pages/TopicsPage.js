@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import memoize from 'memoize-one';
 // react component that copies the given text inside your clipboard
 // @material-ui/core components
 import Box from "@material-ui/core/Box";
@@ -7,292 +8,234 @@ import CardContent from "@material-ui/core/CardContent";
 import CardHeader from "@material-ui/core/CardHeader";
 import Grid from "@material-ui/core/Grid";
 // core components
-import AddFormDialog from "../components/AddFormDialog";
+import AddEditFormDialog from "../components/AddEditFormDialog";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
 import DataTable from "react-data-table-component";
 import ActionComponent from "../components/ActionComponent";
+import { groupCategoryService } from "../_services/group.category.service";
+import IconButton from "@material-ui/core/IconButton";
+import { Delete } from "@material-ui/icons";
+import { categoryService } from "../_services/category.service";
 
-const data = [{
-		id: 1,
-		name: 'Conan the Barbarian',
-		position: 1982,
-		keywords: 'Orphaned boy Conan is enslaved after his village is destroyed...'
-}, {
-		id: 2,
-		name: 'the Barbarian',
-		position: '2020',
-		keywords: ' his village is destroyed...'
-},
-];
-
-const columnsPeople = [
+const columns = [
 		{
 				name: "id",
-				selector: (user) => user,
+				selector: (category) => category.id,
 				sortable: true,
 				omit: true,
 		},
 		{
-				name: "Name",
-				selector: (user) => user["name"],
+				name: "Category",
+				selector: "name",
 				sortable: true,
-				wrap: true,
-		},
-		{
-				name: "Position",
-				selector: "position",
-				sortable: true,
+				maxWidth: "30%"
 		},
 		{
 				name: "Keywords",
-				selector: (user) => user["keywords"],
+				selector: "keywords",
 				sortable: true,
-				wrap: true,
-				grow: 3,
-		},
-];
-
-const columnsIssues = [
-		{
-				name: "id",
-				selector: (user) => user["id"],
-				sortable: true,
-				omit: true,
-		},
-		{
-				name: "Name",
-				selector: (issue) => issue["IssuesOfInterest.name"],
-				sortable: true,
-				wrap: true,
-		},
-		{
-				name: "Keywords",
-				selector: (issue) => issue["IssuesOfInterest.keywords"],
-				sortable: true,
-				wrap: true,
-				grow: 3,
-		},
+		}
 ];
 
 const TopicsPage = () => {
-		// const classes = useStyles();
-		const [theme, setTheme] = useState("dark");
-		const [theme2, setTheme2] = useState("light");
-		const [filterPeopleText, setFilterPeopleText] = useState("");
-		const [filterIssuesText, setFilterIssuesText] = useState("");
-		const [people, setPeople] = useState([]);
-		const [filteredPeople, setFilteredPeople] = useState([]);
-		const [issues, setIssues] = useState([]);
-		const [filteredIssues, setFilteredIssues] = useState([]);
-		const [open, setOpen] = useState(false);
-		const [categoryType, setCategoryType] = useState("");
-		const [expandOnRowClick, setExpandOnRowClick] = React.useState(false);
-		const [addOrEdit, setAddOrEdit] = useState("Add");
-		const [rowData, setRowData] = useState();
+			// const classes = useStyles();
+			const [theme, setTheme] = useState("dark");
+			const [filterText, setFilterText] = useState("");
+			const [data, setData] = useState([]);
+			const [filteredData, setFilteredData] = useState([{}]);
+			const [open, setOpen] = useState(false);
+			const [categoryType, setCategoryType] = useState("");
+			const [expandOnRowClick, setExpandOnRowClick] = React.useState(false);
+			const [addOrEdit, setAddOrEdit] = useState("Add");
+			const [rowData, setRowData] = useState();
+			const [showDropDown, setShowDropDown] = useState("Category");
+			const [showTextField1, setShowTextField1] = useState("Category");
+			const [showTextField2, setShowTextField2] = useState("Keywords");
 
-		const handleChange = () => {
-				if (theme === "dark") {
-						setTheme("default");
-				} else {
-						setTheme("dark");
-				}
-		};
+			const [selectedRows, setSelectedRows] = useState([]);
+			const [toggleClearSelectedRows, setToggleClearSelectedRows] = useState(false);
 
-		const handleChange2 = () => {
-				if (theme2 === "dark") {
-						setTheme2("default");
-				} else {
-						setTheme2("dark");
-				}
-		};
 
-		const handleClear = (type) => {
-				if (type === "user") {
-						setFilterPeopleText("");
-						setFilteredPeople(people);
-				} else if (type === "issue") {
-						setFilterIssuesText("");
-						setFilteredIssues(issues);
-				}
-		};
+			const handleChange = () => {
+					if (theme === "dark") {
+							setTheme("default");
+					} else {
+							setTheme("dark");
+					}
+			};
 
-		const actions = (type) => (
-			<ActionComponent
-				onFilter={(e) => {
-						const text = e.target.value;
-						if (type === "user") {
-								setFilterPeopleText(text);
-								setFilteredPeople(
-									people.filter(
-										(person) =>
-											(person["UsersOfInterest.name"] &&
-												person["UsersOfInterest.name"]
-													.toLowerCase()
-													.includes(text.toLowerCase())) ||
-											(person["UsersOfInterest.keywords"] &&
-												person["UsersOfInterest.keywords"]
-													.toLowerCase()
-													.includes(text.toLowerCase()))
+			const handleClear = () => {
+					setFilterText("");
+					setFilteredData(data);
+			};
+
+			const actions = (type) =>
+				(
+					<ActionComponent
+						onFilter={(e) => {
+								const text = e.target.value;
+								setFilterText(text);
+								setFilteredData(
+									data.filter(
+										(data) =>
+											(data["name"] && data["name"]
+												.toLowerCase()
+												.includes(text.toLowerCase())) ||
+											(data["keywords"] && data["keywords"]
+												.toLowerCase()
+												.includes(text.toLowerCase()))
 									)
 								);
-						} else {
-								setFilterIssuesText(text);
-								setFilteredIssues(
-									issues.filter(
-										(issue) =>
-											(issue["IssuesOfInterest.name"] &&
-												issue["IssuesOfInterest.name"]
-													.toLowerCase()
-													.includes(text.toLowerCase())) ||
-											(issue["IssuesOfInterest.keywords"] &&
-												issue["IssuesOfInterest.keywords"]
-													.toLowerCase()
-													.includes(text.toLowerCase()))
-									)
-								);
-						}
-				}}
-				onClear={() => handleClear(type)}
-				filterText={type === "user" ? filterPeopleText : filterIssuesText}
-				onClick={() => {
-						addOrEditPresets({}, "Add", type);
-				}}
-				tooltip={type === "user" ? "Add A New Person" : "Add A New Issue"}
-				placeholder={"Filter by name & keywords"}
-			/>
-		);
+						}}
+						onClear={handleClear}
+						filterText={filterText}
+						onClick={() => {
+								addOrEditPresets({}, "Add", type, "", "Category", "Keywords");
+						}}
+						tooltip={`add a new category`}
+						placeholder={"filter by category & keywords"}
+					/>
+				);
 
-		const addOrEditPresets = (row, crudType, categoryType) => {
-				setOpen(!open);
-				setAddOrEdit(crudType);
-				setCategoryType(categoryType);
-				setRowData(row);
-		};
+			const contextActions = memoize((deleteHandler) => (
+				<IconButton onClick={deleteHandler}>
+						<Delete color="primary"/>
+				</IconButton>
+			));
 
-		const handleOnRowClicked = (row, editCategory) => {
-				addOrEditPresets(row, "Edit", editCategory);
-				return setExpandOnRowClick(!expandOnRowClick);
-		};
+			const handleSelectedRows = (sel) => {
+					setSelectedRows(sel.selectedRows);
+			}
 
-		useEffect(() => {
-				// cubejsApi.load(usersQuery).then((resultSet) => {
-				//     setPeople(resultSet.loadResponses[0].data);
-				//     setFilteredPeople(resultSet.loadResponses[0].data);
-				// });
-				// cubejsApi.load(issuesQuery).then((resultSet) => {
-				//     setIssues(resultSet.loadResponses[0].data);
-				//     setFilteredIssues(resultSet.loadResponses[0].data);
-				// });
-		}, []);
+			const deleteSelectedRows = data => {
 
-		return (
-			<>
-					{/*<TabsComponent/>*/}
+					selectedRows.forEach(selectedRow => {
 
-					<br/>
-					<br/>
-					<Card>
-							<CardHeader
-								title="let's group our findings"
-								titleTypographyProps={{
-										component: Box,
-										marginBottom: "0!important",
-										variant: "h5",
-								}}
-							/>
+							categoryService.delete(selectedRow.id)
+								.then((response) => {
 
-							<CardContent>
-									<Grid container spacing={3} justify="space-between">
-											<AddFormDialog
-												open={open}
-												onClose={() => setOpen(false)}
-												showPosition={categoryType === "user"}
-												title={
-														categoryType === "user"
-															? `${addOrEdit} Person`
-															: `${addOrEdit} Issue`
+										alert(response.message);
+
+										let newFilteredData = [];
+
+										for (let i = 0; i < filteredData.length; i++) {
+												if (filteredData[i].id !== selectedRow.id) {
+														newFilteredData.push(filteredData[i]);
 												}
-												type={categoryType}
-												addOrEdit={addOrEdit}
-												rowData={rowData}
-												setRowData={setRowData}
-												people={people}
-												setFilteredPeople={setFilteredPeople}
-												issues={issues}
-												setFilteredIssues={setFilteredIssues}
-											/>
+										}
 
-											<Grid item xs={6}>
-													<FormControlLabel
-														label="Dark Mode"
-														control={
-																<Switch
-																	checked={theme === "dark"}
-																	onChange={handleChange}
-																/>
-														}
-													/>
+										setFilteredData(newFilteredData);
 
-													<DataTable
-														title="People to Look Out For"
-														columns={columnsPeople}
-														data={data}
-														theme={theme}
-														highlightOnHover
-														pointerOnHover
-														pagination
-														selectableRows
-														expandableRows
-														actions={actions("user")}
-														onRowClicked={(row) =>
-															handleOnRowClicked(row, "user")
-														}
-														expandOnRowClicked={false}
-														expandableRowsComponent={<></>}
-														// dense
-													/>
-											</Grid>
+								})
+					});
+					setToggleClearSelectedRows(!toggleClearSelectedRows);
+			};
 
+			const addOrEditPresets = (row, crudType, categoryType, showDropDown, showTextField1, showTextField2) => {
+					setOpen(!open);
+					setAddOrEdit(crudType);
+					setCategoryType(categoryType);
+					setShowDropDown(showDropDown);
+					setShowTextField1(showTextField1);
+					setShowTextField2(showTextField2);
+					setRowData(row);
+			};
 
-											<Grid item xs={6}>
-													<FormControlLabel
-														label="Dark Mode"
-														control={
-																<Switch
-																	checked={theme2 === "dark"}
-																	onChange={handleChange2}
-																/>
-														}
-													/>
+			const handleOnRowClicked = (row, editCategory, showDropDown, showTextField1, showTextField2) => {
+					addOrEditPresets(row, "Edit", editCategory, showDropDown, showTextField1, showTextField2);
+					return setExpandOnRowClick(!expandOnRowClick);
+			};
 
-													<br/>
-													<br/>
+			useEffect(() => {
+					groupCategoryService.getAll()
+						.then(data => {
+								setData(data);
+								setFilteredData(data);
+						});
+			}, [filteredData]);
 
-													<DataTable
-														title="Issues to Track"
-														columns={columnsIssues}
-														data={filteredIssues}
-														theme={theme2}
-														highlightOnHover
-														pointerOnHover
-														pagination
-														selectableRows
-														expandableRows
-														actions={actions("issue")}
-														onRowClicked={(row) =>
-															handleOnRowClicked(row, "issue")
-														}
-														expandOnRowClicked={false}
-														expandableRowsComponent={<></>}
-														// dense
-													/>
-											</Grid>
-									</Grid>
-							</CardContent>
-					</Card>
-			</>
-		);
-};
+			return (
+				<>
+						{/*<TabsComponent/>*/}
+
+						<br/>
+						<br/>
+						<Card>
+								<CardHeader
+									title="Categories"
+									titleTypographyProps={{
+											component: Box,
+											marginBottom: "0!important",
+											variant: "h5",
+									}}
+								/>
+
+								<CardContent>
+										<Grid container spacing={3} justify="space-between">
+												<AddEditFormDialog
+													open={open}
+													onClose={() => setOpen(false)}
+													showPosition={categoryType === "user"}
+													title={
+															`${addOrEdit} Category`
+													}
+													type={categoryType}
+													addOrEdit={addOrEdit}
+													rowData={rowData}
+													setRowData={setRowData}
+													data={data}
+													setData={setData}
+													filteredData={filteredData}
+													setFilteredData={setFilteredData}
+													showDropDown={showDropDown}
+													showTextField1={showTextField1}
+													showTextField2={showTextField2}
+												/>
+
+												<Grid item xs={12}>
+														<FormControlLabel
+															label="Dark Mode"
+															control={
+																	<Switch
+																		checked={theme === "dark"}
+																		onChange={handleChange}
+																	/>
+															}
+														/>
+
+														<DataTable
+															title="Be on the lookout "
+															defaultSortField={"name"}
+															columns={columns}
+															data={filteredData}
+															theme={theme}
+															highlightOnHover
+															pointerOnHover
+															pagination
+															expandableRows
+															contextActions={contextActions(deleteSelectedRows)}
+															actions={actions("user")}
+															onRowClicked={(row) =>
+																handleOnRowClicked(row, "don't need this anymore", false, "Category", "Keywords")
+															}
+															expandOnRowClicked={false}
+															expandableRowsComponent={<></>}
+															selectableRows
+															clearSelectedRows={toggleClearSelectedRows}
+															onSelectedRowsChange={handleSelectedRows}
+
+															// dense
+														/>
+												</Grid>
+
+										</Grid>
+
+								</CardContent>
+						</Card>
+				</>
+			);
+	}
+;
 
 export default TopicsPage;

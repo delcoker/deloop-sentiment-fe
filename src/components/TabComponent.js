@@ -18,7 +18,7 @@ const CategoryGroupComponent = () => {
 								aria-label="simple tabs example"
 								centered
 							>
-									<Tab label="Topics" value="topics"/>
+									<Tab label="Topics" value="one"/>
 									<Tab label="Item Two" value="two"/>
 									{/*<Tab label="Item Three" value="three"/>*/}
 							</Tabs>

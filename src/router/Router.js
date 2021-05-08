@@ -4,7 +4,7 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 // import { accountService } from '@/_services';
 import MiniDrawer from "../components/MiniDrawer";
 import routes from "./routes";
-import Login from "../pages/Login";
+import SignIn from "../pages/SignIn";
 import PrivateRoute from "../_components/PrivateRoute";
 // import { Home } from '@/home';
 // import { Profile } from '@/profile';
@@ -46,7 +46,7 @@ function AppRoutes() {
 							{/*<Redirect from="/:url*(/+)" to={pathname.slice(0, -1)}/>*/}
 							{/*<PrivateRoute path="/profile" component={Profile}/>*/}
 							{/*<PrivateRoute path="/admin" roles={[Role.Admin]} component={Admin} />*/}
-							<Route path="/login" component={Login}/>
+							<Route path="/login" component={SignIn}/>
 							<Redirect from="*" to="/home"/>
 					</Switch>
 			</div>

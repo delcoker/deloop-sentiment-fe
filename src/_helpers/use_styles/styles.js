@@ -63,7 +63,14 @@ const useStyles = makeStyles((theme) => ({
 		},
 		grow: {
 				flex: '1 1 auto',
-		}
+		},
+		formControl: {
+				margin: theme.spacing(1),
+				minWidth: 120,
+		},
+		selectEmpty: {
+				marginTop: theme.spacing(2),
+		},
 }));
 
 export default useStyles;

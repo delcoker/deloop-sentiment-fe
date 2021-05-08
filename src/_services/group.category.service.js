@@ -8,7 +8,8 @@ import { axiosWrapper, history } from '../_helpers';
 // const baseUrl = `${config.apiUrl}`;
 //
 export const groupCategoryService = {
-		login, logout,
+		getAll,
+		// logout,
 		// refreshToken,
 		// register,
 		// verifyEmail,
@@ -24,30 +25,37 @@ export const groupCategoryService = {
 		// get userValue() {
 		// 		return userSubject.value
 		// },
-		getUserSession
+		// getUserSession
 };
 
-function login(username, password) {
-		let bodyFormData = new FormData();
-		bodyFormData.append("username", username);
-		bodyFormData.append("password", password);
-		return axiosWrapper.post(`/login`, bodyFormData)
-			.then(user => {
-					// publish user to subscribers and start timer to refresh token
-					// userSubject.next(user);
-					// startRefreshTokenTimer();
-					setUserSession(user.token, user, user.token_type);
-					return user;
+function getAll() {
+		return axiosWrapper.get(`/group/categories`)
+			.then(data => {
+					let dataSet = data[0].categories;
+					dataSet.map(category => {
+							category.name = category.category_name;
+							if (category.keywords) {
+									if (category.keywords.length > 0) {
+											category.keywords = category && category["keywords"]
+												.reduce((acc, two) => ((acc && acc.keywords) + " " + two.keywords), "");
+											return category;
+									}
+									category.keywords = "👀";
+							}
+							return category
+					});
+					return dataSet;
 			});
 }
 
-function logout() {
-		// revoke token, stop refresh timer, publish null to user subscribers and redirect to login page
-		// fetchWrapper.post(`${baseUrl}/revoke-token`, {});
-		// stopRefreshTokenTimer();
-		removeUserSession();
-		history.push('/login');
-}
+// function getGroupCategories(group_category_id) {
+// 		// revoke token, stop refresh timer, publish null to user subscribers and redirect to login page
+// 		// fetchWrapper.post(`${baseUrl}/revoke-token`, {});
+// 		// stopRefreshTokenTimer();
+// 		removeUserSession();
+// 		history.push('/login');
+// }
+
 //
 // // function refreshToken() {
 // //
@@ -141,27 +149,27 @@ function logout() {
 // }
 //
 
-function getUserSession() {
-		const userStr = localStorage.getItem('user');
-		if (userStr) return (userStr);
-		else return null;
-}
-
-// return the token from the session storage
-export const getToken = () => {
-		return localStorage.getItem('token') || null;
-}
-
-// remove the token and user from the session storage
-export const removeUserSession = () => {
-		localStorage.clear();
-}
-
-// set the token and user from the session storage
-export const setUserSession = (token, user, token_type,) => {
-		localStorage.setItem('token', token);
-		localStorage.setItem('first_name', (user.first_name));
-		localStorage.setItem('last_name', (user.last_name));
-		localStorage.setItem('user', JSON.stringify(user));
-		localStorage.setItem('token_type', token_type);
-}
+// function getUserSession() {
+// 		const userStr = localStorage.getItem('user');
+// 		if (userStr) return (userStr);
+// 		else return null;
+// }
+//
+// // return the token from the session storage
+// export const getToken = () => {
+// 		return localStorage.getItem('token') || null;
+// }
+//
+// // remove the token and user from the session storage
+// export const removeUserSession = () => {
+// 		localStorage.clear();
+// }
+//
+// // set the token and user from the session storage
+// export const setUserSession = (token, user, token_type,) => {
+// 		localStorage.setItem('token', token);
+// 		localStorage.setItem('first_name', (user.first_name));
+// 		localStorage.setItem('last_name', (user.last_name));
+// 		localStorage.setItem('user', JSON.stringify(user));
+// 		localStorage.setItem('token_type', token_type);
+// }

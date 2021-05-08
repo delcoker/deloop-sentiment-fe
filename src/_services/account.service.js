@@ -31,7 +31,7 @@ function login(username, password) {
 		let bodyFormData = new FormData();
 		bodyFormData.append("username", username);
 		bodyFormData.append("password", password);
-		return axiosWrapper.post(`/login`, bodyFormData)
+		return axiosWrapper.post(`/users/login`, bodyFormData)
 			.then(user => {
 					// publish user to subscribers and start timer to refresh token
 					// userSubject.next(user);
@@ -48,6 +48,7 @@ function logout() {
 		removeUserSession();
 		history.push('/login');
 }
+
 //
 // // function refreshToken() {
 // //
@@ -143,7 +144,7 @@ function logout() {
 
 function getUserSession() {
 		const userStr = localStorage.getItem('user');
-		if (userStr) return (userStr);
+		if (userStr) return JSON.parse(userStr);
 		else return null;
 }
 

@@ -7,11 +7,12 @@ import CardContent from "@material-ui/core/CardContent";
 import CardHeader from "@material-ui/core/CardHeader";
 import Grid from "@material-ui/core/Grid";
 // core components
-import AddFormDialog from "../components/AddFormDialog";
+import AddEditFormDialog from "../components/AddEditFormDialog";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
 import DataTable from "react-data-table-component";
 import ActionComponent from "../components/ActionComponent";
+import useStyles from "../_helpers/use_styles/styles";
 
 const data = [{
 		id: 1,
@@ -36,7 +37,7 @@ const data = [{
 },
 ];
 
-const columnsPeople = [
+const columns = [
 		{
 				name: "id",
 				selector: (user) => user.id,
@@ -53,7 +54,8 @@ const columnsPeople = [
 
 
 const FollowingPage = () => {
-		// const classes = useStyles();
+		const classes = useStyles();
+
 		const [theme, setTheme] = useState("dark");
 		const [filterPeopleText, setFilterPeopleText] = useState("");
 		const [people, setPeople] = useState([]);
@@ -63,6 +65,9 @@ const FollowingPage = () => {
 		const [expandOnRowClick, setExpandOnRowClick] = React.useState(false);
 		const [addOrEdit, setAddOrEdit] = useState("Add");
 		const [rowData, setRowData] = useState();
+		const [showDropDown, setShowDropDown] = useState("");
+		const [showTextField1, setShowTextField1] = useState("");
+		const [showTextField2, setShowTextField2] = useState("");
 
 		const handleChange = () => {
 				if (theme === "dark") {
@@ -111,15 +116,18 @@ const FollowingPage = () => {
 			/>
 		);
 
-		const addOrEditPresets = (row, crudType, categoryType) => {
+		const addOrEditPresets = (row, crudType, categoryType, showDropDown, showTextField1, showTextField2) => {
 				setOpen(!open);
 				setAddOrEdit(crudType);
 				setCategoryType(categoryType);
+				setShowDropDown(showDropDown);
+				setShowTextField1(showTextField1)
+				setShowTextField2(showTextField2);
 				setRowData(row);
 		};
 
-		const handleOnRowClicked = (row, editCategory) => {
-				addOrEditPresets(row, "Edit", editCategory);
+		const handleOnRowClicked = (row, editCategory, showDropDown, showTextField1, showTextField2) => {
+				addOrEditPresets(row, "Edit", editCategory, showDropDown, showTextField1, showTextField2);
 				return setExpandOnRowClick(!expandOnRowClick);
 		};
 
@@ -150,14 +158,12 @@ const FollowingPage = () => {
 							<CardContent>
 
 									<Grid container spacing={3} justify="space-between">
-											<AddFormDialog
+											<AddEditFormDialog
 												open={open}
 												onClose={() => setOpen(false)}
-												showPosition={categoryType === "user"}
+												showPosition={categoryType === "following"}
 												title={
-														categoryType === "user"
-															? `${addOrEdit} Person`
-															: `${addOrEdit} Issue`
+														`${addOrEdit} Following`
 												}
 												type={categoryType}
 												addOrEdit={addOrEdit}
@@ -165,6 +171,9 @@ const FollowingPage = () => {
 												setRowData={setRowData}
 												people={people}
 												setFilteredPeople={setFilteredPeople}
+												// showDropDown={showDropDown}
+												// showTextField1={showTextField1}
+												showTextField2={showTextField2}
 											/>
 
 											<Grid item xs={12}>
@@ -180,7 +189,7 @@ const FollowingPage = () => {
 
 													<DataTable
 														title="People to Look Out For"
-														columns={columnsPeople}
+														columns={columns}
 														data={data}
 														theme={theme}
 														highlightOnHover
@@ -190,7 +199,7 @@ const FollowingPage = () => {
 														expandableRows
 														actions={actions("user")}
 														onRowClicked={(row) =>
-															handleOnRowClicked(row, "user")
+															handleOnRowClicked(row, "Category", false, false, "Name")
 														}
 														expandOnRowClicked={false}
 														expandableRowsComponent={<></>}

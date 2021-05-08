@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import LoginForm from "../components/LoginForm";
+import LoginForm from "../components/SignInForm";
 import Header from "../components/Header";
 
-// import './Login.css'
+// import './SignIn.css'
 // import LoginFooter from './login/LoginFooter'
 // import Header from './Header'
 
-class Login extends Component {
+class SignIn extends Component {
 		render() {
 				return (
 					<>
@@ -20,4 +20,4 @@ class Login extends Component {
 		}
 }
 
-export default Login
+export default SignIn
