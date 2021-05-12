@@ -12,9 +12,9 @@ import MenuIcon from "@material-ui/icons/Menu";
 import { TimeToLeave } from "@material-ui/icons";
 import { accountService } from "../_services";
 import useStyles from "../_helpers/use_styles/styles";
-import TopicsComponent from "./TabComponent";
+import SubHeaderComponent from "./SubHeaderComponent";
 
-const Header = ({open, handleDrawerOpen, title}) => {
+const Header = ({open, handleDrawerOpen, showSubheader, pageTitle}) => {
 		const classes = useStyles();
 		return (
 			<>
@@ -38,7 +38,7 @@ const Header = ({open, handleDrawerOpen, title}) => {
 											&& <MenuIcon/>}
 									</IconButton>
 									<Typography variant="h6" color="inherit" noWrap className={classes.title}>
-											DWM Sentimento : {title}
+											DWM Sentimento {pageTitle}
 									</Typography>
 									<div className={classes.grow}/>
 									<Button
@@ -68,7 +68,7 @@ const Header = ({open, handleDrawerOpen, title}) => {
 									</Button>}
 							</Toolbar>
 
-							{title === "Topics" && <TopicsComponent />}
+							{showSubheader && <SubHeaderComponent/>}
 
 					</AppBar>
 			</>

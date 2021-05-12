@@ -14,10 +14,10 @@ import Select from "@material-ui/core/Select";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import { categoryService } from "../_services/category.service";
 
-const endpoint =
-	process.env.NODE_ENV === "development"
-		? process.env.REACT_APP_URL_DEV
-		: process.env.REACT_APP_URL_PROD;
+// const endpoint =
+// 	process.env.NODE_ENV === "development"
+// 		? process.env.REACT_APP_URL_DEV
+// 		: process.env.REACT_APP_URL_PROD;
 
 export default function AddEditFormDialog(props) {
 		const setRowData = props.setRowData;
@@ -74,6 +74,7 @@ export default function AddEditFormDialog(props) {
 						category_id: e.target.id.value,
 						keywords: e.target.Keywords.value,
 				}
+
 				categoryService.update(params)
 					.then(function (response) {
 							setLoading(false);
@@ -115,7 +116,6 @@ export default function AddEditFormDialog(props) {
 				}
 		}
 
-
 		return (
 			<div>
 					<Dialog
@@ -130,11 +130,10 @@ export default function AddEditFormDialog(props) {
 							<DialogContent>
 									<form
 										noValidate
-										autoComplete="off"
+										autoComplete="on"
 										onSubmit={(e) => {
 												e.preventDefault();
 												(props.addOrEdit === "Add") ? saveNew(e) : edit(e);
-
 										}}
 									>
 											<Grid

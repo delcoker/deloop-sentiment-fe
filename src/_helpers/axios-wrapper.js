@@ -9,10 +9,6 @@ export const axiosWrapper = {
 }
 
 function get(url) {
-		// const requestOptions = {
-		//     method: 'GET',
-		//     headers: authHeader(url)
-		// };
 		return axiosConfig.get(url).then(handleResponse);
 }
 

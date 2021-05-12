@@ -5,7 +5,7 @@ import Tab from '@material-ui/core/Tab'
 import Tabs from '@material-ui/core/Tabs'
 // import { useIntl } from 'react-intl'
 
-const CategoryGroupComponent = () => {
+const SubHeaderComponent = () => {
 		const [tab, setTab] = useState('one')
 		// const intl = useIntl()
 
@@ -19,7 +19,7 @@ const CategoryGroupComponent = () => {
 								centered
 							>
 									<Tab label="Topics" value="one"/>
-									<Tab label="Item Two" value="two"/>
+									{/*<Tab label="Item Two" value="two"/>*/}
 									{/*<Tab label="Item Three" value="three"/>*/}
 							</Tabs>
 					</AppBar>
@@ -32,4 +32,4 @@ const CategoryGroupComponent = () => {
 			</>
 		)
 }
-export default CategoryGroupComponent
+export default SubHeaderComponent

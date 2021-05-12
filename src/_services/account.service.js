@@ -2,13 +2,15 @@
 //
 // import config from 'config';
 import { axiosWrapper, history } from '../_helpers';
+import axiosConfig from "../_helpers/axiosConfig";
 //
 // const userSubject = new BehaviorSubject(null);
 // // const baseUrl = `${config.apiUrl}/accounts`;
 // const baseUrl = `${config.apiUrl}`;
 //
 export const accountService = {
-		login, logout,
+		login,
+		logout,
 		// refreshToken,
 		// register,
 		// verifyEmail,
@@ -31,12 +33,10 @@ function login(username, password) {
 		let bodyFormData = new FormData();
 		bodyFormData.append("username", username);
 		bodyFormData.append("password", password);
-		return axiosWrapper.post(`/users/login`, bodyFormData)
+		return axiosWrapper.post(`/auth/login`, bodyFormData)
 			.then(user => {
-					// publish user to subscribers and start timer to refresh token
-					// userSubject.next(user);
-					// startRefreshTokenTimer();
 					setUserSession(user.token, user, user.token_type);
+					axiosConfig.defaults.headers.common['token'] = user.token;
 					return user;
 			});
 }
@@ -45,6 +45,7 @@ function logout() {
 		// revoke token, stop refresh timer, publish null to user subscribers and redirect to login page
 		// fetchWrapper.post(`${baseUrl}/revoke-token`, {});
 		// stopRefreshTokenTimer();
+		axiosConfig.defaults.headers.common['token'] = null;
 		removeUserSession();
 		history.push('/login');
 }
@@ -155,6 +156,7 @@ export const getToken = () => {
 
 // remove the token and user from the session storage
 export const removeUserSession = () => {
+
 		localStorage.clear();
 }
 

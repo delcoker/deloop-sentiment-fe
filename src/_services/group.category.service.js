@@ -1,7 +1,7 @@
 // import { BehaviorSubject } from 'rxjs';
 //
 // import config from 'config';
-import { axiosWrapper, history } from '../_helpers';
+import { axiosWrapper } from '../_helpers';
 //
 // const userSubject = new BehaviorSubject(null);
 // // const baseUrl = `${config.apiUrl}/accounts`;
@@ -9,29 +9,17 @@ import { axiosWrapper, history } from '../_helpers';
 //
 export const groupCategoryService = {
 		getAll,
-		// logout,
-		// refreshToken,
-		// register,
-		// verifyEmail,
-		// forgotPassword,
-		// validateResetToken,
-		// resetPassword,
-		// getAll,
 		// getById,
 		// create,
 		// update,
 		// delete: _delete,
 		// user: userSubject.asObservable(),
-		// get userValue() {
-		// 		return userSubject.value
-		// },
-		// getUserSession
 };
 
 function getAll() {
 		return axiosWrapper.get(`/group/categories`)
 			.then(data => {
-					let dataSet = data[0].categories;
+					let dataSet = data && data.length > 0 ? data[0].categories : data;
 					dataSet.map(category => {
 							category.name = category.category_name;
 							if (category.keywords) {

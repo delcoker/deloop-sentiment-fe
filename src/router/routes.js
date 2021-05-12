@@ -15,7 +15,7 @@ import {
 		Web as WebIcon
 } from "@material-ui/icons";
 import ProfilePage from "../pages/ProfilePage";
-import FollowingPage from "../pages/FollowingPage";
+import ScopesPage from "../pages/ScopesPage";
 
 const routes = [
 		{
@@ -24,13 +24,17 @@ const routes = [
 				page: HomePage,
 				title: "Home",
 				icon: <DashboardIcon/>,
+				visible: true,
+				subheader: false,
 		},
 		{
-				path: "/following",
+				path: "/scopes",
 				// parentPage: ReportPage,
-				page: FollowingPage,
-				title: "Following",
+				page: ScopesPage,
+				title: "Scopes",
 				icon: <AlternateEmailIcon/>,
+				visible: true,
+				subheader: false,
 		},
 		{
 				path: "/topics",
@@ -38,27 +42,25 @@ const routes = [
 				page: TopicsPage,
 				title: "Topics",
 				icon: <WebIcon/>,
+				visible: true,
+				subheader: true,
 				children: [
 
 						[{
 								id: 1,
-								kcg:
-									{
-											keywords: ["apple", "pine"]
-									},
+								kcg: {
+										keywords: ["apple", "pine"]
+								},
 								category: "fruit",
 								group_category: "food",
-
-
 						}, {
 								id: 2,
-								kcg:
-									{
-											keywords: ["apple", "pine"]
-									},
+								kcg: {
+										keywords: ["apple", "pine"]
+								},
 								category: "fruit",
 								group_category: "food"
-						}]
+						}],
 						// { path: "account", element: <IssuesPage /> },
 						// { path: "settings", element: <IssuesPage /> },
 						//   { path: 'dashboard', element: <DashboardView /> },
@@ -73,6 +75,8 @@ const routes = [
 				page: ProfilePage,
 				title: "Profile",
 				icon: <VerifiedUserIcon/>,
+				visible: true,
+				subheader: false,
 		},
 		{
 				path: "/settings",
@@ -80,14 +84,17 @@ const routes = [
 				page: SettingsPage,
 				title: "Settings",
 				icon: <SettingsIcon/>,
+				visible: true,
+				subheader: false,
 				color: blue
 		},
 		// {
-		// 		path: "/login",
+		// 		path: "/wow",
 		// 		// parentPage: ReportPage,
-		// 		page: SignIn,
-		// 		title: "SignIn",
-		// 		icon: <LockIcon/>,
+		// 		page: Page404,
+		// 		title: "Error Page",
+		// 		icon: <SettingsIcon/>,
+		// 		visible: false,
 		// },
 		// {
 		//     path: "/location",

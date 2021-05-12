@@ -45,7 +45,7 @@ const TopicsPage = () => {
 			const [data, setData] = useState([]);
 			const [filteredData, setFilteredData] = useState([{}]);
 			const [open, setOpen] = useState(false);
-			const [categoryType, setCategoryType] = useState("");
+			// const [categoryType, setCategoryType] = useState("");
 			const [expandOnRowClick, setExpandOnRowClick] = React.useState(false);
 			const [addOrEdit, setAddOrEdit] = useState("Add");
 			const [rowData, setRowData] = useState();
@@ -113,6 +113,7 @@ const TopicsPage = () => {
 					selectedRows.forEach(selectedRow => {
 
 							categoryService.delete(selectedRow.id)
+
 								.then((response) => {
 
 										alert(response.message);
@@ -135,7 +136,7 @@ const TopicsPage = () => {
 			const addOrEditPresets = (row, crudType, categoryType, showDropDown, showTextField1, showTextField2) => {
 					setOpen(!open);
 					setAddOrEdit(crudType);
-					setCategoryType(categoryType);
+					// setCategoryType(categoryType);
 					setShowDropDown(showDropDown);
 					setShowTextField1(showTextField1);
 					setShowTextField2(showTextField2);
@@ -153,7 +154,7 @@ const TopicsPage = () => {
 								setData(data);
 								setFilteredData(data);
 						});
-			}, [filteredData]);
+			}, []);
 
 			return (
 				<>
@@ -176,11 +177,11 @@ const TopicsPage = () => {
 												<AddEditFormDialog
 													open={open}
 													onClose={() => setOpen(false)}
-													showPosition={categoryType === "user"}
+													// showPosition={categoryType === "user"}
 													title={
 															`${addOrEdit} Category`
 													}
-													type={categoryType}
+													// type={categoryType}
 													addOrEdit={addOrEdit}
 													rowData={rowData}
 													setRowData={setRowData}

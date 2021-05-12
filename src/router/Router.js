@@ -11,25 +11,18 @@ import PrivateRoute from "../_components/PrivateRoute";
 // import { Admin } from '@/admin';
 // import { Account } from '@/account';
 
-const AppLayout = ({children, title}) => <MiniDrawer title={title} children={children}/>;
+const AppLayout = ({children, showSubheader, pageTitle}) => <MiniDrawer showSubheader={showSubheader} children={children} pageTitle={pageTitle}/>;
 
 function AppRoutes() {
-		// const {pathname} = useLocation();
-		// const [user, setUser] = useState({});
-
-		// useEffect(() => {
-		//     const subscription = accountService.user.subscribe(x => setUser(x));
-		//     return subscription.unsubscribe;
-		// }, []);
 
 		return (
 			<div /**className={'router-container' + (user && ' bg-light')}**/>
 					{/*<Nav/>*/}
 					{/*<Alert/>*/}
 					<Switch>
-							{routes.map((route, i) =>
+							{routes.map((route, i) => route.visible ?
 								<PrivateRoute
-									key={route.path}
+									key={i}
 									path={route.path}
 									// render={
 									// 		() => <AppLayout>
@@ -37,16 +30,21 @@ function AppRoutes() {
 									// 		</AppLayout>
 									// }
 									component={() =>
-										<AppLayout title={route.title}>
+										<AppLayout showSubheader={route.subheader} pageTitle={route.title}>
 												<route.page/>
-										</AppLayout>}
+										</AppLayout>
+											// : null
+									}
 								/>
+								: null
 							)}
 
 							{/*<Redirect from="/:url*(/+)" to={pathname.slice(0, -1)}/>*/}
-							{/*<PrivateRoute path="/profile" component={Profile}/>*/}
+
 							{/*<PrivateRoute path="/admin" roles={[Role.Admin]} component={Admin} />*/}
+
 							<Route path="/login" component={SignIn}/>
+							{/*<Route path="/signup" component={SignUp}/>*/}
 							<Redirect from="*" to="/home"/>
 					</Switch>
 			</div>

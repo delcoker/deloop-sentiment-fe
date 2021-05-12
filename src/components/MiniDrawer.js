@@ -18,7 +18,7 @@ import routes from "../router/routes";
 import Header from "./Header";
 import useStyles from "../_helpers/use_styles/styles";
 
-export default function MiniDrawer({children, title}) {
+export default function MiniDrawer({children, pageTitle, showSubheader}) {
 		const classes = useStyles();
 		const theme = useTheme();
 		const [open, setOpen] = React.useState(true);
@@ -48,7 +48,7 @@ export default function MiniDrawer({children, title}) {
 			<div className={classes.root}>
 					<CssBaseline/>
 
-					<Header open={open} handleDrawerOpen={handleDrawerOpen} useStyles={useStyles} title={title}/>
+					<Header open={open} handleDrawerOpen={handleDrawerOpen} useStyles={useStyles} pageTitle={pageTitle} showSubheader={showSubheader}/>
 
 					<Drawer
 						variant="permanent"
@@ -70,16 +70,16 @@ export default function MiniDrawer({children, title}) {
 							</div>
 							<Divider/>
 							<List>
-									{routes.map((route, i) => {
-											return (
-												<MenuItem
-													to={route.path}
-													icon={route.icon}
-													title={route.title}
-													key={i}
-												/>
-											);
-									})}
+									{routes.map((route, i) =>
+										route.visible ?
+											<MenuItem
+												to={route.path}
+												icon={route.icon}
+												title={route.title}
+												key={route.title}
+											/>
+											: null
+									)}
 							</List>
 							<Divider/>
 					</Drawer>

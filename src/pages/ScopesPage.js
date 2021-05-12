@@ -53,12 +53,12 @@ const columns = [
 ];
 
 
-const FollowingPage = () => {
+const ScopesPage = () => {
 		const classes = useStyles();
 
-		const [theme, setTheme] = useState("dark");
+		const [switchTheme, setSwitchTheme] = useState("dark");
 		const [filterPeopleText, setFilterPeopleText] = useState("");
-		const [people, setPeople] = useState([]);
+		const [scopes, setScope] = useState([]);
 		const [filteredPeople, setFilteredPeople] = useState([]);
 		const [open, setOpen] = useState(false);
 		const [categoryType, setCategoryType] = useState("");
@@ -70,40 +70,32 @@ const FollowingPage = () => {
 		const [showTextField2, setShowTextField2] = useState("");
 
 		const handleChange = () => {
-				if (theme === "dark") {
-						setTheme("default");
+				if (switchTheme === "dark") {
+						setSwitchTheme("default");
 				} else {
-						setTheme("dark");
+						setSwitchTheme("dark");
 				}
 		};
 
 		const handleClear = (type) => {
-				if (type === "user") {
-						setFilterPeopleText("");
-						setFilteredPeople(people);
-				}
+				setFilterPeopleText("");
+				setFilteredPeople(scopes);
 		};
 
 		const actions = (type) => (
 			<ActionComponent
 				onFilter={(e) => {
 						const text = e.target.value;
-						if (type === "user") {
-								setFilterPeopleText(text);
-								setFilteredPeople(
-									people.filter(
-										(person) =>
-											(person["UsersOfInterest.name"] &&
-												person["UsersOfInterest.name"]
-													.toLowerCase()
-													.includes(text.toLowerCase())) ||
-											(person["UsersOfInterest.keywords"] &&
-												person["UsersOfInterest.keywords"]
-													.toLowerCase()
-													.includes(text.toLowerCase()))
-									)
-								);
-						}
+						setFilterPeopleText(text);
+						setFilteredPeople(
+							scopes.filter(
+								(scope) =>
+									(scope["name"] &&
+										scope["name"]
+											.toLowerCase()
+											.includes(text.toLowerCase()))
+							)
+						);
 
 				}}
 				onClear={() => handleClear(type)}
@@ -119,7 +111,7 @@ const FollowingPage = () => {
 		const addOrEditPresets = (row, crudType, categoryType, showDropDown, showTextField1, showTextField2) => {
 				setOpen(!open);
 				setAddOrEdit(crudType);
-				setCategoryType(categoryType);
+				// setCategoryType(categoryType);
 				setShowDropDown(showDropDown);
 				setShowTextField1(showTextField1)
 				setShowTextField2(showTextField2);
@@ -128,25 +120,19 @@ const FollowingPage = () => {
 
 		const handleOnRowClicked = (row, editCategory, showDropDown, showTextField1, showTextField2) => {
 				addOrEditPresets(row, "Edit", editCategory, showDropDown, showTextField1, showTextField2);
-				return setExpandOnRowClick(!expandOnRowClick);
+				setExpandOnRowClick(!expandOnRowClick);
 		};
 
 		useEffect(() => {
-				// cubejsApi.load(usersQuery).then((resultSet) => {
-				//     setPeople(resultSet.loadResponses[0].data);
-				//     setFilteredPeople(resultSet.loadResponses[0].data);
-				// });
-				// cubejsApi.load(issuesQuery).then((resultSet) => {
-				//     setIssues(resultSet.loadResponses[0].data);
-				//     setFilteredIssues(resultSet.loadResponses[0].data);
-				// });
+
+
 		}, []);
 
 		return (
 			<>
 					<Card>
 							<CardHeader
-								title="@people or #hashtags to follow"
+								title="@people / #hashtags to listen to"
 								titleTypographyProps={{
 										component: Box,
 										marginBottom: "0!important",
@@ -169,7 +155,7 @@ const FollowingPage = () => {
 												addOrEdit={addOrEdit}
 												rowData={rowData}
 												setRowData={setRowData}
-												people={people}
+												people={scopes}
 												setFilteredPeople={setFilteredPeople}
 												// showDropDown={showDropDown}
 												// showTextField1={showTextField1}
@@ -181,23 +167,24 @@ const FollowingPage = () => {
 														label="Dark Mode"
 														control={
 																<Switch
-																	checked={theme === "dark"}
+																	checked={switchTheme === "dark"}
 																	onChange={handleChange}
 																/>
 														}
 													/>
 
 													<DataTable
-														title="People to Look Out For"
+														keyField={"datatable"}
+														title="Let's listen <ear emoji>"
 														columns={columns}
 														data={data}
-														theme={theme}
+														theme={switchTheme}
 														highlightOnHover
 														pointerOnHover
 														pagination
 														selectableRows
 														expandableRows
-														actions={actions("user")}
+														actions={actions(null)}
 														onRowClicked={(row) =>
 															handleOnRowClicked(row, "Category", false, false, "Name")
 														}
@@ -214,4 +201,4 @@ const FollowingPage = () => {
 		);
 };
 
-export default FollowingPage;
+export default ScopesPage;
