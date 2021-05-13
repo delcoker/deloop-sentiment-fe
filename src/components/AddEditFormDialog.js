@@ -30,7 +30,7 @@ export default function AddEditFormDialog(props) {
 		const classes = useStyles();
 		const [loading, setLoading] = React.useState(false);
 
-		const groupCategoryId = 3;
+		const groupCategoryId = 1;
 
 		const saveNew = (e) => {
 				setLoading(true);

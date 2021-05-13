@@ -19,10 +19,7 @@ export const categoryService = {
 const apiRoute = `/categories`;
 
 function getAll() {
-		return axiosWrapper.post(`${apiRoute}`)
-			.then(data => {
-					return data;
-			});
+		return axiosWrapper.get(`${apiRoute}`);
 }
 
 function getById(category_id) {
@@ -34,8 +31,7 @@ function create(params) {
 		requestData.append("token", accountService.getUserSession().token);
 		requestData.append("category_name", params.name);
 		requestData.append("group_category_id", params.group_category_id);
-		requestData.append("keywords", [params.keywords]);
-
+		requestData.append("keywords", params.keywords);
 
 		return axiosWrapper.post(`${apiRoute}/create`, requestData);
 }
@@ -45,9 +41,7 @@ function update(params) {
 		requestData.append("token", accountService.getUserSession().token);
 		requestData.append("category_name", params.name);
 		requestData.append("group_category_id", params.group_category_id);
-		requestData.append("keywords", [params.keywords]);
-
-		console.log("requestData", params.keywords)
+		requestData.append("keywords", params.keywords);
 
 		return axiosWrapper.post(`${apiRoute}/update/${params.category_id}`, requestData);
 }
@@ -56,30 +50,3 @@ function update(params) {
 function _delete(id) {
 		return axiosWrapper.post(`${apiRoute}/delete/${id}`);
 }
-
-
-/**
-function convertFormDataToJSON(formData) {
-
-		// let bodyFormData = new FormData();
-		// bodyFormData.append("token", accountService.getUserSession().token);
-		// bodyFormData.append("category_name", params.name);
-		// bodyFormData.append("group_category_id", 3);
-		// bodyFormData.append("keywords", ([{"keywords": params.keywords}]));
-
-
-		// let requestData = {};
-		// requestData.token = accountService.getUserSession().token;
-		// requestData["category_name"] = params.name;
-		// requestData.group_category_id = 3;
-		// // requestData["keywords"] = [{"keywords": params.keywords}];
-		// requestData["keywords"] = [params.keywords];
-
-		// const requestData = convertFormDataToJSON(bodyFormData)
-		// console.log(requestData)
-		// not working
-		let object = {};
-		formData.forEach((value, key) => object[key] = value);
-		return JSON.stringify(object);
-}
- **/

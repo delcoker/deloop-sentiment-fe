@@ -19,8 +19,9 @@ export const groupCategoryService = {
 function getAll() {
 		return axiosWrapper.get(`/group/categories`)
 			.then(data => {
+				// console.log(data)
 					let dataSet = data && data.length > 0 ? data[0].categories : data;
-					dataSet.map(category => {
+					dataSet.forEach(category => {
 							category.name = category.category_name;
 							if (category.keywords) {
 									if (category.keywords.length > 0) {

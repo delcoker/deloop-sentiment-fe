@@ -15,7 +15,7 @@ import {
 		Web as WebIcon
 } from "@material-ui/icons";
 import ProfilePage from "../pages/ProfilePage";
-import ScopesPage from "../pages/ScopesPage";
+import ScopesPage from "../components/ScopesComponent";
 
 const routes = [
 		{
@@ -27,15 +27,15 @@ const routes = [
 				visible: true,
 				subheader: false,
 		},
-		{
-				path: "/scopes",
-				// parentPage: ReportPage,
-				page: ScopesPage,
-				title: "Scopes",
-				icon: <AlternateEmailIcon/>,
-				visible: true,
-				subheader: false,
-		},
+		// {
+		// 		path: "/scopes",
+		// 		// parentPage: ReportPage,
+		// 		page: ScopesPage,
+		// 		title: "Scopes",
+		// 		icon: <AlternateEmailIcon/>,
+		// 		visible: true,
+		// 		subheader: false,
+		// },
 		{
 				path: "/topics",
 				// parentPage: ReportPage,
