@@ -16,22 +16,17 @@ export const categoryService = {
 		delete: _delete
 };
 
+const apiRoute = `/categories`;
+
 function getAll() {
-		return axiosWrapper.post(`/categories`)
+		return axiosWrapper.post(`${apiRoute}`)
 			.then(data => {
 					return data;
 			});
 }
 
 function getById(category_id) {
-		return axiosWrapper.post(`/categories`, category_id)
-			.then(data => {
-					// publish user to subscribers and start timer to refresh token
-					// userSubject.next(user);
-					// startRefreshTokenTimer();
-					// setUserSession(user.token, user, user.token_type);
-					return data;
-			});
+		return axiosWrapper.post(`${apiRoute}`, category_id);
 }
 
 function create(params) {
@@ -42,7 +37,7 @@ function create(params) {
 		requestData.append("keywords", [params.keywords]);
 
 
-		return axiosWrapper.post('/categories/create', requestData);
+		return axiosWrapper.post(`${apiRoute}/create`, requestData);
 }
 
 function update(params) {
@@ -52,12 +47,14 @@ function update(params) {
 		requestData.append("group_category_id", params.group_category_id);
 		requestData.append("keywords", [params.keywords]);
 
-		return axiosWrapper.post(`/categories/update/${params.category_id}`, requestData);
+		console.log("requestData", params.keywords)
+
+		return axiosWrapper.post(`${apiRoute}/update/${params.category_id}`, requestData);
 }
 
 // prefixed with underscore because 'delete' is a reserved word in javascript
 function _delete(id) {
-		return axiosWrapper.post(`/categories/delete/${id}`);
+		return axiosWrapper.post(`${apiRoute}/delete/${id}`);
 }
 
 
