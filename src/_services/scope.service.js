@@ -1,6 +1,3 @@
-// import { BehaviorSubject } from 'rxjs';
-//
-// import config from 'config';
 import {axiosWrapper} from '../_helpers';
 import {accountService} from "./account.service";
 
@@ -42,8 +39,6 @@ function getById(scope_id) {
 
 function create(params) {
 
-    console.log(params.filteredData)
-
     const scope_id = params.filteredData[0].id;
     const withOutRow = params.filteredData;
 
@@ -77,16 +72,42 @@ function update(params) {
         scopes += "," + scope.name.trim();
     })
 
+    withOutRow.push({name: params.name, id: parseInt(scope_id), user_id: params.user_id, index: parseInt(params.index)})
+
     const requestData = new FormData();
     requestData.append("token", accountService.getUserSession().token);
     requestData.append("scope_id", scope_id);
     requestData.append("scope", scopes);
 
-    return axiosWrapper.post(`${apiRoute}/update/${params.scope_id}`, requestData);
+    return axiosWrapper.post(`${apiRoute}/update/${params.scope_id}`, requestData)
+        .then(data => {
+            data.filteredData = withOutRow;
+            return data
+        });
+
 }
 
 // prefixed with underscore because 'delete' is a reserved word in javascript
-function _delete(id) {
-    return axiosWrapper.post(`${apiRoute}/delete/${id}`);
+function _delete(params) {
+
+    const scope_id = params.filteredData[0].id;
+    const withOutRow = params.filteredData.filter(scope => scope.index !== parseInt(params.selectedRow.index));
+
+    let scopes = "";
+    withOutRow.forEach(scope => scope.name.trim().length > 0 ? scopes += scope.name.trim() + "," : "");
+    scopes = scopes.substr(0, scopes.length - 1);
+
+    const requestData = new FormData();
+    requestData.append("token", accountService.getUserSession().token);
+    requestData.append("scope_id", scope_id);
+    requestData.append("scope", scopes);
+
+    return axiosWrapper.post(`${apiRoute}/update/${scope_id}`, requestData)
+        .then(data => {
+            data.filteredData = withOutRow
+            return data
+        });
+
+    // return axiosWrapper.post(`${apiRoute}/delete/${id}`);
 }
 

@@ -9,15 +9,8 @@ import axiosConfig from "../_helpers/axiosConfig";
 import Avatar from "@material-ui/core/Avatar";
 import Box from "@material-ui/core/Box";
 import CardHeader from "@material-ui/core/CardHeader";
-import ActionComponent from "../components/ActionComponent";
-import memoize from "memoize-one";
-import IconButton from "@material-ui/core/IconButton";
-import {Delete} from "@material-ui/icons";
-import {scopeService} from "../_services/scope.service";
-import ScopesPage from "../components/ScopesComponent";
 import ScopesComponent from "../components/ScopesComponent";
 import useStyles, {customDataTableStyles} from "../_helpers/use_styles/styles";
-
 
 // export these to .env
 const data = [{
@@ -78,18 +71,17 @@ const columnsPlatform = [
                 </Box>
             </Box>,
         wrap: true,
-        maxWidth: "70%"
+        maxWidth: "60%"
     },
     {
         name: "Allow / Revoke",
         cell: (row) => <Grid item xs={12}>
             <Button onClick={() => platform_redirect(row['name'])} fullWidth variant="contained"
-                    color="primary">{(row['is_authorized'] && "REVOKE") || "ALLOW"}</Button>
+                    color="primary">{(row['is_authorized'] && "COMING SOON") || "ALLOW"}</Button>
         </Grid>,
         button: true,
         sortable: true,
-        maxWidth: "30%"
-
+        minWidth: "20%",
     },
 ];
 
@@ -125,54 +117,60 @@ const SettingsPage = () => {
     };
 
     return (
-        <Card>
-            <CardHeader
-                title="Settings"
-                titleTypographyProps={{
-                    component: Box,
-                    marginBottom: "0!important",
-                    variant: "h5",
-                }}
-            />
-            <CardContent>
-                <Grid container spacing={3} justify="space-between">
+        <>
+            {/*<TabsComponent/>*/}
 
-                    <Grid item xs={7}>
-                        <FormControlLabel
-                            label="Dark Mode"
-                            control={
-                                <Switch
-                                    checked={theme === "dark"}
-                                    onChange={handleChange}
-                                />}
-                        />
-                        <DataTable
-                            title="Authorize Platforms"
-                            columns={columnsPlatform}
-                            data={data}
-                            theme={theme}
-                            highlightOnHover
-                            pointerOnHover
-                            pagination
-                            selectableRows
-                            expandableRows
-                            expandOnRowClicked={false}
-                            expandableRowsComponent={<></>}
-                            customStyles={customDataTableStyles}
-                        />
+            <br/>
+            <Card>
+                <CardHeader
+                    title="Settings"
+                    titleTypographyProps={{
+                        component: Box,
+                        marginBottom: "0!important",
+                        variant: "h5",
+                    }}
+                />
+                <CardContent>
+                    <Grid container spacing={3} justify="space-between">
+
+                        <Grid item xs={7}>
+                            <FormControlLabel
+                                label="Dark Mode"
+                                control={
+                                    <Switch
+                                        checked={theme === "dark"}
+                                        onChange={handleChange}
+                                    />}
+                            />
+                            <DataTable
+                                title="Authorize Platforms 👍🏿"
+                                columns={columnsPlatform}
+                                data={data}
+                                theme={theme}
+                                highlightOnHover
+                                pointerOnHover
+                                pagination
+                                // selectableRows
+                                expandableRows
+                                expandOnRowClicked={false}
+                                expandableRowsComponent={<></>}
+                                customStyles={customDataTableStyles}
+                                striped
+                            />
+                        </Grid>
+
+                        <Grid item xs={5}>
+
+                            <ScopesComponent
+                                theme={theme2}
+                                customStyles={customDataTableStyles}
+                            />
+
+                        </Grid>
                     </Grid>
-
-                    <Grid item xs={5}>
-
-                        <ScopesComponent
-                            theme={theme2}
-                            customStyles={customDataTableStyles}
-                        />
-
-                    </Grid>
-                </Grid>
-            </CardContent>
-        </Card>
+                </CardContent>
+            </Card>
+        </>
     );
 };
 export default SettingsPage;

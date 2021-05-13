@@ -102,16 +102,15 @@ const ScopesComponent = (props) => {
 
     const deleteSelectedRows = data => {
         selectedRows.forEach(selectedRow => {
-            scopeService.delete(selectedRow.id)
+            const params = {
+                filteredData,
+                selectedRow
+            }
+
+            scopeService.delete(params)
                 .then((response) => {
                     alert(response.message);
-                    let newFilteredData = [];
-                    for (let i = 0; i < filteredData.length; i++) {
-                        if (filteredData[i].id !== selectedRow.id) {
-                            newFilteredData.push(filteredData[i]);
-                        }
-                    }
-                    setFilteredData(newFilteredData);
+                    setFilteredData(response.filteredData);
                 })
         });
         setToggleClearSelectedRows(!toggleClearSelectedRows);
@@ -161,6 +160,7 @@ const ScopesComponent = (props) => {
                     showDropDown={showDropDown}
                     showTextField1={showTextField1}
                     showTextField2={showTextField2}
+                    striped
                 />
 
                 <Grid item xs={12}>
@@ -170,14 +170,14 @@ const ScopesComponent = (props) => {
                     <DataTable
                         defaultSortField={"name"}
                         keyField={"datatable"}
-                        title="Let's listen 👂"
+                        title="Let's listen 👂🏿"
                         columns={columns}
-                        data={data}
+                        data={filteredData}
                         theme={props.theme}
                         highlightOnHover
                         pointerOnHover
                         pagination
-                        selectableRows
+                        // selectableRows
                         expandableRows
                         actions={actions(null)}
                         onRowClicked={(row) =>
@@ -187,6 +187,9 @@ const ScopesComponent = (props) => {
                         expandableRowsComponent={<></>}
                         // dense
                         customStyles={props.customStyles}
+                        contextActions={contextActions(deleteSelectedRows)}
+                        onSelectedRowsChange={handleSelectedRows}
+                        striped
                     />
                 </Grid>
 

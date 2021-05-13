@@ -107,24 +107,17 @@ const ProfilePage = ({withTime}) => {
     }
 
     const deleteSelectedRows = data => {
-
         selectedRows.forEach(selectedRow => {
-
             categoryService.delete(selectedRow.id)
                 .then((response) => {
-
                     alert(response.message);
-
                     let newFilteredData = [];
-
                     for (let i = 0; i < filteredData.length; i++) {
                         if (filteredData[i].id !== selectedRow.id) {
                             newFilteredData.push(filteredData[i]);
                         }
                     }
-
                     setFilteredData(newFilteredData);
-
                 })
         });
         setToggleClearSelectedRows(!toggleClearSelectedRows);
@@ -158,7 +151,6 @@ const ProfilePage = ({withTime}) => {
         <>
             {/*<TabsComponent/>*/}
 
-            <br/>
             <br/>
             <Card>
                 <CardHeader
@@ -200,12 +192,8 @@ const ProfilePage = ({withTime}) => {
                                     />
                                 }
                             />
-
-
                         </Grid>
-
                     </Grid>
-
                 </CardContent>
             </Card>
         </>

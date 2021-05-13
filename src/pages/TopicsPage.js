@@ -110,25 +110,17 @@ const TopicsPage = () => {
         }
 
         const deleteSelectedRows = data => {
-
             selectedRows.forEach(selectedRow => {
-
                 categoryService.delete(selectedRow.id)
-
                     .then((response) => {
-
                         alert(response.message);
-
                         let newFilteredData = [];
-
                         for (let i = 0; i < filteredData.length; i++) {
                             if (filteredData[i].id !== selectedRow.id) {
                                 newFilteredData.push(filteredData[i]);
                             }
                         }
-
                         setFilteredData(newFilteredData);
-
                     })
             });
             setToggleClearSelectedRows(!toggleClearSelectedRows);
@@ -161,8 +153,8 @@ const TopicsPage = () => {
             <>
                 {/*<TabsComponent/>*/}
 
-                <br/>
-                <br/>
+                <br/><br/>
+                <br/><br/>
                 <Card>
                     <CardHeader
                         title="Categories"
@@ -227,6 +219,7 @@ const TopicsPage = () => {
                                     clearSelectedRows={toggleClearSelectedRows}
                                     onSelectedRowsChange={handleSelectedRows}
                                     customStyles={customDataTableStyles}
+                                    striped
                                     // dense
                                 />
                             </Grid>

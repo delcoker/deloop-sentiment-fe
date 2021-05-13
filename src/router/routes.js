@@ -1,8 +1,4 @@
 import React from "react";
-// import ReportPage from "./pages/ReportPage";
-// import MissionControlPage from "./pages/MissionControlPage";
-// import PeoplePage from "./pages/PeoplePage";
-// import IssuesPage from "./pages/IssuesPage";
 import TopicsPage from "../pages/TopicsPage";
 import SettingsPage from "../pages/SettingsPage";
 import HomePage from "../pages/HomePage";

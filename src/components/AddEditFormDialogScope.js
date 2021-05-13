@@ -81,21 +81,7 @@ export default function AddEditFormDialog(props) {
             .then(function (response) {
                 setLoading(false);
                 alert(`${params.name} updated`);
-
-                let newRowData = {};
-                newRowData.scope_name = params.name;
-                newRowData.scope_id = params.scope_id
-
-                let newFilteredData = [...filteredData];
-
-                for (let i = 0; i < newFilteredData.length; i++) {
-                    if (newFilteredData[i].id === newRowData.id) {
-                        newFilteredData[i] = JSON.parse(JSON.stringify(newRowData));
-                        break;
-                    }
-                }
-
-                setFilteredData(newFilteredData);
+                setFilteredData(response.filteredData);
                 props.onClose();
             })
             .catch(function (error) {

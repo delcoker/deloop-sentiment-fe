@@ -83,7 +83,7 @@ const useStyles = makeStyles((theme) => ({
 export const customDataTableStyles = {
     cells: {
         style: {
-            fontSize: "20px",
+            fontSize: "18px",
         },
     },
 }
