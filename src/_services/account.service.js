@@ -1,7 +1,7 @@
 // import { BehaviorSubject } from 'rxjs';
 //
 // import config from 'config';
-import { axiosWrapper, history } from '../_helpers';
+import {axiosWrapper, history} from '../_helpers';
 import axiosConfig from "../_helpers/axiosConfig";
 //
 // const userSubject = new BehaviorSubject(null);
@@ -9,45 +9,44 @@ import axiosConfig from "../_helpers/axiosConfig";
 // const baseUrl = `${config.apiUrl}`;
 //
 export const accountService = {
-		login,
-		logout,
-		// refreshToken,
-		// register,
-		// verifyEmail,
-		// forgotPassword,
-		// validateResetToken,
-		// resetPassword,
-		// getAll,
-		// getById,
-		// create,
-		// update,
-		// delete: _delete,
-		// user: userSubject.asObservable(),
-		// get userValue() {
-		// 		return userSubject.value
-		// },
-		getUserSession
+    login,
+    logout,
+    // refreshToken,
+    // register,
+    // verifyEmail,
+    // forgotPassword,
+    // validateResetToken,
+    // resetPassword,
+    // getAll,
+    // getById,
+    // create,
+    // update,
+    // delete: _delete,
+    // user: userSubject.asObservable(),
+    // get userValue() {
+    // 		return userSubject.value
+    // },
+    getToken,
+    getUserSession
 };
 
 function login(username, password) {
-		let bodyFormData = new FormData();
-		bodyFormData.append("username", username);
-		bodyFormData.append("password", password);
-		return axiosWrapper.post(`/auth/login`, bodyFormData)
-			.then(user => {
-					setUserSession(user.token, user, user.token_type);
-					axiosConfig.defaults.headers.common['token'] = user.token;
-					return user;
-			});
+    let bodyFormData = new FormData();
+    bodyFormData.append("username", username);
+    bodyFormData.append("password", password);
+    return axiosWrapper.post(`/auth/login`, bodyFormData)
+        .then(user => {
+            setUserSession(user.token, user, user.token_type);
+            axiosConfig.defaults.headers.common['token'] = user.token;
+            return user;
+        });
 }
 
 function logout() {
-		// revoke token, stop refresh timer, publish null to user subscribers and redirect to login page
-		// fetchWrapper.post(`${baseUrl}/revoke-token`, {});
-		// stopRefreshTokenTimer();
-		axiosConfig.defaults.headers.common['token'] = null;
-		removeUserSession();
-		history.push('/login');
+    // revoke token, stop refresh timer, publish null to user subscribers and redirect to login page
+    axiosConfig.defaults.headers.common['token'] = null;
+    removeUserSession();
+    history.push('/login');
 }
 
 //
@@ -123,48 +122,28 @@ function logout() {
 // 					return x;
 // 			});
 // }
-//
-// // helper functions
-//
-// let refreshTokenTimeout;
-//
-// function startRefreshTokenTimer() {
-// 		// parse json object from base64 encoded jwt token
-// 		const jwtToken = JSON.parse(atob(userSubject.value.jwtToken.split('.')[1]));
-//
-// 		// set a timeout to refresh the token a minute before it expires
-// 		const expires = new Date(jwtToken.exp * 1000);
-// 		const timeout = expires.getTime() - Date.now() - (60 * 1000);
-// 		refreshTokenTimeout = setTimeout(refreshToken, timeout);
-// }
-//
-// function stopRefreshTokenTimer() {
-// 		clearTimeout(refreshTokenTimeout);
-// }
-//
 
 function getUserSession() {
-		const userStr = localStorage.getItem('user');
-		if (userStr) return JSON.parse(userStr);
-		else return null;
+    const userStr = localStorage.getItem('user');
+    if (userStr) return JSON.parse(userStr);
+    else return null;
 }
 
 // return the token from the session storage
-export const getToken = () => {
-		return localStorage.getItem('token') || null;
+function getToken() {
+    return localStorage.getItem('token') || null;
 }
 
 // remove the token and user from the session storage
 export const removeUserSession = () => {
-
-		localStorage.clear();
+    localStorage.clear();
 }
 
 // set the token and user from the session storage
 export const setUserSession = (token, user, token_type,) => {
-		localStorage.setItem('token', token);
-		localStorage.setItem('first_name', (user.first_name));
-		localStorage.setItem('last_name', (user.last_name));
-		localStorage.setItem('user', JSON.stringify(user));
-		localStorage.setItem('token_type', token_type);
+    localStorage.setItem('token', token);
+    localStorage.setItem('first_name', (user.first_name));
+    localStorage.setItem('last_name', (user.last_name));
+    localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem('token_type', token_type);
 }
