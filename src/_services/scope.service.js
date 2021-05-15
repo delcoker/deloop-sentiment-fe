@@ -50,7 +50,7 @@ function create(params) {
     const requestData = new FormData();
     requestData.append("token", accountService.getUserSession().token);
     requestData.append("scope_id", scope_id);
-    requestData.append("scope", scopes);
+    requestData.append("scope", scopes.trim());
 
     return axiosWrapper.post(`${apiRoute}/update/${scope_id}`, requestData);
 }
@@ -77,7 +77,7 @@ function update(params) {
     const requestData = new FormData();
     requestData.append("token", accountService.getUserSession().token);
     requestData.append("scope_id", scope_id);
-    requestData.append("scope", scopes);
+    requestData.append("scope", scopes.trim());
 
     return axiosWrapper.post(`${apiRoute}/update/${params.scope_id}`, requestData)
         .then(data => {
@@ -100,12 +100,12 @@ function _delete(params) {
     const requestData = new FormData();
     requestData.append("token", accountService.getUserSession().token);
     requestData.append("scope_id", scope_id);
-    requestData.append("scope", scopes);
+    requestData.append("scope", scopes.trim());
 
     return axiosWrapper.post(`${apiRoute}/update/${scope_id}`, requestData)
         .then(data => {
             data.filteredData = withOutRow
-            return data
+            return data;
         });
 
     // return axiosWrapper.post(`${apiRoute}/delete/${id}`);

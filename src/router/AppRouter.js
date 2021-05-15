@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import {Redirect, Route, Switch} from 'react-router-dom';
 import MiniDrawer from "../components/MiniDrawer";
 import routes from "./routes";
@@ -8,12 +8,10 @@ import PrivateRoute from "../_components/PrivateRoute";
 const AppLayout = ({children, showSubheader, pageTitle}) => <MiniDrawer showSubheader={showSubheader}
                                                                         children={children} pageTitle={pageTitle}/>;
 
-function AppRoutes() {
-
+const AppRouter = memo(props => {
     return (
         <div /**className={'router-container' + (user && ' bg-light')}**/>
-            {/*<Nav/>*/}
-            {/*<Alert/>*/}
+
             <Switch>
                 {routes.map((route, i) => route.visible ?
                     <PrivateRoute
@@ -27,24 +25,23 @@ function AppRoutes() {
                         component={() =>
                             <AppLayout showSubheader={route.subheader}
                                        pageTitle={route.title}>
-                                <route.page/>
+                                <route.page
+                                    {...props}
+                                />
                             </AppLayout>
-                            // : null
                         }
                     />
                     : null
                 )}
 
-                {/*<Redirect from="/:url*(/+)" to={pathname.slice(0, -1)}/>*/}
-
                 {/*<PrivateRoute path="/admin" roles={[Role.Admin]} component={Admin} />*/}
 
-                <Route path="/login" component={SignIn}/>
+                <Route path="/login" component={() => <SignIn {...props}/>}/>
                 {/*<Route path="/signup" component={SignUp}/>*/}
                 <Redirect from="*" to="/home"/>
             </Switch>
         </div>
     );
-}
+})
 
-export default AppRoutes;
+export default AppRouter;

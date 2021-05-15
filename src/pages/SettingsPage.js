@@ -58,14 +58,8 @@ const columnsPlatform = [
                     alt="..."
                     src={require(`../assets/icons/${row['name'].toLowerCase()}.svg`).default}
                 />
-                <Box
-                    display="flex"
-                    alignItems="flex-start"
-                >
-                    <Box
-                        // fontSize=".875rem"
-                        component="span"
-                    >
+                <Box display="flex" alignItems="flex-start">
+                    <Box component="span">
                         {row['name']}
                     </Box>
                 </Box>
@@ -100,7 +94,7 @@ const platform_redirect = (platform) => {
     }
 };
 
-const SettingsPage = () => {
+const SettingsPage = (props) => {
     const classes = useStyles();
     const [theme, setTheme] = useState("dark");
     const [theme2, setTheme2] = useState("default");
@@ -162,6 +156,7 @@ const SettingsPage = () => {
                         <Grid item xs={5}>
 
                             <ScopesComponent
+                                {...props}
                                 theme={theme2}
                                 customStyles={customDataTableStyles}
                             />
