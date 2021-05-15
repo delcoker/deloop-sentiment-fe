@@ -13,19 +13,12 @@ import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import {scopeService} from "../_services/scope.service";
+import {AlertType} from "../_services";
 
-// const endpoint =
-// 	process.env.NODE_ENV === "development"
-// 		? process.env.REACT_APP_URL_DEV
-// 		: process.env.REACT_APP_URL_PROD;
-
-export default function AddEditFormDialog(props) {
+export default function AddEditFormDialogScope(props) {
     const setRowData = props.setRowData;
     const rowData = props.rowData;
-    // const data = props.data;
-    const setData = props.setData;
     const filteredData = props.filteredData;
-    const setFilteredData = props.setFilteredData;
 
     const classes = useStyles();
     const [loading, setLoading] = React.useState(false);
@@ -43,10 +36,6 @@ export default function AddEditFormDialog(props) {
 
         scopeService.create(params)
             .then(function (response) {
-
-                setLoading(false);
-                alert(`${params.name} saved`);
-
                 let newRowData = {};
                 newRowData.name = params.name;
                 newRowData.id = filteredData[0].id;
@@ -54,12 +43,19 @@ export default function AddEditFormDialog(props) {
                 newRowData.index = filteredData.length
 
                 const newFilteredData = [...filteredData, newRowData];
-                setData(newFilteredData);
-                setFilteredData(newFilteredData);
 
+                setLoading(false);
+                props.setAlertOpen(true);
+                props.setAlertType(AlertType.SUCCESS)
+                props.setAlertMessage(`${params.name} updated`);
+                props.setData(newFilteredData);
+                props.setFilteredData(newFilteredData);
                 props.onClose();
             })
             .catch(function (error) {
+                props.setAlertOpen(true);
+                props.setAlertType(AlertType.ERROR)
+                props.setAlertMessage(`UPDATE FAIL: ${params.name}`);
                 setLoading(false);
                 console.log(error);
             });
@@ -75,16 +71,22 @@ export default function AddEditFormDialog(props) {
             filteredData: filteredData,
         }
 
-        // console.log(filteredData, params)
-
         scopeService.update(params)
             .then(function (response) {
                 setLoading(false);
-                alert(`${params.name} updated`);
-                setFilteredData(response.filteredData);
+                // alert(`${params.name} updated`);
+
+                props.setAlertOpen(true);
+                props.setAlertType(AlertType.SUCCESS)
+                props.setAlertMessage(`${params.name} updated`);
+                props.setData(response.filteredData);
+                props.setFilteredData(response.filteredData);
                 props.onClose();
             })
             .catch(function (error) {
+                props.setAlertOpen(true);
+                props.setAlertType(AlertType.ERROR)
+                props.setAlertMessage(`UPDATE FAIL: ${params.name}`);
                 setLoading(false);
                 console.log(error);
             });

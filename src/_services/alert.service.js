@@ -5,52 +5,53 @@ const alertSubject = new Subject();
 const defaultId = 'default-alert';
 
 export const alertService = {
-    onAlert,
+    // onAlert,
     success,
     error,
     info,
     warn,
     alert,
-    clear
+    // clear
 };
 
 export const AlertType = {
-    Success: 'Success',
-    Error: 'Error',
-    Info: 'Info',
-    Warning: 'Warning'
+    SUCCESS: 'success',
+    ERROR: 'error',
+    INFO: 'info',
+    WARNING: 'warning'
 }
 
 // enable subscribing to alerts observable
-function onAlert(id = defaultId) {
-    return alertSubject.asObservable().pipe(filter(x => x && x.id === id));
-}
+// function onAlert(id = defaultId) {
+//     return alertSubject.asObservable().pipe(filter(x => x && x.id === id));
+// }
 
 // convenience methods
 function success(message, options) {
-    alert({ ...options, type: AlertType.Success, message });
+    return AlertType.Success
+    // alert({ ...options, type: AlertType.Success, message });
 }
 
 function error(message, options) {
-    alert({ ...options, type: AlertType.Error, message });
+    // alert({ ...options, type: AlertType.Error, message });
 }
 
 function info(message, options) {
-    alert({ ...options, type: AlertType.Info, message });
+    // alert({ ...options, type: AlertType.Info, message });
 }
 
 function warn(message, options) {
-    alert({ ...options, type: AlertType.Warning, message });
+    // alert({ ...options, type: AlertType.Warning, message });
 }
 
 // core alert method
-function alert(alert) {
-    alert.id = alert.id || defaultId;
-    alert.autoClose = (alert.autoClose === undefined ? true : alert.autoClose);
-    alertSubject.next(alert);
-}
+// function alert(alert) {
+//     alert.id = alert.id || defaultId;
+//     alert.autoClose = (alert.autoClose === undefined ? true : alert.autoClose);
+//     alertSubject.next(alert);
+// }
 
 // clear alerts
-function clear(id = defaultId) {
-    alertSubject.next({ id });
-}
+// function clear(id = defaultId) {
+//     alertSubject.next({ id });
+// }

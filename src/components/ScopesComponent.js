@@ -17,6 +17,8 @@ import {scopeService} from "../_services/scope.service";
 import memoize from "memoize-one";
 import IconButton from "@material-ui/core/IconButton";
 import {Delete} from "@material-ui/icons";
+import AlertPopUp from "./snackbars/AlertPopUp";
+import {AlertType} from "../_services";
 
 const columns = [
     {
@@ -41,7 +43,7 @@ const ScopesComponent = (props) => {
     const [data, setData] = useState([]);
     const [filteredData, setFilteredData] = useState([{}]);
     const [open, setOpen] = useState(false);
-    // const [categoryType, setCategoryType] = useState("");
+    // const [dialogType, setDialogType] = useState("");
     const [expandOnRowClick, setExpandOnRowClick] = React.useState(false);
     const [addOrEdit, setAddOrEdit] = useState("Add");
     const [rowData, setRowData] = useState();
@@ -52,13 +54,9 @@ const ScopesComponent = (props) => {
     const [selectedRows, setSelectedRows] = useState([]);
     const [toggleClearSelectedRows, setToggleClearSelectedRows] = useState(false);
 
-    // const handleChange = () => {
-    //     if (switchTheme === "dark") {
-    //         setSwitchTheme("default");
-    //     } else {
-    //         setSwitchTheme("dark");
-    //     }
-    // };
+    // const [alertMessage, setAlertMessage] = useState("");
+    // const [alertOpen, setAlertOpen] = useState(false);
+    // const [alertType, setAlertType] = useState("");
 
     const handleClear = () => {
         setFilterText("");
@@ -109,8 +107,11 @@ const ScopesComponent = (props) => {
 
             scopeService.delete(params)
                 .then((response) => {
-                    alert(response.message);
+                    props.setAlertOpen(true);
+                    props.setAlertMessage(`${response.message}`);
+                    props.setAlertType(AlertType.WARNING);
                     setFilteredData(response.filteredData);
+                    setData(response.filteredData);
                 })
         });
         setToggleClearSelectedRows(!toggleClearSelectedRows);
@@ -144,6 +145,12 @@ const ScopesComponent = (props) => {
     return (
         <>
             <Grid container spacing={3} justify="space-between">
+                {/*<AlertPopUp*/}
+                {/*    alertOpen={alertOpen}*/}
+                {/*    setAlertOpen={setAlertOpen}*/}
+                {/*    alertMessage={alertMessage}*/}
+                {/*    alertType={alertType}*/}
+                {/*/>*/}
                 <AddEditFormDialogScope
                     open={open}
                     onClose={() => setOpen(false)}
@@ -160,7 +167,10 @@ const ScopesComponent = (props) => {
                     showDropDown={showDropDown}
                     showTextField1={showTextField1}
                     showTextField2={showTextField2}
-                    striped
+
+                    setAlertMessage={props.setAlertMessage}
+                    setAlertOpen={props.setAlertOpen}
+                    setAlertType={props.setAlertType}
                 />
 
                 <Grid item xs={12}>
@@ -177,7 +187,7 @@ const ScopesComponent = (props) => {
                         highlightOnHover
                         pointerOnHover
                         pagination
-                        // selectableRows
+                        selectableRows
                         expandableRows
                         actions={actions(null)}
                         onRowClicked={(row) =>
@@ -192,9 +202,7 @@ const ScopesComponent = (props) => {
                         striped
                     />
                 </Grid>
-
             </Grid>
-
         </>
     );
 }

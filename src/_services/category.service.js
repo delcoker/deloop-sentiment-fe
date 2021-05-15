@@ -29,9 +29,9 @@ function getById(category_id) {
 function create(params) {
 		let requestData = new FormData();
 		requestData.append("token", accountService.getUserSession().token);
-		requestData.append("category_name", params.name);
+		requestData.append("category_name", params.name.trim());
 		requestData.append("group_category_id", params.group_category_id);
-		requestData.append("keywords", params.keywords);
+		requestData.append("keywords", params.keywords.trim());
 
 		return axiosWrapper.post(`${apiRoute}/create`, requestData);
 }
@@ -39,9 +39,9 @@ function create(params) {
 function update(params) {
 		let requestData = new FormData();
 		requestData.append("token", accountService.getUserSession().token);
-		requestData.append("category_name", params.name);
+		requestData.append("category_name", params.name.trim());
 		requestData.append("group_category_id", params.group_category_id);
-		requestData.append("keywords", params.keywords);
+		requestData.append("keywords", params.keywords.trim());
 
 		return axiosWrapper.post(`${apiRoute}/update/${params.category_id}`, requestData);
 }
