@@ -226,7 +226,7 @@ const TopicsPage = React.memo((props) => {
                                 }
                                 expandOnRowClicked={false}
                                 expandableRowsComponent={<></>}
-                                selectableRows
+                                // selectableRows
                                 clearSelectedRows={toggleClearSelectedRows}
                                 onSelectedRowsChange={handleSelectedRows}
                                 customStyles={customDataTableStyles}

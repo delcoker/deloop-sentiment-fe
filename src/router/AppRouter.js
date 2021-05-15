@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {memo} from 'react';
 import {Redirect, Route, Switch} from 'react-router-dom';
 import MiniDrawer from "../components/MiniDrawer";
 import routes from "./routes";
@@ -8,7 +8,7 @@ import PrivateRoute from "../_components/PrivateRoute";
 const AppLayout = ({children, showSubheader, pageTitle}) => <MiniDrawer showSubheader={showSubheader}
                                                                         children={children} pageTitle={pageTitle}/>;
 
-function AppRoutes(props) {
+const AppRouter = memo(props => {
     return (
         <div /**className={'router-container' + (user && ' bg-light')}**/>
 
@@ -29,13 +29,10 @@ function AppRoutes(props) {
                                     {...props}
                                 />
                             </AppLayout>
-                            // : null
                         }
                     />
                     : null
                 )}
-
-                {/*<Redirect from="/:url*(/+)" to={pathname.slice(0, -1)}/>*/}
 
                 {/*<PrivateRoute path="/admin" roles={[Role.Admin]} component={Admin} />*/}
 
@@ -45,6 +42,6 @@ function AppRoutes(props) {
             </Switch>
         </div>
     );
-}
+})
 
-export default AppRoutes;
+export default AppRouter;
