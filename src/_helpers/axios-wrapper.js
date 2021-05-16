@@ -36,6 +36,7 @@ function authHeader() {
     if (token) {
         axiosConfig.defaults.headers.common['token'] = token;
     }
+    //else accountService.logout();
 }
 
 function handleResponse(response) {
@@ -53,7 +54,7 @@ function handleResponse(response) {
 function handleResponseError(error) {
     if (error.response && [401, 403].includes(error.response.status)) {
         // auto logout if 401 Unauthorized or 403 Forbidden response returned from api
-        accountService.logout(error.response.data);
+        accountService.logout();
     }
     return Promise.reject(error);
 

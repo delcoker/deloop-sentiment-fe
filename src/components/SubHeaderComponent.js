@@ -1,35 +1,44 @@
 import AppBar from '@material-ui/core/AppBar'
-// import Page from 'material-ui-shell/lib/containers/Page'
-import React, { useState } from 'react'
+import React, {useContext} from 'react'
 import Tab from '@material-ui/core/Tab'
 import Tabs from '@material-ui/core/Tabs'
+import {TopicsContextData} from "../router/context.group.category";
+import {groupCategoryService} from "../_services/group.category.service";
 // import { useIntl } from 'react-intl'
 
 const SubHeaderComponent = () => {
-		const [tab, setTab] = useState('one')
-		// const intl = useIntl()
+    const {tab, setTab, groupCategoryData, setData, setFilteredData} = useContext(TopicsContextData);
 
-		return (
-			<>
-					<AppBar position="static">
-							<Tabs
-								value={tab}
-								onChange={(e, t) => setTab(t)}
-								aria-label="simple tabs example"
-								centered
-							>
-									<Tab label="Topics" value="one"/>
-									{/*<Tab label="Item Two" value="two"/>*/}
-									{/*<Tab label="Item Three" value="three"/>*/}
-							</Tabs>
-					</AppBar>
+    const topics = () => {
+        if (groupCategoryData && groupCategoryData.length > 0) {
+            // <>	<option aria-label="None" value=""/>
+            return groupCategoryData &&
+                groupCategoryData.map(groupCategory =>
+                    <Tab label={groupCategory['group_category_name']}
+                         value={groupCategory['id']}
+                         key={groupCategory['id']}
+                    />
+                )
+        }
+    }
 
-					<div>
-							{/*{tab === 'one' && <div>One</div>}*/}
-							{/*{tab === 'two' && <div>Two</div>}*/}
-							{/*{tab === 'three' && <div>Three</div>}*/}
-					</div>
-			</>
-		)
+    return (
+        <>
+            <AppBar position="static">
+                <Tabs
+                    value={tab}
+                    onChange={(e, t) => {
+                        setTab(t);
+                        setData(groupCategoryService.getAllCategoryData(groupCategoryData, t).categories)
+                        setFilteredData(groupCategoryService.getAllCategoryData(groupCategoryData, t).categories)
+                    }}
+                    aria-label="simple tabs example"
+                    centered
+                >
+                    {topics()}
+                </Tabs>
+            </AppBar>
+        </>
+    )
 }
 export default SubHeaderComponent

@@ -23,8 +23,6 @@ export default function AddEditFormDialogScope(props) {
     const classes = useStyles();
     const [loading, setLoading] = React.useState(false);
 
-    const groupCategoryId = 1;
-
     const saveNew = (e) => {
         setLoading(true);
 
@@ -40,7 +38,7 @@ export default function AddEditFormDialogScope(props) {
                 newRowData.name = params.name;
                 newRowData.id = filteredData[0].id;
                 newRowData.user_id = filteredData[0].user_id
-                newRowData.index = filteredData.length
+                newRowData.index = filteredData.length + 1;
 
                 const newFilteredData = [...filteredData, newRowData];
 
@@ -75,6 +73,8 @@ export default function AddEditFormDialogScope(props) {
             .then(function (response) {
                 setLoading(false);
                 // alert(`${params.name} updated`);
+
+                console.log(response.filteredData)
 
                 props.setAlertOpen(true);
                 props.setAlertType(AlertType.SUCCESS)

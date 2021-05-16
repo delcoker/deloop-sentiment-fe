@@ -6,12 +6,12 @@ import SignIn from "../pages/SignIn";
 import PrivateRoute from "../_components/PrivateRoute";
 
 const AppLayout = ({children, showSubheader, pageTitle}) => <MiniDrawer showSubheader={showSubheader}
-                                                                        children={children} pageTitle={pageTitle}/>;
+                                                                        children={children}
+                                                                        pageTitle={pageTitle}/>;
 
 const AppRouter = memo(props => {
     return (
         <div /**className={'router-container' + (user && ' bg-light')}**/>
-
             <Switch>
                 {routes.map((route, i) => route.visible ?
                     <PrivateRoute
@@ -35,13 +35,13 @@ const AppRouter = memo(props => {
                 )}
 
                 {/*<PrivateRoute path="/admin" roles={[Role.Admin]} component={Admin} />*/}
-
                 <Route path="/login" component={() => <SignIn {...props}/>}/>
                 {/*<Route path="/signup" component={SignUp}/>*/}
                 <Redirect from="*" to="/home"/>
             </Switch>
         </div>
-    );
+    )
+        ;
 })
 
 export default AppRouter;

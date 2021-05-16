@@ -2,19 +2,12 @@ import React, {useEffect, useState} from "react";
 import memoize from 'memoize-one';
 // react component that copies the given text inside your clipboard
 // @material-ui/core components
-import Box from "@material-ui/core/Box";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import CardHeader from "@material-ui/core/CardHeader";
-import Grid from "@material-ui/core/Grid";
+import {Box, Card, CardContent, CardHeader, Grid, IconButton} from "@material-ui/core";
 // core components
 import AddEditFormDialog from "../components/AddEditFormDialog";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
-import DataTable from "react-data-table-component";
 import ActionComponent from "../components/ActionComponent";
-import {groupCategoryService} from "../_services/group.category.service";
-import IconButton from "@material-ui/core/IconButton";
 import {Delete} from "@material-ui/icons";
 import {categoryService} from "../_services/category.service";
 
@@ -139,12 +132,12 @@ const ProfilePage = ({withTime}) => {
     };
 
     useEffect(() => {
-        groupCategoryService.getAll()
-            .then(data => {
-                setData(data);
-                setFilteredData(data);
-            });
-    }, [filteredData]);
+        // groupCategoryService.getAll()
+        //     .then(data => {
+        //         setData(data);
+        //         setFilteredData(data);
+        //     });
+    }, []);
 
 
     return (

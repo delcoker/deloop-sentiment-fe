@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext} from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
@@ -14,15 +14,17 @@ import Select from "@material-ui/core/Select";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import {categoryService} from "../_services/category.service";
 import {AlertType} from "../_services";
+import {TopicsContextData} from "../router/context.group.category";
 
 export default function AddEditFormDialog(props) {
+    const {tab, groupCategoryData, setGroupCategoryData} = useContext(TopicsContextData);
+    const groupCategoryId = tab;
+
     const setRowData = props.setRowData;
     const rowData = props.rowData;
 
     const classes = useStyles();
     const [loading, setLoading] = React.useState(false);
-
-    const groupCategoryId = 1;
 
     const saveNew = (e) => {
         setLoading(true);
@@ -40,12 +42,13 @@ export default function AddEditFormDialog(props) {
                 let newRowData = {};
                 newRowData.category_name = response.category_name;
                 newRowData.group_category_id = response.group_category_id;
-                newRowData.keywords = response.keywords[0].keywords
+                newRowData.keywordz = response.keywords[0].keywords
                 newRowData.id = response.id;
                 newRowData.name = response.category_name;
 
                 const newFilteredData = [...props.filteredData, newRowData];
 
+                updateGroupCategoryState(groupCategoryId, newFilteredData);
                 props.setAlertOpen(true);
                 props.setAlertMessage(`${params.name} saved`);
                 props.setAlertType(AlertType.SUCCESS)
@@ -79,7 +82,7 @@ export default function AddEditFormDialog(props) {
                 let newRowData = {};
                 newRowData.category_name = params.name;
                 newRowData.group_category_id = params.group_category_id;
-                newRowData.keywords = params.keywords;
+                newRowData.keywordz = params.keywords;
                 newRowData.id = parseInt(params.category_id);
                 newRowData.name = params.name;
 
@@ -91,6 +94,8 @@ export default function AddEditFormDialog(props) {
                         break;
                     }
                 }
+
+                updateGroupCategoryState(groupCategoryId, newFilteredData);
 
                 props.setAlertOpen(true);
                 props.setAlertType(AlertType.SUCCESS)
@@ -107,6 +112,18 @@ export default function AddEditFormDialog(props) {
                 console.log(error);
             });
     };
+
+    function updateGroupCategoryState(group_category_id, new_category_data) {
+        let newGroupData = [...groupCategoryData];
+
+        for (let i = 0; i < newGroupData.length; i++) {
+            if (newGroupData[i].id === group_category_id) {
+                newGroupData[i].categories = new_category_data;
+                break;
+            }
+        }
+        setGroupCategoryData(newGroupData);
+    }
 
     const dropDownData = () => {
         if (rowData && rowData.length > 0) {
@@ -221,21 +238,21 @@ export default function AddEditFormDialog(props) {
                                     label={props.showTextField2}
                                     color="primary"
                                     fullWidth
-                                    autoComplete="keywords"
+                                    autoComplete="keywordz"
                                     name={props.showTextField2}
                                     inputProps={{
                                         className: classes.input,
                                     }}
                                     multiline
                                     value={
-                                        rowData && rowData["keywords"]
-                                            ? rowData["keywords"]
+                                        rowData && rowData["keywordz"]
+                                            ? rowData["keywordz"]
                                             : ""
                                     }
                                     onChange={(e) => {
-                                        const attribute = rowData["keywords"]
-                                            ? {"keywords": e.target.value,}
-                                            : {"keywords": e.target.value,};
+                                        const attribute = rowData["keywordz"]
+                                            ? {"keywordz": e.target.value,}
+                                            : {"keywordz": e.target.value,};
                                         setRowData({
                                             ...rowData, ...attribute,
                                         });

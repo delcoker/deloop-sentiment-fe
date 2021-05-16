@@ -37,8 +37,7 @@ const columns = [
 
 
 const ScopesComponent = (props) => {
-    // const classes = useStyles();
-    // const [switchTheme, setSwitchTheme] = useState("dark");
+
     const [filterText, setFilterText] = useState("");
     const [data, setData] = useState([]);
     const [filteredData, setFilteredData] = useState([{}]);
@@ -53,10 +52,6 @@ const ScopesComponent = (props) => {
 
     const [selectedRows, setSelectedRows] = useState([]);
     const [toggleClearSelectedRows, setToggleClearSelectedRows] = useState(false);
-
-    // const [alertMessage, setAlertMessage] = useState("");
-    // const [alertOpen, setAlertOpen] = useState(false);
-    // const [alertType, setAlertType] = useState("");
 
     const handleClear = () => {
         setFilterText("");
@@ -135,22 +130,14 @@ const ScopesComponent = (props) => {
     useEffect(() => {
         scopeService.getAll()
             .then(data => {
-                // console.log(data)
                 setData(data);
                 setFilteredData(data);
             });
-
     }, []);
 
     return (
         <>
             <Grid container spacing={3} justify="space-between">
-                {/*<AlertPopUp*/}
-                {/*    alertOpen={alertOpen}*/}
-                {/*    setAlertOpen={setAlertOpen}*/}
-                {/*    alertMessage={alertMessage}*/}
-                {/*    alertType={alertType}*/}
-                {/*/>*/}
                 <AddEditFormDialogScope
                     open={open}
                     onClose={() => setOpen(false)}

@@ -1,16 +1,9 @@
-import React, {useEffect, useState} from "react";
-import Switch from "@material-ui/core/Switch";
-import Grid from "@material-ui/core/Grid";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
+import React, {useState} from "react";
 import DataTable from "react-data-table-component";
-import {Card, CardContent} from "@material-ui/core";
-import Button from "@material-ui/core/Button";
+import {Avatar, Box, Button, CardHeader, Card, CardContent, FormControlLabel, Grid, Switch} from "@material-ui/core";
 import axiosConfig from "../_helpers/axiosConfig";
-import Avatar from "@material-ui/core/Avatar";
-import Box from "@material-ui/core/Box";
-import CardHeader from "@material-ui/core/CardHeader";
 import ScopesComponent from "../components/ScopesComponent";
-import useStyles, {customDataTableStyles} from "../_helpers/use_styles/styles";
+import {customDataTableStyles} from "../_helpers/use_styles/styles";
 
 // export these to .env
 const data = [{
@@ -95,7 +88,6 @@ const platform_redirect = (platform) => {
 };
 
 const SettingsPage = (props) => {
-    const classes = useStyles();
     const [theme, setTheme] = useState("dark");
     const [theme2, setTheme2] = useState("default");
 
@@ -112,8 +104,6 @@ const SettingsPage = (props) => {
 
     return (
         <>
-            {/*<TabsComponent/>*/}
-
             <br/>
             <Card>
                 <CardHeader

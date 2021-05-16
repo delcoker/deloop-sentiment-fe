@@ -1,25 +1,15 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import memoize from 'memoize-one';
-// react component that copies the given text inside your clipboard
-// @material-ui/core components
-import Box from "@material-ui/core/Box";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import CardHeader from "@material-ui/core/CardHeader";
-import Grid from "@material-ui/core/Grid";
+import {Box, IconButton, Card, CardContent, CardHeader, FormControlLabel, Grid, Switch} from "@material-ui/core";
 // core components
 import AddEditFormDialog from "../components/AddEditFormDialog";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Switch from "@material-ui/core/Switch";
 import DataTable from "react-data-table-component";
 import ActionComponent from "../components/ActionComponent";
-import {groupCategoryService} from "../_services/group.category.service";
-import IconButton from "@material-ui/core/IconButton";
-import {Delete} from "@material-ui/icons";
 import {categoryService} from "../_services/category.service";
 import {customDataTableStyles} from "../_helpers/use_styles/styles";
-import AlertPopUp from "../components/snackbars/AlertPopUp";
 import {AlertType} from "../_services";
+import {TopicsContextData} from "../router/context.group.category";
+import {Delete} from "@material-ui/icons";
 
 const columns = [
     {
@@ -36,17 +26,18 @@ const columns = [
     },
     {
         name: "Keywords",
-        selector: "keywords",
+        selector: "keywordz",
         sortable: true,
     }
 ];
 
 const TopicsPage = React.memo((props) => {
-    // const classes = useStyles();
+    const {data, setData, filteredData, setFilteredData} = useContext(TopicsContextData);
+
     const [theme, setTheme] = useState("dark");
     const [filterText, setFilterText] = useState("");
-    const [data, setData] = useState([]);
-    const [filteredData, setFilteredData] = useState([{}]);
+    // const [data, setData] = useState(topicsContextData && topicsContextData.categories);
+    // const [filteredData, setFilteredData] = useState(topicsContextData && topicsContextData.categories);
     const [open, setOpen] = useState(false);
     // const [dialogType, setDialogType] = useState("");
     const [expandOnRowClick, setExpandOnRowClick] = useState(false);
@@ -58,10 +49,6 @@ const TopicsPage = React.memo((props) => {
 
     const [selectedRows, setSelectedRows] = useState([]);
     const [toggleClearSelectedRows, setToggleClearSelectedRows] = useState(false);
-
-    // const [alertMessage, setAlertMessage] = useState("");
-    // const [alertOpen, setAlertOpen] = useState(false);
-    // const [alertType, setAlertType] = useState("");
 
     const handleChange = () => {
         if (theme === "dark") {
@@ -86,7 +73,7 @@ const TopicsPage = React.memo((props) => {
                         (data["name"] && data["name"]
                             .toLowerCase()
                             .includes(text.toLowerCase())) ||
-                        (data["keywords"] && data["keywords"]
+                        (data["keywordz"] && data["keywordz"]
                             .toLowerCase()
                             .includes(text.toLowerCase()))
                 )
@@ -145,14 +132,14 @@ const TopicsPage = React.memo((props) => {
         addOrEditPresets(row, "Edit", editCategory, showDropDown, showTextField1, showTextField2);
         return setExpandOnRowClick(!expandOnRowClick);
     };
-
-    useEffect(() => {
-        groupCategoryService.getAll()
-            .then(response => {
-                setData(response);
-                setFilteredData(response);
-            });
-    }, []);
+    //
+    // useEffect(() => {
+    //     groupCategoryService.getAll()
+    //         .then(response => {
+    //             setData(response);
+    //             setFilteredData(response);
+    //         });
+    // }, []);
 
     return (
         <>
@@ -169,6 +156,7 @@ const TopicsPage = React.memo((props) => {
                 />
 
                 <CardContent>
+
                     <Grid container spacing={3} justify="space-between">
                         {/*<AlertPopUp*/}
                         {/*    alertOpen={alertOpen}*/}

@@ -1,40 +1,57 @@
 // import { BehaviorSubject } from 'rxjs';
 //
 // import config from 'config';
-import { axiosWrapper } from '../_helpers';
+import {axiosWrapper} from '../_helpers';
 //
 // const userSubject = new BehaviorSubject(null);
 // // const baseUrl = `${config.apiUrl}/accounts`;
 // const baseUrl = `${config.apiUrl}`;
 //
 export const groupCategoryService = {
-		getAll,
-		// getById,
-		// create,
-		// update,
-		// delete: _delete,
-		// user: userSubject.asObservable(),
+    getAll,
+    getAllCategoryData,
+    // getById,
+    // create,
+    // update,
+    // delete: _delete,
+    // user: userSubject.asObservable(),
 };
 
 function getAll() {
-		return axiosWrapper.get(`/group/categories`)
-			.then(data => {
-				// console.log(data)
-					let dataSet = data && data.length > 0 ? data[0].categories : data;
-					dataSet.forEach(category => {
-							category.name = category.category_name;
-							if (category.keywords) {
-									if (category.keywords.length > 0) {
-											category.keywords = category && category["keywords"]
-												.reduce((acc, two) => ((acc && acc.keywords) + " " + two.keywords), "");
-											return category;
-									}
-									category.keywords = "👀";
-							}
-							return category
-					});
-					return dataSet;
-			});
+    return axiosWrapper.get(`/group/categories`)
+        .then(data => getAllCategoryData(data, data[0].id));
+}
+
+function getAllCategoryData(group_category_data, group_category_id) {
+    // console.log(group_category_data, group_category_id)
+    let response = {};
+    response.all = group_category_data;
+
+    const group = group_category_data.find(group_category => group_category.id === group_category_id);
+    let dataSet = group_category_data && group_category_data.length > 0 ? group.categories : group_category_data;
+
+    dataSet.forEach(category => {
+        category.name = category.category_name;
+        if (category.keywords) {
+            if (category.keywords.length > 0) {
+                category.keywordz = category && category["keywords"]
+                    .reduce((acc, two) => ((acc && acc.keywords) + " " + two.keywords), "");
+                return category;
+            }
+            category.keywords = "👀";
+        }
+        return category;
+    });
+
+    // dataSet = dataSet.map(data => {
+    //     data.keywords = data.keywordz;
+    //     return data;
+    // })
+
+    // console.log("dataSet", dataSet)
+
+    response.categories = dataSet;
+    return response;
 }
 
 // function getGroupCategories(group_category_id) {
