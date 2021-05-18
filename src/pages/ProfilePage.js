@@ -10,8 +10,22 @@ import Switch from "@material-ui/core/Switch";
 import ActionComponent from "../components/ActionComponent";
 import {Delete} from "@material-ui/icons";
 import {categoryService} from "../_services/category.service";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Avatar from "@material-ui/core/Avatar";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import Typography from "@material-ui/core/Typography";
+import TextField from "@material-ui/core/TextField";
+import Checkbox from "@material-ui/core/Checkbox";
+import Button from "@material-ui/core/Button";
+import Link from "@material-ui/core/Link";
+import StickyFooter from "../components/StickyFooter";
+import Container from "@material-ui/core/Container";
+import useStyles from "../_helpers/use_styles/styles";
+import AccountProfile from "../components/profile/AccountProfile";
+import AccountProfileDetails from "../components/profile/AccountProfileDetails";
 
 const ProfilePage = ({withTime}) => {
+    const classes = useStyles();
     const [theme, setTheme] = useState("dark");
     const [filterText, setFilterText] = useState("");
     const [data, setData] = useState([]);
@@ -142,53 +156,19 @@ const ProfilePage = ({withTime}) => {
 
     return (
         <>
-            {/*<TabsComponent/>*/}
-
             <br/>
-            <Card>
-                <CardHeader
-                    title="Profile"
-                    titleTypographyProps={{
-                        component: Box,
-                        marginBottom: "0!important",
-                        variant: "h5",
-                    }}
-                />
 
-                <CardContent>
-                    <Grid container spacing={3} justify="space-between">
-                        <AddEditFormDialog
-                            open={open}
-                            onClose={() => setOpen(false)}
-                            title={
-                                `${addOrEdit} Category`
-                            }
-                            // addOrEdit={addOrEdit}
-                            rowData={rowData}
-                            setRowData={setRowData}
-                            data={data}
-                            setData={setData}
-                            filteredData={filteredData}
-                            setFilteredData={setFilteredData}
-                            showDropDown={showDropDown}
-                            showTextField1={showTextField1}
-                            showTextField2={showTextField2}
-                        />
-
-                        <Grid item xs={12}>
-                            <FormControlLabel
-                                label="Dark Mode"
-                                control={
-                                    <Switch
-                                        checked={theme === "dark"}
-                                        onChange={handleChange}
-                                    />
-                                }
-                            />
-                        </Grid>
+            <Container maxWidth="lg">
+                <Grid container spacing={3} justify="space-between">
+                    {/*<Grid item lg={4} md={6} xs={12}>*/}
+                    {/*    <AccountProfile/>*/}
+                    {/*</Grid>*/}
+                    <Grid item lg={12} md={10} xs={12}>
+                        <AccountProfileDetails/>
                     </Grid>
-                </CardContent>
-            </Card>
+                </Grid>
+            </Container>
+
         </>
     );
 };

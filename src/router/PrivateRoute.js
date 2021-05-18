@@ -2,7 +2,7 @@ import React from 'react';
 import {Redirect, Route} from 'react-router-dom';
 
 import {accountService} from '../_services';
-import {TopicsContext} from "../router/context.group.category";
+import {TopicsContext} from "./context.group.category";
 
 function PrivateRoute({component: Component, /**roles,**/ ...rest}) {
 

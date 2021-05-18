@@ -3,7 +3,8 @@ import {Redirect, Route, Switch} from 'react-router-dom';
 import MiniDrawer from "../components/MiniDrawer";
 import routes from "./routes";
 import SignIn from "../pages/SignIn";
-import PrivateRoute from "../_components/PrivateRoute";
+import PrivateRoute from "./PrivateRoute";
+import StickyFooter from "../components/StickyFooter";
 
 const AppLayout = ({children, showSubheader, pageTitle}) => <MiniDrawer showSubheader={showSubheader}
                                                                         children={children}
@@ -28,6 +29,7 @@ const AppRouter = memo(props => {
                                 <route.page
                                     {...props}
                                 />
+                                <StickyFooter/>
                             </AppLayout>
                         }
                     />
