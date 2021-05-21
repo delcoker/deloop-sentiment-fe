@@ -2,8 +2,8 @@ import AppBar from '@material-ui/core/AppBar'
 import React, {useContext} from 'react'
 import Tab from '@material-ui/core/Tab'
 import Tabs from '@material-ui/core/Tabs'
-import {TopicsContextData} from "../router/context.group.category";
-import {groupCategoryService} from "../_services/group.category.service";
+import {TopicsContextData} from "../../router/context.group.category";
+import {groupCategoryService} from "../../_services/group.category.service";
 // import { useIntl } from 'react-intl'
 
 const SubHeaderComponent = () => {

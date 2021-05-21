@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from "react";
 import {groupCategoryService} from "../_services/group.category.service";
 
+// https://stackoverflow.com/questions/61106127/react-context-api-create-context-from-axios-response
 export const TopicsContextData = React.createContext({});
 
 export const TopicsContext = props => {
-
     const [data, setData] = useState([]);
     const [filteredData, setFilteredData] = useState([]);
     const [groupCategoryData, setGroupCategoryData] = useState([]);
