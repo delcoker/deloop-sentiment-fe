@@ -38,7 +38,7 @@ function getAllCategoryData(group_category_data, group_category_id) {
                     .reduce((acc, two) => ((acc && acc.keywords) + " " + two.keywords), "");
                 return category;
             }
-            category.keywords = "👀";
+            category.keywordz = "👀";
         }
         return category;
     });

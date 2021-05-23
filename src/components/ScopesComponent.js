@@ -174,7 +174,7 @@ const ScopesComponent = (props) => {
                         highlightOnHover
                         pointerOnHover
                         pagination
-                        // selectableRows
+                        selectableRows
                         expandableRows
                         actions={actions(null)}
                         onRowClicked={(row) =>
