@@ -35,7 +35,12 @@ function getAllCategoryData(group_category_data, group_category_id) {
         if (category.keywords) {
             if (category.keywords.length > 0) {
                 category.keywordz = category && category["keywords"]
-                    .reduce((acc, two) => ((acc && acc.keywords) + " " + two.keywords), "");
+                    .reduce((acc, two) => {
+                        if (two.keywords === null) {
+                            return "👀";
+                        }
+                        return ((acc && acc.keywords) + " " + two.keywords);
+                    }, "");
                 return category;
             }
             category.keywordz = "👀";
