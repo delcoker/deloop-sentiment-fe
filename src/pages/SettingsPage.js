@@ -104,16 +104,18 @@ const SettingsPage = (props) => {
 
     return (
         <>
-            <br/>
             <Card>
                 <CardHeader
-                    title="Settings"
+                    title={props.pageTitle}
                     titleTypographyProps={{
                         component: Box,
                         marginBottom: "0!important",
                         variant: "h5",
                     }}
                 />
+            </Card>
+            <br />
+            <Card>
                 <CardContent>
                     <Grid container spacing={3} justify="space-between">
 

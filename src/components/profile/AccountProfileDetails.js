@@ -1,15 +1,5 @@
 import React, {useState} from 'react';
-import {
-    Box,
-    Button,
-    Card,
-    CardContent,
-    CardHeader,
-    Divider,
-    Grid,
-    TextField
-} from '@material-ui/core';
-import useStyles from "../../_helpers/use_styles/styles";
+import {Card, CardContent, CardHeader, Divider, Grid, TextField} from '@material-ui/core';
 import {accountService} from "../../_services";
 
 const states = [
@@ -28,7 +18,7 @@ const states = [
 ];
 
 const AccountProfileDetails = (props) => {
-    const classes = useStyles();
+    // const classes = useStyles();
 
     const user = accountService.getUserSession();
     const [values, setValues] = useState({
@@ -51,10 +41,8 @@ const AccountProfileDetails = (props) => {
         <form autoComplete="off" noValidate {...props}
         >
             <Card>
-                <CardHeader subheader="The information can be edited"
-                            title="Profile"
-                />
-                <Divider/>
+                <CardHeader subheader="View your profile details." />
+                <Divider />
                 <CardContent>
                     <Grid container spacing={3}>
                         <Grid item md={6} xs={12}>
@@ -129,7 +117,7 @@ const AccountProfileDetails = (props) => {
                         </Grid>
                     </Grid>
                 </CardContent>
-                <Divider/>
+                <Divider />
 
                 <Grid container spacing={0} direction="row" alignItems="center" justify="flex-end">
                     <Grid item xs={6}>

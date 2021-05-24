@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useContext, useState} from "react";
 import memoize from 'memoize-one';
 import {Box, IconButton, Card, CardContent, CardHeader, FormControlLabel, Grid, Switch} from "@material-ui/core";
 // core components
@@ -8,7 +8,7 @@ import ActionComponent from "../components/ActionComponent";
 import {categoryService} from "../_services/category.service";
 import {customDataTableStyles} from "../_helpers/use_styles/styles";
 import {AlertType} from "../_services";
-import {TopicsContextData} from "../router/context.group.category";
+import {TopicsContextData} from "../contexts/context.group.category";
 import {Delete} from "@material-ui/icons";
 
 const columns = [
@@ -36,10 +36,7 @@ const TopicsPage = React.memo((props) => {
 
     const [theme, setTheme] = useState("dark");
     const [filterText, setFilterText] = useState("");
-    // const [data, setData] = useState(topicsContextData && topicsContextData.categories);
-    // const [filteredData, setFilteredData] = useState(topicsContextData && topicsContextData.categories);
     const [open, setOpen] = useState(false);
-    // const [dialogType, setDialogType] = useState("");
     const [expandOnRowClick, setExpandOnRowClick] = useState(false);
     const [addOrEdit, setAddOrEdit] = useState("Add");
     const [rowData, setRowData] = useState();
@@ -90,7 +87,7 @@ const TopicsPage = React.memo((props) => {
 
     const contextActions = memoize((deleteHandler) => (
         <IconButton onClick={deleteHandler}>
-            <Delete color="primary"/>
+            <Delete color="primary" />
         </IconButton>
     ));
 
@@ -132,19 +129,11 @@ const TopicsPage = React.memo((props) => {
         addOrEditPresets(row, "Edit", editCategory, showDropDown, showTextField1, showTextField2);
         return setExpandOnRowClick(!expandOnRowClick);
     };
-    //
-    // useEffect(() => {
-    //     groupCategoryService.getAll()
-    //         .then(response => {
-    //             setData(response);
-    //             setFilteredData(response);
-    //         });
-    // }, []);
 
     return (
         <>
-            <br/><br/>
-            <br/><br/>
+            <br />
+            <br />
             <Card>
                 <CardHeader
                     title="Categories"
@@ -154,16 +143,13 @@ const TopicsPage = React.memo((props) => {
                         variant: "h5",
                     }}
                 />
+            </Card>
+            <br />
+            <Card>
 
                 <CardContent>
 
                     <Grid container spacing={3} justify="space-between">
-                        {/*<AlertPopUp*/}
-                        {/*    alertOpen={alertOpen}*/}
-                        {/*    setAlertOpen={setAlertOpen}*/}
-                        {/*    alertMessage={alertMessage}*/}
-                        {/*    alertType={alertType}*/}
-                        {/*/>*/}
                         <AddEditFormDialog
                             open={open}
                             onClose={() => setOpen(false)}

@@ -2,29 +2,34 @@ import React from 'react';
 import {Redirect, Route} from 'react-router-dom';
 
 import {accountService} from '../_services';
-import {TopicsContext} from "./context.group.category";
+import {TopicsContext} from "../contexts/context.group.category";
 
 function PrivateRoute({component: Component, /**roles,**/ ...rest}) {
 
     return (
-        <Route {...rest} render={props => {
-            const user = accountService.getUserSession();
-            if (!user) {
-                // not logged in so redirect to login page with the return url
-                return <Redirect to={{pathname: '/login', state: {from: props.location}}}/>
-            }
+        <Route pageTitle
+               {...rest}
+               render={props => {
 
-            // check if route is restricted by role
-            // if (roles && roles.indexOf(user.role) === -1) {
-            //     // role not authorized so redirect to home page
-            //     return <Redirect to={{ pathname: '/'}} />
-            // }
+                   const user = accountService.getUserSession();
+                   if (!user) {
+                       // not logged in so redirect to login page with the return url
+                       return <Redirect to={{pathname: '/login', state: {from: props.location}}} />
+                   }
 
-            // authorized so return component
-            return (<TopicsContext>
-                <Component {...props} />
-            </TopicsContext>)
-        }}
+                   // check if route is restricted by role
+                   // if (roles && roles.indexOf(user.role) === -1) {
+                   //     // role not authorized so redirect to home page
+                   //     return <Redirect to={{ pathname: '/'}} />
+                   // }
+
+                   // authorized so return component
+                   return (
+                       <TopicsContext>
+                           <Component />
+                       </TopicsContext>
+                   )
+               }}
         />
     );
 }

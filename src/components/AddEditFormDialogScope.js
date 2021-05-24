@@ -34,10 +34,16 @@ export default function AddEditFormDialogScope(props) {
 
         scopeService.create(params)
             .then(function (response) {
-                let newRowData = {};
-                newRowData.name = params.name;
-                newRowData.id = filteredData[0].id;
-                newRowData.user_id = filteredData[0].user_id
+
+                let newRowData = response;
+                newRowData.name = response.scope
+
+                if (response.message) {
+                    newRowData.name = params.name;
+                    newRowData.id = filteredData[0].id;
+                    newRowData.user_id = filteredData[0].user_id
+                }
+
                 newRowData.index = filteredData.length + 1;
 
                 const newFilteredData = [...filteredData, newRowData];
@@ -45,7 +51,7 @@ export default function AddEditFormDialogScope(props) {
                 setLoading(false);
                 props.setAlertOpen(true);
                 props.setAlertType(AlertType.SUCCESS)
-                props.setAlertMessage(`${params.name} updated`);
+                props.setAlertMessage(`${params.name} ADDED`);
                 props.setData(newFilteredData);
                 props.setFilteredData(newFilteredData);
                 props.onClose();
@@ -53,7 +59,7 @@ export default function AddEditFormDialogScope(props) {
             .catch(function (error) {
                 props.setAlertOpen(true);
                 props.setAlertType(AlertType.ERROR)
-                props.setAlertMessage(`UPDATE FAIL: ${params.name}`);
+                props.setAlertMessage(`ADD FAIL: ${params.name}`);
                 setLoading(false);
                 console.log(error);
             });
@@ -78,7 +84,7 @@ export default function AddEditFormDialogScope(props) {
 
                 props.setAlertOpen(true);
                 props.setAlertType(AlertType.SUCCESS)
-                props.setAlertMessage(`${params.name} updated`);
+                props.setAlertMessage(`${params.name} UPDATED`);
                 props.setData(response.filteredData);
                 props.setFilteredData(response.filteredData);
                 props.onClose();
@@ -173,7 +179,7 @@ export default function AddEditFormDialogScope(props) {
                                             id: 'age-native-required',
                                         }}
                                     >
-                                        <option aria-label="None" value=""/>
+                                        <option aria-label="None" value="" />
                                         {dropDownData()}
 
 
@@ -247,9 +253,9 @@ export default function AddEditFormDialogScope(props) {
                                     variant="contained"
                                     endIcon={
                                         props.addOrEdit === "Edit" ? (
-                                            <EditIcon/>
+                                            <EditIcon />
                                         ) : (
-                                            <AddIcon/>
+                                            <AddIcon />
                                         )
                                     }
                                 >

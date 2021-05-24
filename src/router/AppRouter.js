@@ -8,7 +8,7 @@ import StickyFooter from "../components/StickyFooter";
 
 const AppLayout = ({children, showSubheader, pageTitle}) => <MiniDrawer showSubheader={showSubheader}
                                                                         children={children}
-                                                                        pageTitle={pageTitle}/>;
+                                                                        pageTitle={pageTitle} />;
 
 const AppRouter = memo(props => {
     return (
@@ -16,7 +16,7 @@ const AppRouter = memo(props => {
             <Switch>
                 {routes.map((route, i) => route.visible ?
                     <PrivateRoute
-                        key={i}
+                        key={`private_route_${i}`}
                         path={route.path}
                         // render={
                         // 		() => <AppLayout>
@@ -24,12 +24,15 @@ const AppRouter = memo(props => {
                         // 		</AppLayout>
                         // }
                         component={() =>
-                            <AppLayout showSubheader={route.subheader}
-                                       pageTitle={route.title}>
+                            <AppLayout
+                                showSubheader={route.subheader}
+                                pageTitle={route.title}
+                            >
                                 <route.page
+                                    pageTitle={route.title}
                                     {...props}
                                 />
-                                <StickyFooter/>
+                                <StickyFooter />
                             </AppLayout>
                         }
                     />
@@ -37,9 +40,9 @@ const AppRouter = memo(props => {
                 )}
 
                 {/*<PrivateRoute path="/admin" roles={[Role.Admin]} component={Admin} />*/}
-                <Route path="/login" component={() => <SignIn {...props}/>}/>
+                <Route path="/login" component={() => <SignIn {...props} />} />
                 {/*<Route path="/signup" component={SignUp}/>*/}
-                <Redirect from="*" to="/home"/>
+                <Redirect from="*" to="/home" />
             </Switch>
         </div>
     )

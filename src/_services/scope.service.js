@@ -38,21 +38,26 @@ function getById(scope_id) {
 }
 
 function create(params) {
-
-    const scope_id = params.filteredData[0].id;
-    const withOutRow = params.filteredData;
-
-    let scopes = params.name;
-    withOutRow.forEach(scope => {
-        scopes += "," + scope.name.trim();
-    })
-
     const requestData = new FormData();
-    requestData.append("token", accountService.getUserSession().token);
-    requestData.append("scope_id", scope_id);
-    requestData.append("scope", scopes.trim());
 
-    return axiosWrapper.post(`${apiRoute}/update/${scope_id}`, requestData);
+    requestData.append("token", accountService.getUserSession().token);
+
+    if (params.filteredData[0]) {
+        const scope_id = params.filteredData[0].id;
+        const withOutRow = params.filteredData;
+
+        let scopes = params.name.trim();
+        withOutRow.forEach(scope => {
+            scopes += "," + scope.name.trim();
+        })
+
+        requestData.append("scope_id", scope_id);
+        requestData.append("scope", scopes.trim());
+        return axiosWrapper.post(`${apiRoute}/update/${scope_id}`, requestData);
+    } else {
+        requestData.append("scope", params.name.trim());
+        return axiosWrapper.post(`${apiRoute}/create/`, requestData)
+    }
 }
 
 function update(params) {
@@ -102,12 +107,14 @@ function _delete(params) {
     requestData.append("scope_id", scope_id);
     requestData.append("scope", scopes.trim());
 
+    if (scopes.trim().length < 1) {
+        return axiosWrapper.post(`${apiRoute}/delete/${scope_id}`);
+    }
+
     return axiosWrapper.post(`${apiRoute}/update/${scope_id}`, requestData)
         .then(data => {
             data.filteredData = withOutRow
             return data;
         });
-
-    // return axiosWrapper.post(`${apiRoute}/delete/${id}`);
 }
 

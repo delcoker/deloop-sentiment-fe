@@ -9,8 +9,8 @@ export default class ChartFactory {
     chartOption = null;
     chartMap = new Map();
 
-    constructor() {
-        console.log(this.chartOption);
+    constructor(state) {
+        // console.log(this.chartOption);
         this.chartMap.set(ChartTypes.BAR.string, <BarChart/>);
         this.chartMap.set(ChartTypes.COLUMN.string, <ColumnChart/>);
         this.chartMap.set(ChartTypes.LINE.string, <LineChart/>);
@@ -18,24 +18,24 @@ export default class ChartFactory {
         // this.chartMap.set(ChartTypes.Table, new Table());
     }
 
-    getChart = (chartType, chartOptions) => {
-        console.log(chartType, chartOptions)
+    getChart = (chartType, chartOptions, handleChartChange) => {
+        // console.log(chartType, chartOptions)
         this.chartOption = chartOptions;
 
         if (!this.chartMap.has(chartType)) {
             throw new Error(`Chart ${chartType} type not supported`)
         }
         if (chartType === ChartTypes.LINE.string) {
-            return <LineChart chartOptions={chartOptions}/>
+            return <LineChart chartOptions={chartOptions} handleChartChange={handleChartChange}/>
         }
         if (chartType === ChartTypes.BAR.string) {
-            return <BarChart chartOptions={chartOptions}/>
+            return <BarChart chartOptions={chartOptions} handleChartChange={handleChartChange}/>
         }
         if (chartType === ChartTypes.COLUMN.string) {
-            return <ColumnChart chartOptions={chartOptions}/>
+            return <ColumnChart chartOptions={chartOptions} handleChartChange={handleChartChange}/>
         }
-        if (chartType === ChartTypes.COLUMN.string) {
-            return <PieChart chartOptions={chartOptions}/>
+        if (chartType === ChartTypes.PIE.string) {
+            return <PieChart chartOptions={chartOptions} handleChartChange={handleChartChange}/>
         }
         return this.chartMap.get(chartType);
     }
