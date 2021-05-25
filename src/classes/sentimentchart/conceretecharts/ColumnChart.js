@@ -1,6 +1,4 @@
-'use strict';
 import AbstractChart from "./AbstractChart";
-import React from "react";
 import {ChartTypes} from "../enums/ChartTypes";
 
 export default class ColumnChart extends AbstractChart {

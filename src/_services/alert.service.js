@@ -1,18 +1,18 @@
-import { Subject } from 'rxjs';
-import { filter } from 'rxjs/operators';
+// import { Subject } from 'rxjs';
+// import { filter } from 'rxjs/operators';
+//
+// const alertSubject = new Subject();
+// const defaultId = 'default-alert';
 
-const alertSubject = new Subject();
-const defaultId = 'default-alert';
-
-export const alertService = {
-    // onAlert,
-    success,
-    error,
-    info,
-    warn,
-    alert,
-    // clear
-};
+// export const alertService = {
+//     // onAlert,
+//     success,
+//     error,
+//     info,
+//     warn,
+//     alert,
+//     // clear
+// };
 
 export const AlertType = {
     SUCCESS: 'success',
@@ -26,23 +26,23 @@ export const AlertType = {
 //     return alertSubject.asObservable().pipe(filter(x => x && x.id === id));
 // }
 
-// convenience methods
-function success(message, options) {
-    return AlertType.Success
-    // alert({ ...options, type: AlertType.Success, message });
-}
-
-function error(message, options) {
-    // alert({ ...options, type: AlertType.Error, message });
-}
-
-function info(message, options) {
-    // alert({ ...options, type: AlertType.Info, message });
-}
-
-function warn(message, options) {
-    // alert({ ...options, type: AlertType.Warning, message });
-}
+// // convenience methods
+// function success(message, options) {
+//     return AlertType.Success
+//     // alert({ ...options, type: AlertType.Success, message });
+// }
+//
+// function error(message, options) {
+//     // alert({ ...options, type: AlertType.Error, message });
+// }
+//
+// function info(message, options) {
+//     // alert({ ...options, type: AlertType.Info, message });
+// }
+//
+// function warn(message, options) {
+//     // alert({ ...options, type: AlertType.Warning, message });
+// }
 
 // core alert method
 // function alert(alert) {

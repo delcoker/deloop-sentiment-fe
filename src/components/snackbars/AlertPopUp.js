@@ -1,9 +1,7 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import {makeStyles} from '@material-ui/core/styles';
-import {alertService, AlertType} from "../../_services";
 
 function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -25,9 +23,9 @@ export default function AlertPopUp(props) {
     const alertMessage = props.alertMessage;
     const alertType = props.alertType;
 
-    const handleClick = () => {
-        setAlertOpen(true);
-    };
+    // const handleClick = () => {
+    //     setAlertOpen(true);
+    // };
 
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
@@ -38,9 +36,6 @@ export default function AlertPopUp(props) {
 
     return (
         <div className={classes.root}>
-            {/*<Button variant="outlined" onClick={handleClick}>*/}
-            {/*    alertMessage*/}
-            {/*</Button>*/}
 
             <Snackbar open={alertOpen}
                       anchorOrigin={{vertical: "top", horizontal: "center"}}

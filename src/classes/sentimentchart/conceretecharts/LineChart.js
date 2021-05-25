@@ -1,8 +1,5 @@
-'use strict';
 import AbstractChart from "./AbstractChart";
-import React from "react";
 import {ChartTypes} from "../enums/ChartTypes";
-import Button from "@material-ui/core/Button";
 
 export default class LineChart extends AbstractChart {
     constructor(props) {

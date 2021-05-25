@@ -1,6 +1,5 @@
 // https://googlechrome.github.io/samples/classes-es6/
 
-'use strict';
 import React from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';

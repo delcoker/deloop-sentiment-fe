@@ -4,7 +4,7 @@ import SettingsPage from "../pages/SettingsPage";
 import DashboardPage from "../pages/DashboardPage";
 import {blue} from "@material-ui/core/colors";
 import {
-    AlternateEmail as AlternateEmailIcon,
+    // AlternateEmail as AlternateEmailIcon,
     Dashboard as DashboardIcon,
     Settings as SettingsIcon,
     VerifiedUser as VerifiedUserIcon,

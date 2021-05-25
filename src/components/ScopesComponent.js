@@ -1,23 +1,19 @@
 import React, {useEffect, useState} from "react";
 // react component that copies the given text inside your clipboard
 // @material-ui/core components
-import Box from "@material-ui/core/Box";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import CardHeader from "@material-ui/core/CardHeader";
+// import Box from "@material-ui/core/Box";
+// import Card from "@material-ui/core/Card";
+// import CardContent from "@material-ui/core/CardContent";
+// import CardHeader from "@material-ui/core/CardHeader";
 import Grid from "@material-ui/core/Grid";
 // core components
 import AddEditFormDialogScope from "./AddEditFormDialogScope";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Switch from "@material-ui/core/Switch";
 import DataTable from "react-data-table-component";
 import ActionComponent from "./ActionComponent";
-import useStyles from "../_helpers/use_styles/styles";
 import {scopeService} from "../_services/scope.service";
 import memoize from "memoize-one";
 import IconButton from "@material-ui/core/IconButton";
 import {Delete} from "@material-ui/icons";
-import AlertPopUp from "./snackbars/AlertPopUp";
 import {AlertType} from "../_services";
 
 const columns = [
