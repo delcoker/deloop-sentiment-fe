@@ -14,7 +14,7 @@ export const groupCategoryService = {
 
 function getAll() {
     return axiosWrapper.get(`${apiRoute}/categories`)
-        .then(data => getAllCategoryData(data, data[0].id));
+        .then(data => getAllCategoryData(data, data[0] && data[0].id));
 }
 
 function getAllCategoryData(group_category_data, group_category_id) {
@@ -25,25 +25,21 @@ function getAllCategoryData(group_category_data, group_category_id) {
     const group = group_category_data.find(group_category => group_category.id === group_category_id);
     let dataSet = group_category_data && group_category_data.length > 0 ? group.categories : group_category_data;
 
+    // console.log(dataSet);
+
     dataSet.forEach(category => {
         category.name = category.category_name;
         if (category.keywords) {
             if (category.keywords.length > 0) {
                 category.keywordz = category && category["keywords"]
-                    .reduce((acc, two) => ((acc && acc.keywords) + " " + two.keywords), "");
+                    .reduce((acc, two) =>
+                        ((acc && acc.keywords) + " " + two.keywords && two.keywords ? two.keywords : "👀"), "");
                 return category;
             }
             category.keywordz = "👀";
         }
         return category;
     });
-
-    // dataSet = dataSet.map(data => {
-    //     data.keywords = data.keywordz;
-    //     return data;
-    // })
-
-    // console.log("dataSet", dataSet)
 
     response.categories = dataSet;
     return response;
@@ -54,7 +50,7 @@ function create(params) {
     requestData.append("token", accountService.getUserSession().token);
     requestData.append("group_category_name", params.name.trim());
 
-    return axiosWrapper.post(`${apiRoute}/category/create`, requestData);
+    return axiosWrapper.post(`${apiRoute}/category/create/`, requestData);
 }
 
 function update(params) {

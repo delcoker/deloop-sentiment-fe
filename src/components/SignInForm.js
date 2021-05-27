@@ -1,12 +1,14 @@
 import Button from '@material-ui/core/Button'
 import Paper from '@material-ui/core/Paper'
-import React, {useState} from 'react'
+import React, {useContext, useState} from 'react'
 import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
 import {Link} from 'react-router-dom'
 import {makeStyles} from '@material-ui/core/styles'
 import {accountService, AlertType} from "../_services";
 import {history} from '../_helpers';
+import {Backdrop} from "@material-ui/core";
+import {AlertContextData} from "../contexts/context.alert";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -48,10 +50,10 @@ const useStyles = makeStyles((theme) => ({
 const SignIn = (props) => {
     const classes = useStyles()
     // const intl = useIntl()
+    const {setAlertOpen, setAlertMessage, setAlertType} = useContext(AlertContextData);
     const [username, setUsername] = useState('jude@gmail.com')
     const [password, setPassword] = useState('123456');
-
-    // useMemo(setUsername,[username]);
+    const [loading, setLoading] = useState(false);
 
     function handleSubmit(event) {
         event.preventDefault();
@@ -59,24 +61,32 @@ const SignIn = (props) => {
     }
 
     const authenticate = () => {
-        accountService.login(username, password).then(user => {
-            let _location = history.location
-            let _route = '/home'
-            if (user) {
-                history.push(_route)
-            } else {
-                history.push(_location)
-            }
-        }).catch(error => {
-            props.setAlertOpen(true);
-            error.response && props.setAlertMessage(`${error.response.data.detail}`);
-            props.setAlertType(AlertType.ERROR);
+        setLoading(true);
+        accountService.login(username, password)
+            .then(user => {
+                let _location = history.location
+                let _route = '/home'
+                if (user) {
+                    history.push(_route)
+                } else {
+                    history.push(_location)
+                }
+                setLoading(false);
+                setAlertOpen(true);
+                setAlertMessage(("Woé zɔ  •  Akwaba  •  Atuu"));
+                setAlertType(AlertType.INFO);
+            }).catch(error => {
+            setLoading(false);
+            setAlertOpen(true);
+            error.response && setAlertMessage(`${error.response.data.detail}`);
+            setAlertType(AlertType.ERROR);
         });
     }
 
     return (
         // <Page pageTitle={intl.formatMessage({ id: 'sign_in' })}>
         <Paper className={classes.paper} elevation={6}>
+            <Backdrop open={loading} />
             <div className={classes.container}>
                 <Typography component="h1" variant="h5">
                     {/*{intl.formatMessage({ id: 'sign_in' })}*/}

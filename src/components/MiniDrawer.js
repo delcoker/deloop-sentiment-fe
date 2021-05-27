@@ -6,7 +6,7 @@ import {CssBaseline, Divider, Drawer, IconButton, List, ListItem, ListItemIcon, 
 import {ChevronLeft as ChevronLeftIcon, ChevronRight as ChevronRightIcon,} from '@material-ui/icons';
 import {Link, useLocation} from "react-router-dom";
 
-import routes from "../router/routes";
+import routes from "../routers/routes";
 import Header from "./headers/Header";
 import useStyles from "../_helpers/use_styles/styles";
 

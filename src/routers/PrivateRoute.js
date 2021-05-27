@@ -3,6 +3,7 @@ import {Redirect, Route} from 'react-router-dom';
 
 import {accountService} from '../_services';
 import {TopicsContext} from "../contexts/context.group.category";
+import {AlertContext} from "../contexts/context.alert";
 
 function PrivateRoute({component: Component, /**roles,**/ ...rest}) {
 
@@ -26,7 +27,9 @@ function PrivateRoute({component: Component, /**roles,**/ ...rest}) {
                    // authorized so return component
                    return (
                        <TopicsContext>
-                           <Component />
+                           <AlertContext>
+                               <Component />
+                           </AlertContext>
                        </TopicsContext>
                    )
                }}

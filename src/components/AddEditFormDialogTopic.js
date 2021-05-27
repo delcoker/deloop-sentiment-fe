@@ -2,10 +2,10 @@ import React, {useContext} from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
+import {DialogActions} from "@material-ui/core";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import {Grid} from "@material-ui/core";
+import {Backdrop, Grid} from "@material-ui/core";
 import {AddCircleOutline as AddIcon, Edit as EditIcon,} from "@material-ui/icons";
 import useStyles from "../_helpers/use_styles/styles";
 import FormControl from "@material-ui/core/FormControl";
@@ -16,10 +16,10 @@ import {categoryService} from "../_services/category.service";
 import {AlertType} from "../_services";
 import {TopicsContextData} from "../contexts/context.group.category";
 
-export default function AddEditFormDialog(props) {
+export default function AddEditFormDialogTopic(props) {
+    const {setAlertOpen, setAlertMessage, setAlertType} = props;
     const {tab, groupCategoryData, setGroupCategoryData} = useContext(TopicsContextData);
     const groupCategoryId = tab;
-
     const setRowData = props.setRowData;
     const rowData = props.rowData;
 
@@ -49,17 +49,17 @@ export default function AddEditFormDialog(props) {
                 const newFilteredData = [...props.filteredData, newRowData];
 
                 updateGroupCategoryState(groupCategoryId, newFilteredData);
-                props.setAlertOpen(true);
-                props.setAlertMessage(`${params.name} saved`);
-                props.setAlertType(AlertType.SUCCESS)
+                setAlertOpen(true);
+                setAlertMessage(`${params.name} saved`);
+                setAlertType(AlertType.SUCCESS)
                 props.setData(newFilteredData);
                 props.setFilteredData(newFilteredData);
                 props.onClose();
             })
             .catch(function (error) {
-                props.setAlertOpen(true);
-                props.setAlertType(AlertType.ERROR)
-                props.setAlertMessage(`ADD FAIL: ${params.name}`);
+                setAlertOpen(true);
+                setAlertType(AlertType.ERROR)
+                setAlertMessage(`ADD FAIL: ${params.name}`);
                 setLoading(false);
                 console.log(error);
             });
@@ -97,17 +97,17 @@ export default function AddEditFormDialog(props) {
 
                 updateGroupCategoryState(groupCategoryId, newFilteredData);
 
-                props.setAlertOpen(true);
-                props.setAlertType(AlertType.SUCCESS)
-                props.setAlertMessage(`${params.name} updated`);
+                setAlertOpen(true);
+                setAlertType(AlertType.SUCCESS)
+                setAlertMessage(`${params.name} updated`);
                 props.setData(newFilteredData);
                 props.setFilteredData(newFilteredData);
                 props.onClose();
             })
             .catch(function (error) {
-                props.setAlertOpen(true);
-                props.setAlertType(AlertType.ERROR)
-                props.setAlertMessage(`UPDATE FAIL: ${params.name}`);
+                setAlertOpen(true);
+                setAlertType(AlertType.ERROR)
+                setAlertMessage(`UPDATE FAIL: ${params.name}`);
                 setLoading(false);
                 console.log(error);
             });
@@ -246,7 +246,7 @@ export default function AddEditFormDialog(props) {
                                     multiline
                                     value={
                                         rowData && rowData["keywordz"]
-                                            ? rowData["keywordz"]
+                                            ? rowData["keywordz"].replace("👀", "")
                                             : ""
                                     }
                                     onChange={(e) => {

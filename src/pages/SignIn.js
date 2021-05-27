@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import SignInForm from "../components/SignInForm";
 import Header from "../components/headers/Header";
+import {Backdrop} from "@material-ui/core";
 
 class SignIn extends Component {
     render() {
@@ -13,6 +14,7 @@ class SignIn extends Component {
                 <br /><br />
 
                 <SignInForm {...this.props} />
+                {/*<Backdrop open={false}*/}
             </>
         )
     }

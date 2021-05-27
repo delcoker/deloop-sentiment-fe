@@ -78,9 +78,9 @@ const useStyles = makeStyles((theme) => ({
             },
         },
     },
-    largeIcon: {
-        width: 200,
-        height: 60,
+    backdrop: {
+        zIndex: theme.zIndex.drawer + 1,
+        color: '#fff',
     },
 }));
 

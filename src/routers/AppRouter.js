@@ -12,7 +12,7 @@ const AppLayout = ({children, showSubheader, pageTitle}) => <MiniDrawer showSubh
 
 const AppRouter = memo(props => {
     return (
-        <div /**className={'router-container' + (user && ' bg-light')}**/>
+        <div /**className={'routers-container' + (user && ' bg-light')}**/>
             <Switch>
                 {routes.map((route, i) => route.visible ?
                     <PrivateRoute

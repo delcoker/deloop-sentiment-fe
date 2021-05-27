@@ -14,12 +14,14 @@ export const TopicsContext = props => {
     useEffect(() => {
         groupCategoryService.getAll()
             .then(response => {
-                const categoryData = groupCategoryService.getAllCategoryData(response.all, response.all[0].id).categories;
-                setTab(response.all[0].id);
-                setGroupCategoryData(response.all);
-                setGroupCategoryDataEdits(response.all);
-                setData(categoryData);
-                setFilteredData(categoryData);
+                if (response.all[0]) {
+                    const categoryData = groupCategoryService.getAllCategoryData(response.all, response.all[0].id).categories;
+                    setTab(response.all[0].id);
+                    setGroupCategoryData(response.all);
+                    setGroupCategoryDataEdits(response.all);
+                    setData(categoryData);
+                    setFilteredData(categoryData);
+                }
             });
     }, []);
 

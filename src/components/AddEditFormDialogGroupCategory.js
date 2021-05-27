@@ -8,15 +8,13 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import {Grid} from "@material-ui/core";
 import {AddCircleOutline as AddIcon, Edit as EditIcon,} from "@material-ui/icons";
 import useStyles from "../_helpers/use_styles/styles";
-import FormControl from "@material-ui/core/FormControl";
-import InputLabel from "@material-ui/core/InputLabel";
-import Select from "@material-ui/core/Select";
-import FormHelperText from "@material-ui/core/FormHelperText";
 import {AlertType} from "../_services";
 import {TopicsContextData} from "../contexts/context.group.category";
 import {groupCategoryService} from "../_services/group.category.service";
+import {AlertContextData} from "../contexts/context.alert";
 
 export default function AddEditFormDialogGroupCategory(props) {
+    const {setAlertOpen, setAlertMessage, setAlertType} = useContext(AlertContextData);
     const {
         tab,
         groupCategoryData,
@@ -42,30 +40,20 @@ export default function AddEditFormDialogGroupCategory(props) {
 
         groupCategoryService.create(params)
             .then(function (response) {
-                console.log(response)
                 setLoading(false);
 
-                // let newRowData = {};
-                // newRowData.category_name = response.category_name;
-                // newRowData.group_category_id = response.group_category_id;
-                // newRowData.keywordz = response.keywords[0].keywords
-                // newRowData.id = response.id;
-                // newRowData.name = response.category_name;
-                //
-                // const newFilteredData = [...props.filteredData, newRowData];
-                //
-                // updateGroupCategoryState(groupCategoryId, newFilteredData);
-                // props.setAlertOpen(true);
-                // props.setAlertMessage(`${params.name} saved`);
-                // props.setAlertType(AlertType.SUCCESS)
-                // props.setData(newFilteredData);
-                // props.setFilteredData(newFilteredData);
+                let newGroupCategoryData = [...groupCategoryData, response];
+                setGroupCategoryData(newGroupCategoryData);
+
+                setAlertOpen(true);
+                setAlertMessage(`${params.name} ADDED`);
+                setAlertType(AlertType.SUCCESS)
                 props.onClose();
             })
             .catch(function (error) {
-                // props.setAlertOpen(true);
-                // props.setAlertType(AlertType.ERROR)
-                // props.setAlertMessage(`ADD FAIL: ${params.name}`);
+                setAlertOpen(true);
+                setAlertType(AlertType.ERROR)
+                setAlertMessage(`ADD FAIL: ${params.name}`);
                 setLoading(false);
                 console.log(error);
             });
@@ -81,22 +69,19 @@ export default function AddEditFormDialogGroupCategory(props) {
 
         groupCategoryService.update(params)
             .then(function (response) {
-                console.log(response)
                 setLoading(false);
 
                 updateGroupCategoryState(params.group_category_id, params.name, true)
 
-                // props.setAlertOpen(true);
-                // props.setAlertType(AlertType.SUCCESS)
-                // props.setAlertMessage(`${params.name} updated`);
-                // props.setData(newFilteredData);
-                // props.setFilteredData(newFilteredData);
+                setAlertOpen(true);
+                setAlertType(AlertType.SUCCESS)
+                setAlertMessage(`${params.name} UPDATED`);
                 props.onClose();
             })
             .catch(function (error) {
-                props.setAlertOpen(true);
-                props.setAlertType(AlertType.ERROR)
-                props.setAlertMessage(`UPDATE FAIL: ${params.name}`);
+                setAlertOpen(true);
+                setAlertType(AlertType.ERROR)
+                setAlertMessage(`UPDATE FAIL: ${params.name}`);
                 setLoading(false);
                 console.log(error);
             });
@@ -173,7 +158,7 @@ export default function AddEditFormDialogGroupCategory(props) {
                                             ? f_rowData["name"] : ""
                                     }
                                     onChange={(e) => {
-                                        const attribute = f_rowData["name"]
+                                        const attribute =  f_rowData && f_rowData["name"]
                                             ? {"name": e.target.value,}
                                             : {"name": e.target.value,};
                                         const newRowData = ({...f_rowData, ...attribute,});

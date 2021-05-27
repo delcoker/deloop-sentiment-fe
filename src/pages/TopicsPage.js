@@ -1,8 +1,17 @@
 import React, {useContext, useState} from "react";
 import memoize from 'memoize-one';
-import {Box, IconButton, Card, CardContent, CardHeader, FormControlLabel, Grid, Switch} from "@material-ui/core";
+import {
+    Box,
+    IconButton,
+    Card,
+    CardContent,
+    CardHeader,
+    FormControlLabel,
+    Grid,
+    Switch,
+} from "@material-ui/core";
 // core components
-import AddEditFormDialog from "../components/AddEditFormDialog";
+import AddEditFormDialogTopic from "../components/AddEditFormDialogTopic";
 import DataTable from "react-data-table-component";
 import ActionComponent from "../components/ActionComponent";
 import {categoryService} from "../_services/category.service";
@@ -10,6 +19,7 @@ import {customDataTableStyles} from "../_helpers/use_styles/styles";
 import {AlertType} from "../_services";
 import {TopicsContextData} from "../contexts/context.group.category";
 import {Delete} from "@material-ui/icons";
+import {AlertContextData} from "../contexts/context.alert";
 
 const columns = [
     {
@@ -32,8 +42,8 @@ const columns = [
 ];
 
 const TopicsPage = React.memo((props) => {
+    const {setAlertOpen, setAlertMessage, setAlertType} = useContext(AlertContextData);
     const {data, setData, filteredData, setFilteredData} = useContext(TopicsContextData);
-
     const [theme, setTheme] = useState("dark");
     const [filterText, setFilterText] = useState("");
     const [open, setOpen] = useState(false);
@@ -43,6 +53,7 @@ const TopicsPage = React.memo((props) => {
     const [showDropDown, setShowDropDown] = useState("Category");
     const [showTextField1, setShowTextField1] = useState("Category");
     const [showTextField2, setShowTextField2] = useState("Keywords");
+    const [loading, setLoading] = React.useState(false);
 
     const [selectedRows, setSelectedRows] = useState([]);
     const [toggleClearSelectedRows, setToggleClearSelectedRows] = useState(false);
@@ -96,6 +107,7 @@ const TopicsPage = React.memo((props) => {
     }
 
     const deleteSelectedRows = data => {
+        setLoading(true);
         selectedRows.forEach(selectedRow => {
             categoryService.delete(selectedRow.id)
                 .then((response) => {
@@ -105,11 +117,18 @@ const TopicsPage = React.memo((props) => {
                             newFilteredData.push(filteredData[i]);
                         }
                     }
-                    props.setAlertOpen(true);
-                    props.setAlertMessage(`${response.message}`);
+                    setAlertOpen(true);
+                    setAlertMessage(`${response.message}`);
                     setFilteredData(newFilteredData);
                     setData(newFilteredData);
-                    props.setAlertType(AlertType.WARNING);
+                    setAlertType(AlertType.WARNING);
+                    setLoading(false);
+                })
+                .catch(error => {
+                    setAlertOpen(true);
+                    setAlertMessage(`DELETE FAIL ${error.message}`);
+                    setAlertType(AlertType.ERROR);
+                    setLoading(false);
                 })
         });
         setToggleClearSelectedRows(!toggleClearSelectedRows);
@@ -150,7 +169,7 @@ const TopicsPage = React.memo((props) => {
                 <CardContent>
 
                     <Grid container spacing={3} justify="space-between">
-                        <AddEditFormDialog
+                        <AddEditFormDialogTopic
                             open={open}
                             onClose={() => setOpen(false)}
                             title={
@@ -167,9 +186,9 @@ const TopicsPage = React.memo((props) => {
                             showDropDown={showDropDown}
                             showTextField1={showTextField1}
                             showTextField2={showTextField2}
-                            setAlertMessage={props.setAlertMessage}
-                            setAlertOpen={props.setAlertOpen}
-                            setAlertType={props.setAlertType}
+                            setAlertMessage={setAlertMessage}
+                            setAlertOpen={setAlertOpen}
+                            setAlertType={setAlertType}
                         />
 
                         <Grid item xs={12}>
@@ -200,7 +219,7 @@ const TopicsPage = React.memo((props) => {
                                 }
                                 expandOnRowClicked={false}
                                 expandableRowsComponent={<></>}
-                                // selectableRows
+                                selectableRows
                                 clearSelectedRows={toggleClearSelectedRows}
                                 onSelectedRowsChange={handleSelectedRows}
                                 customStyles={customDataTableStyles}
@@ -208,9 +227,7 @@ const TopicsPage = React.memo((props) => {
                                 // dense
                             />
                         </Grid>
-
                     </Grid>
-
                 </CardContent>
             </Card>
         </>
