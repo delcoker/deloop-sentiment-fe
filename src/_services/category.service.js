@@ -1,13 +1,6 @@
-// import { BehaviorSubject } from 'rxjs';
-//
-// import config from 'config';
 import { axiosWrapper } from '../_helpers';
 import { accountService } from "./account.service";
-//
-// const userSubject = new BehaviorSubject(null);
-// // const baseUrl = `${config.apiUrl}/accounts`;
-// const baseUrl = `${config.apiUrl}`;
-//
+
 export const categoryService = {
 		getAll,
 		getById,

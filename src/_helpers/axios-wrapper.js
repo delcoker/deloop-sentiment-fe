@@ -14,6 +14,11 @@ function get(url) {
 }
 
 function post(url, body) {
+    // console.log(url, body);
+    // Display the key/value pairs
+    // for (var pair of body.entries()) {
+    //     console.log(pair[0]+ ', ' + pair[1]);
+    // }
     authHeader();
     return axiosConfig.post(url, body).then(handleResponse).catch(handleResponseError);
 }

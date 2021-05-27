@@ -77,7 +77,11 @@ const useStyles = makeStyles((theme) => ({
                 fontSize: "20px",
             },
         },
-    }
+    },
+    largeIcon: {
+        width: 200,
+        height: 60,
+    },
 }));
 
 export const customDataTableStyles = {
