@@ -5,7 +5,7 @@ import Dialog from "@material-ui/core/Dialog";
 import {DialogActions} from "@material-ui/core";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import {Backdrop, Grid} from "@material-ui/core";
+import {Grid} from "@material-ui/core";
 import {AddCircleOutline as AddIcon, Edit as EditIcon,} from "@material-ui/icons";
 import useStyles from "../_helpers/use_styles/styles";
 import FormControl from "@material-ui/core/FormControl";

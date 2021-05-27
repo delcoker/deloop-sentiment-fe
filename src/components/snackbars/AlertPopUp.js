@@ -2,9 +2,9 @@ import React from 'react';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import {makeStyles} from '@material-ui/core/styles';
-import Button from "@material-ui/core/Button";
-import {groupCategoryService} from "../../_services/group.category.service";
-import {AlertType} from "../../_services";
+// import Button from "@material-ui/core/Button";
+// import {groupCategoryService} from "../../_services/group.category.service";
+// import {AlertType} from "../../_services";
 
 function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -33,22 +33,22 @@ export default function AlertPopUp(props) {
 
     // console.log(alertActionHandler)
     //
-    const alertActionHandler = (params) => {
-        groupCategoryService.delete(params)
-            .then((response) => {
-                // updateGroupCategoryState(params);
-                // setAlertOpen(true);
-                // setAlertMessage(`${response.message}`);
-                // setAlertType(AlertType.WARNING);
-
-                // setAlertConfirmed(false);
-                // setAlertConfirm(false);
-                // setAlertConfirmMessage();
-            })
-            .catch(error => {
-
-            })
-    }
+    // const alertActionHandler = (params) => {
+    //     groupCategoryService.delete(params)
+    //         .then((response) => {
+    //             // updateGroupCategoryState(params);
+    //             // setAlertOpen(true);
+    //             // setAlertMessage(`${response.message}`);
+    //             // setAlertType(AlertType.WARNING);
+    //
+    //             // setAlertConfirmed(false);
+    //             // setAlertConfirm(false);
+    //             // setAlertConfirmMessage();
+    //         })
+    //         .catch(error => {
+    //
+    //         })
+    // }
 
     // const handleClick = () => {
     //     setAlertOpen(true);
@@ -61,12 +61,12 @@ export default function AlertPopUp(props) {
         setAlertOpen(false);
     };
 
-    const deleteGroup = (e) => {
-
-        // setAlertConfirm(false);
-        // setAlertConfirmed(true);
-        setAlertOpen(false);
-    }
+    // const deleteGroup = (e) => {
+    //
+    //     // setAlertConfirm(false);
+    //     // setAlertConfirmed(true);
+    //     setAlertOpen(false);
+    // }
 
     return (
         <div className={classes.root}>

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useState} from "react";
 import {AlertType} from "../_services";
 import AlertPopUp from "../components/snackbars/AlertPopUp";
 

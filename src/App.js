@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Router} from 'react-router-dom';
 import {history} from './_helpers';
 

@@ -106,31 +106,45 @@ const TopicsPage = React.memo((props) => {
         setSelectedRows(sel.selectedRows);
     }
 
-    const deleteSelectedRows = data => {
+    const deleteSelectedRows = () => {
         setLoading(true);
-        selectedRows.forEach(selectedRow => {
-            categoryService.delete(selectedRow.id)
-                .then((response) => {
-                    let newFilteredData = [];
-                    for (let i = 0; i < filteredData.length; i++) {
-                        if (filteredData[i].id !== selectedRow.id) {
-                            newFilteredData.push(filteredData[i]);
-                        }
-                    }
-                    setAlertOpen(true);
-                    setAlertMessage(`${response.message}`);
-                    setFilteredData(newFilteredData);
-                    setData(newFilteredData);
-                    setAlertType(AlertType.WARNING);
-                    setLoading(false);
-                })
-                .catch(error => {
-                    setAlertOpen(true);
-                    setAlertMessage(`DELETE FAIL ${error.message}`);
-                    setAlertType(AlertType.ERROR);
-                    setLoading(false);
-                })
+        const ids = selectedRows.map(selectedRow => selectedRow.id);
+        const resolved = categoryService.delete(ids);
+
+        let errors = 0;
+        resolved.forEach((response) => {
+            if (response.message !== "Category has been deleted successfully") {
+                errors++;
+            }
         });
+
+        if (errors > 0) {
+            setAlertOpen(true);
+            setAlertMessage(`DELETE FAIL for: ${errors}`);
+            setAlertType(AlertType.ERROR);
+            setLoading(false);
+        }
+
+        let newFilteredData = [];
+
+        for (let i = 0; i < filteredData.length; i++) {
+            if (!ids.includes(filteredData[i].id)) {
+                newFilteredData.push(filteredData[i]);
+            }
+        }
+
+        setAlertOpen(true);
+        setAlertMessage(`${resolved.length} ${resolved.length > 1 ? "categories" : 'category'} DELETED`);
+        setFilteredData(newFilteredData);
+        setData(newFilteredData);
+        setAlertType(AlertType.WARNING);
+        setLoading(false);
+        // .catch(error => {
+        //     setAlertOpen(true);
+        //     setAlertMessage(`DELETE FAIL ${error.message}`);
+        //     setAlertType(AlertType.ERROR);
+        //     setLoading(false);
+        // });
         setToggleClearSelectedRows(!toggleClearSelectedRows);
     };
 
