@@ -50,7 +50,7 @@ const TopicsPage = React.memo((props) => {
     const [expandOnRowClick, setExpandOnRowClick] = useState(false);
     const [addOrEdit, setAddOrEdit] = useState("Add");
     const [rowData, setRowData] = useState();
-    const [showDropDown, setShowDropDown] = useState("Category");
+    const [showDropDown, setShowDropDown] = useState(false);
     const [showTextField1, setShowTextField1] = useState("Category");
     const [showTextField2, setShowTextField2] = useState("Keywords");
     const [loading, setLoading] = React.useState(false);

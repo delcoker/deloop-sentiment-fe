@@ -96,11 +96,10 @@ function update(params) {
 function _delete(params) {
 
     const scope_id = params.filteredData[0].id;
-    const withOutRow = params.filteredData.filter(scope => scope.index !== parseInt(params.selectedRow.index));
+    const withOutRows = params.filteredData.filter(scope => !params.indices.includes(scope.index));
 
-    let scopes = "";
-    withOutRow.forEach(scope => scope.name.trim().length > 0 ? scopes += scope.name.trim() + "," : "");
-    scopes = scopes.substr(0, scopes.length - 1);
+    let scopes = withOutRows.reduce((acc, scope2) => (acc.trim()) + "," + (scope2.name && scope2.name.trim()), "");
+    scopes = scopes.substr(1, scopes.length);
 
     const requestData = new FormData();
     requestData.append("token", accountService.getUserSession().token);
@@ -113,8 +112,10 @@ function _delete(params) {
 
     return axiosWrapper.post(`${apiRoute}/update/${scope_id}`, requestData)
         .then(data => {
-            data.filteredData = withOutRow
+            data.filteredData = withOutRows
             return data;
         });
 }
+
+
 

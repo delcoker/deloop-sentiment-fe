@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 // react component that copies the given text inside your clipboard
 // @material-ui/core components
 // import Box from "@material-ui/core/Box";
@@ -15,6 +15,8 @@ import memoize from "memoize-one";
 import IconButton from "@material-ui/core/IconButton";
 import {Delete} from "@material-ui/icons";
 import {AlertType} from "../_services";
+import {categoryService} from "../_services/category.service";
+import {AlertContextData} from "../contexts/context.alert";
 
 const columns = [
     {
@@ -33,7 +35,8 @@ const columns = [
 
 
 const ScopesComponent = (props) => {
-
+    const {setAlertOpen, setAlertMessage, setAlertType} = useContext(AlertContextData);
+    const [loading, setLoading] = React.useState(false);
     const [filterText, setFilterText] = useState("");
     const [data, setData] = useState([]);
     const [filteredData, setFilteredData] = useState([{}]);
@@ -42,9 +45,9 @@ const ScopesComponent = (props) => {
     const [expandOnRowClick, setExpandOnRowClick] = React.useState(false);
     const [addOrEdit, setAddOrEdit] = useState("Add");
     const [rowData, setRowData] = useState();
-    const [showDropDown, setShowDropDown] = useState("Scope");
+    const [showDropDown, setShowDropDown] = useState(false);
     const [showTextField1, setShowTextField1] = useState("Scope");
-    const [showTextField2, setShowTextField2] = useState("Scope");
+    const [showTextField2, setShowTextField2] = useState(false);
 
     const [selectedRows, setSelectedRows] = useState([]);
     const [toggleClearSelectedRows, setToggleClearSelectedRows] = useState(false);
@@ -81,7 +84,7 @@ const ScopesComponent = (props) => {
 
     const contextActions = memoize((deleteHandler) => (
         <IconButton onClick={deleteHandler}>
-            <Delete color="primary"/>
+            <Delete color="primary" />
         </IconButton>
     ));
 
@@ -90,21 +93,23 @@ const ScopesComponent = (props) => {
     }
 
     const deleteSelectedRows = data => {
-        selectedRows.forEach(selectedRow => {
-            const params = {
-                filteredData,
-                selectedRow
-            }
+        setLoading(true);
+        const indices = selectedRows.map(selectedRow => parseInt(selectedRow.index));
+        const params = {filteredData, indices};
 
-            scopeService.delete(params)
-                .then((response) => {
-                    props.setAlertOpen(true);
-                    props.setAlertMessage(`${response.message}`);
-                    props.setAlertType(AlertType.WARNING);
-                    setFilteredData(response.filteredData);
-                    setData(response.filteredData);
-                })
-        });
+        scopeService.delete(params)
+            .then((response) => {
+                setAlertOpen(true);
+                setAlertMessage(`${response.message}`);
+                setAlertType(AlertType.WARNING);
+                setFilteredData(response.filteredData);
+                setData(response.filteredData);
+            })
+            .catch(error => {
+                setAlertOpen(true);
+                setAlertMessage(`${error.message}`);
+                setAlertType(AlertType.ERROR);
+            })
         setToggleClearSelectedRows(!toggleClearSelectedRows);
     };
 
@@ -137,9 +142,7 @@ const ScopesComponent = (props) => {
                 <AddEditFormDialogScope
                     open={open}
                     onClose={() => setOpen(false)}
-                    title={
-                        `${addOrEdit} Scope`
-                    }
+                    title={`${addOrEdit} Scope`}
                     addOrEdit={addOrEdit}
                     rowData={rowData}
                     setRowData={setRowData}
@@ -150,20 +153,16 @@ const ScopesComponent = (props) => {
                     showDropDown={showDropDown}
                     showTextField1={showTextField1}
                     showTextField2={showTextField2}
-
-                    setAlertMessage={props.setAlertMessage}
-                    setAlertOpen={props.setAlertOpen}
-                    setAlertType={props.setAlertType}
                 />
 
                 <Grid item xs={12}>
-                    <br/>
-                    <br/>
+                    <br />
+                    <br />
 
                     <DataTable
+                        title="Let's listen 👂🏿"
                         defaultSortField={"name"}
                         keyField={"datatable"}
-                        title="Let's listen 👂🏿"
                         columns={columns}
                         data={filteredData}
                         theme={props.theme}
@@ -171,6 +170,7 @@ const ScopesComponent = (props) => {
                         pointerOnHover
                         pagination
                         selectableRows
+                        clearSelectedRows={toggleClearSelectedRows}
                         expandableRows
                         actions={actions(null)}
                         onRowClicked={(row) =>
