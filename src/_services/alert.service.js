@@ -1,9 +1,3 @@
-import { Subject } from 'rxjs';
-import { filter } from 'rxjs/operators';
-
-const alertSubject = new Subject();
-const defaultId = 'default-alert';
-
 export const alertService = {
     // onAlert,
     success,
