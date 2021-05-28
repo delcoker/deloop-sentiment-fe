@@ -42,7 +42,7 @@ function create(params) {
 
     requestData.append("token", accountService.getUserSession().token);
 
-    if (params.filteredData[0]) {
+    if (params.filteredData && params.filteredData[0]) {
         const scope_id = params.filteredData[0].id;
         const withOutRow = params.filteredData;
 

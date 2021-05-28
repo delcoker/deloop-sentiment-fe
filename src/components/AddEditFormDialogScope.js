@@ -33,6 +33,7 @@ export default function AddEditFormDialogScope(props) {
             index: e.target.index.value,
             filteredData: filteredData,
         }
+        console.log(filteredData)
 
         scopeService.create(params)
             .then(function (response) {
@@ -47,13 +48,18 @@ export default function AddEditFormDialogScope(props) {
                     newRowData.user_id = filteredData[0].user_id
                 }
 
-                newRowData.index = filteredData.length + 1;
+                if(!params.filteredData){
+                    params.filteredData = [];
+                }
 
-                const newFilteredData = [...filteredData, newRowData];
+                newRowData.index = params.filteredData.length + 1;
+
+                const newFilteredData = [...params.filteredData, newRowData];
 
                 setLoading(false);
                 setAlertOpen(true);
                 setAlertType(AlertType.SUCCESS)
+                console.log(params)
                 setAlertMessage(`${params.name} ADDED`);
                 props.setData(newFilteredData);
                 props.setFilteredData(newFilteredData);
