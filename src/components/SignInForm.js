@@ -48,8 +48,8 @@ const useStyles = makeStyles((theme) => ({
 const SignIn = (props) => {
     const classes = useStyles()
     // const intl = useIntl()
-    const [username, setUsername] = useState('jude@gmail.com')
-    const [password, setPassword] = useState('123456');
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('');
 
     // useMemo(setUsername,[username]);
 
