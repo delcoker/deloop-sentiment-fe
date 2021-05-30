@@ -36,7 +36,7 @@ export default function AddEditFormDialogScope(props) {
             .then(function (response) {
                 let newRowData = {};
                 newRowData.name = params.name;
-                newRowData.id = filteredData[0].id;
+                newRowData.id = filteredData[0] ? filteredData[0].id : response.id;
                 newRowData.user_id = filteredData[0].user_id
                 newRowData.index = filteredData.length + 1;
 
