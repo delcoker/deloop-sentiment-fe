@@ -43,9 +43,9 @@ export default function AddEditFormDialogScope(props) {
                 const newFilteredData = [...filteredData, newRowData];
 
                 setLoading(false);
-                props.setAlertOpen(true);
-                props.setAlertType(AlertType.SUCCESS)
-                props.setAlertMessage(`${params.name} updated`);
+                // props.setAlertOpen(true);
+                // props.setAlertType(AlertType.SUCCESS)
+                alert(`${params.name} updated`);
                 props.setData(newFilteredData);
                 props.setFilteredData(newFilteredData);
                 props.onClose();
@@ -76,9 +76,9 @@ export default function AddEditFormDialogScope(props) {
 
                 console.log(response.filteredData)
 
-                props.setAlertOpen(true);
-                props.setAlertType(AlertType.SUCCESS)
-                props.setAlertMessage(`${params.name} updated`);
+                // props.setAlertOpen(true);
+                // props.setAlertType(AlertType.SUCCESS)
+                alert(`${params.name} updated`);
                 props.setData(response.filteredData);
                 props.setFilteredData(response.filteredData);
                 props.onClose();
@@ -173,7 +173,7 @@ export default function AddEditFormDialogScope(props) {
                                             id: 'age-native-required',
                                         }}
                                     >
-                                        <option aria-label="None" value=""/>
+                                        <option aria-label="None" value="" />
                                         {dropDownData()}
 
 
@@ -247,9 +247,9 @@ export default function AddEditFormDialogScope(props) {
                                     variant="contained"
                                     endIcon={
                                         props.addOrEdit === "Edit" ? (
-                                            <EditIcon/>
+                                            <EditIcon />
                                         ) : (
-                                            <AddIcon/>
+                                            <AddIcon />
                                         )
                                     }
                                 >
