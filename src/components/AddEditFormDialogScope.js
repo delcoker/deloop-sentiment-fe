@@ -51,9 +51,9 @@ export default function AddEditFormDialogScope(props) {
                 props.onClose();
             })
             .catch(function (error) {
-                props.setAlertOpen(true);
-                props.setAlertType(AlertType.ERROR)
-                props.setAlertMessage(`UPDATE FAIL: ${params.name}`);
+                // props.setAlertOpen(true);
+                // props.setAlertType(AlertType.ERROR)
+                // props.setAlertMessage(`UPDATE FAIL: ${params.name}`);
                 setLoading(false);
                 console.log(error);
             });
