@@ -56,7 +56,7 @@ function create(params) {
         return axiosWrapper.post(`${apiRoute}/update/${scope_id}`, requestData);
     } else {
         requestData.append("scope", params.name.trim());
-        return axiosWrapper.post(`${apiRoute}/create/`, requestData)
+        return axiosWrapper.post(`${apiRoute}/create`, requestData)
     }
 }
 
