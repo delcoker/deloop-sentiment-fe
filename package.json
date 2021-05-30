@@ -1,4 +1,8 @@
 {
+  "engines": {
+    "node": "12.x",
+    "npm": "6.x"
+  },
   "name": "dwm",
   "version": "0.1.0",
   "private": true,
