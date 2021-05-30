@@ -131,14 +131,14 @@ const SignIn = (props) => {
                         justifyContent: 'space-between',
                     }}
                 >
-                    <Link to="/password_reset">
-                        Forgot Password
-                        {/*{intl.formatMessage({ id: 'forgot_password' })}?*/}
-                    </Link>
-                    <Link to="/signup">
-                        Register
-                        {/*{intl.formatMessage({ id: 'registration' })}*/}
-                    </Link>
+                    {/*<Link to="/password_reset">*/}
+                    {/*    Forgot Password*/}
+                    {/*    /!*{intl.formatMessage({ id: 'forgot_password' })}?*!/*/}
+                    {/*</Link>*/}
+                    {/*<Link to="/signup">*/}
+                    {/*    Register*/}
+                    {/*    /!*{intl.formatMessage({ id: 'registration' })}*!/*/}
+                    {/*</Link>*/}
                 </div>
             </div>
         </Paper>
