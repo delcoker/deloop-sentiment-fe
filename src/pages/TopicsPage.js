@@ -32,12 +32,14 @@ const columns = [
         name: "Category",
         selector: "name",
         sortable: true,
-        maxWidth: "30%"
+        maxWidth: "30%",
+        wrap: true
     },
     {
         name: "Keywords",
         selector: "keywordz",
         sortable: true,
+        wrap: true
     }
 ];
 
