@@ -22,12 +22,14 @@ const columns = [
         name: "Category",
         selector: "name",
         sortable: true,
-        maxWidth: "30%"
+        maxWidth: "30%",
+        wrap: true
     },
     {
         name: "Keywords",
         selector: "keywordz",
         sortable: true,
+        wrap: true
     }
 ];
 
@@ -90,7 +92,7 @@ const TopicsPage = React.memo((props) => {
 
     const contextActions = memoize((deleteHandler) => (
         <IconButton onClick={deleteHandler}>
-            <Delete color="primary"/>
+            <Delete color="primary" />
         </IconButton>
     ));
 
@@ -143,8 +145,8 @@ const TopicsPage = React.memo((props) => {
 
     return (
         <>
-            <br/><br/>
-            <br/><br/>
+            <br /><br />
+            <br /><br />
             <Card>
                 <CardHeader
                     title="Categories"
