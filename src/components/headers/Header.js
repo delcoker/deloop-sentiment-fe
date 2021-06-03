@@ -31,7 +31,6 @@ const Header = ({open, handleDrawerOpen, showSubheader, pageTitle}) => {
                         {/*{accountService.getUserSession()*/}
                         {/*&& */}
                         <MenuIcon />
-                        // }
                     </IconButton>
                     <Typography variant="h6" color="inherit" noWrap className={classes.title}>
                         DWM Sentimento {pageTitle}

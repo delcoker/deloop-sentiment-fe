@@ -128,66 +128,66 @@ export default function MiniDrawer({children, pageTitle, showSubheader}) {
         <div className={classes.root}>
             <CssBaseline />
 
-            {/*<Header open={open} handleDrawerOpen={handleDrawerOpen}*/}
-            {/*        pageTitle={pageTitle}*/}
-            {/*        showSubheader={showSubheader}*/}
-            {/*        classes={classes} />*/}
+            <Header open={open} handleDrawerOpen={handleDrawerOpen}
+                    pageTitle={pageTitle}
+                    showSubheader={showSubheader}
+                    classes={classes} />
 
-            <AppBar
-                position="fixed"
-                className={clsx(classes.appBar, {
-                    [classes.appBarShift]: open,
-                })}
-            >
-                <Toolbar>
-                    <IconButton
-                        color="inherit"
-                        aria-label="open drawer"
-                        onClick={handleDrawerOpen}
-                        edge="start"
-                        className={clsx(classes.menuButton, {
-                            [classes.hide]: open,
-                        })}
-                    >
-                        {/*{accountService.getUserSession()*/}
-                        {/*&& */}
-                        <MenuIcon />
-                        // }
-                    </IconButton>
-                    <Typography variant="h6" color="inherit" noWrap className={classes.title}>
-                        DWM Sentimento {pageTitle}
-                    </Typography>
-                    <div className={classes.spaceOut} />
-                    {accountService.getUserSession() && <Button
-                        component="a"
-                        href="https://github.com/dwm-codebase"
-                        target="_blank"
-                        endIcon={<DescriptionIcon />}
-                        color="inherit"
-                    >
-                        Source Code : FE
-                    </Button>}
-                    <Button
-                        component="a"
-                        href="https://github.com/dwm-codebase/fe_final"
-                        endIcon={<GitHubIcon />}
-                        color="inherit"
-                        target="_blank"
-                    >
-                        Project
-                    </Button>
-                    {accountService.getUserSession() && <Button
-                        endIcon={<TimeToLeave />}
-                        color="inherit"
-                        onClick={accountService.logout}
-                    >
-                        Logout
-                    </Button>}
-                </Toolbar>
+            {/*<AppBar*/}
+            {/*    position="fixed"*/}
+            {/*    className={clsx(classes.appBar, {*/}
+            {/*        [classes.appBarShift]: open,*/}
+            {/*    })}*/}
+            {/*>*/}
+            {/*    <Toolbar>*/}
+            {/*        <IconButton*/}
+            {/*            color="inherit"*/}
+            {/*            aria-label="open drawer"*/}
+            {/*            onClick={handleDrawerOpen}*/}
+            {/*            edge="start"*/}
+            {/*            className={clsx(classes.menuButton, {*/}
+            {/*                [classes.hide]: open,*/}
+            {/*            })}*/}
+            {/*        >*/}
+            {/*            /!*{accountService.getUserSession()*!/*/}
+            {/*            /!*&& *!/*/}
+            {/*            <MenuIcon />*/}
+            {/*            */}
+            {/*        </IconButton>*/}
+            {/*        <Typography variant="h6" color="inherit" noWrap className={classes.title}>*/}
+            {/*            DWM Sentimento {pageTitle}*/}
+            {/*        </Typography>*/}
+            {/*        <div className={classes.spaceOut} />*/}
+            {/*        {accountService.getUserSession() && <Button*/}
+            {/*            component="a"*/}
+            {/*            href="https://github.com/dwm-codebase"*/}
+            {/*            target="_blank"*/}
+            {/*            endIcon={<DescriptionIcon />}*/}
+            {/*            color="inherit"*/}
+            {/*        >*/}
+            {/*            Source Code : FE*/}
+            {/*        </Button>}*/}
+            {/*        <Button*/}
+            {/*            component="a"*/}
+            {/*            href="https://github.com/dwm-codebase/fe_final"*/}
+            {/*            endIcon={<GitHubIcon />}*/}
+            {/*            color="inherit"*/}
+            {/*            target="_blank"*/}
+            {/*        >*/}
+            {/*            Project*/}
+            {/*        </Button>*/}
+            {/*        {accountService.getUserSession() && <Button*/}
+            {/*            endIcon={<TimeToLeave />}*/}
+            {/*            color="inherit"*/}
+            {/*            onClick={accountService.logout}*/}
+            {/*        >*/}
+            {/*            Logout*/}
+            {/*        </Button>}*/}
+            {/*    </Toolbar>*/}
 
-                {showSubheader && <SubHeaderComponent />}
+            {/*    {showSubheader && <SubHeaderComponent />}*/}
 
-            </AppBar>
+            {/*</AppBar>*/}
 
             <Drawer variant="permanent"
                     className={clsx(classes.drawer, {
