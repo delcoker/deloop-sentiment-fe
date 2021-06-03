@@ -28,42 +28,12 @@ const Header = ({open, handleDrawerOpen, showSubheader, pageTitle}) => {
                             [classes.hide]: open,
                         })}
                     >
-                        {accountService.getUserSession()
-                        && <MenuIcon />}
+                        <MenuIcon />
                     </IconButton>
-                    <Typography variant="h6" color="inherit" noWrap className={classes.title}>
-                        DWM Sentimento {pageTitle}
+                    <Typography variant="h6" noWrap>
+                        Mini variant drawer
                     </Typography>
-                    <div className={classes.spaceOut} />
-                    {accountService.getUserSession() && <Button
-                        component="a"
-                        href="https://github.com/dwm-codebase"
-                        target="_blank"
-                        endIcon={<DescriptionIcon />}
-                        color="inherit"
-                    >
-                        Source Code : FE
-                    </Button>}
-                    <Button
-                        component="a"
-                        href="https://github.com/dwm-codebase/fe_final"
-                        endIcon={<GitHubIcon />}
-                        color="inherit"
-                        target="_blank"
-                    >
-                        Project
-                    </Button>
-                    {accountService.getUserSession() && <Button
-                        endIcon={<TimeToLeave />}
-                        color="inherit"
-                        onClick={accountService.logout}
-                    >
-                        Logout
-                    </Button>}
                 </Toolbar>
-
-                {showSubheader && <SubHeaderComponent />}
-
             </AppBar>
         </React.Fragment>
     )
