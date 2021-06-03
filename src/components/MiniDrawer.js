@@ -2,12 +2,31 @@ import React from 'react';
 import clsx from 'clsx';
 import {makeStyles, useTheme} from '@material-ui/core/styles';
 import {matchPath} from "react-router";
-import {CssBaseline, Divider, Drawer, IconButton, List, ListItem, ListItemIcon, ListItemText} from '@material-ui/core';
-import {ChevronLeft as ChevronLeftIcon, ChevronRight as ChevronRightIcon,} from '@material-ui/icons';
+import {
+    Button,
+    CssBaseline,
+    Divider,
+    Drawer,
+    IconButton,
+    List,
+    ListItem,
+    ListItemIcon,
+    ListItemText,
+    Toolbar, Typography
+} from '@material-ui/core';
+import {
+    ChevronLeft as ChevronLeftIcon,
+    ChevronRight as ChevronRightIcon,
+    Description as DescriptionIcon, GitHub as GitHubIcon,
+    Menu as MenuIcon, TimeToLeave,
+} from '@material-ui/icons';
 import {Link, useLocation} from "react-router-dom";
 
 import routes from "../routers/routes";
 import Header from "./headers/Header";
+import AppBar from "@material-ui/core/AppBar";
+import {accountService} from "../_services";
+import SubHeaderComponent from "./headers/SubHeaderComponent";
 
 const drawerWidth = 220;
 
@@ -107,10 +126,66 @@ export default function MiniDrawer({children, pageTitle, showSubheader}) {
         <div className={classes.root}>
             <CssBaseline />
 
-            <Header open={open} handleDrawerOpen={handleDrawerOpen}
-                    pageTitle={pageTitle}
-                    showSubheader={showSubheader}
-                    classes={classes} />
+            {/*<Header open={open} handleDrawerOpen={handleDrawerOpen}*/}
+            {/*        pageTitle={pageTitle}*/}
+            {/*        showSubheader={showSubheader}*/}
+            {/*        classes={classes} />*/}
+
+
+            <AppBar
+                position="fixed"
+                className={clsx(classes.appBar, {
+                    [classes.appBarShift]: open,
+                })}
+            >
+                <Toolbar>
+                    <IconButton
+                        color="inherit"
+                        aria-label="open drawer"
+                        onClick={handleDrawerOpen}
+                        edge="start"
+                        className={clsx(classes.menuButton, {
+                            [classes.hide]: open,
+                        })}
+                    >
+                        {/*{accountService.getUserSession()*/}
+                        {/*&& */}
+                        <MenuIcon />
+                    </IconButton>
+                    <Typography variant="h6" color="inherit" noWrap className={classes.title}>
+                        DWM Sentimento {pageTitle}
+                    </Typography>
+                    <div className={classes.spaceOut} />
+                    {accountService.getUserSession() && <Button
+                        component="a"
+                        href="https://github.com/dwm-codebase"
+                        target="_blank"
+                        endIcon={<DescriptionIcon />}
+                        color="inherit"
+                    >
+                        Source Code : FE
+                    </Button>}
+                    <Button
+                        component="a"
+                        href="https://github.com/dwm-codebase/fe_final"
+                        endIcon={<GitHubIcon />}
+                        color="inherit"
+                        target="_blank"
+                    >
+                        Project
+                    </Button>
+                    {accountService.getUserSession() && <Button
+                        endIcon={<TimeToLeave />}
+                        color="inherit"
+                        onClick={accountService.logout}
+                    >
+                        Logout
+                    </Button>}
+                </Toolbar>
+
+                {showSubheader && <SubHeaderComponent />}
+
+            </AppBar>
 
             <Drawer variant="permanent"
                     className={clsx(classes.drawer, {
