@@ -8,8 +8,8 @@ import {accountService} from "../../_services";
 import useStyles from "../../_helpers/use_styles/styles";
 import SubHeaderComponent from "./SubHeaderComponent";
 
-const Header = ({open, handleDrawerOpen, showSubheader, pageTitle}) => {
-    const classes = useStyles();
+const Header = ({open, handleDrawerOpen, showSubheader, pageTitle, classes}) => {
+    // const classes = useStyles();
     return (
         <React.Fragment>
             <AppBar
