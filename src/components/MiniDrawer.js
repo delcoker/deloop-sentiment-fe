@@ -8,15 +8,6 @@ import {Link, useLocation} from "react-router-dom";
 
 import routes from "../routers/routes";
 import Header from "./headers/Header";
-// import useStyles from "../_helpers/use_styles/styles";
-
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import MenuIcon from '@material-ui/icons/Menu';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
-
 
 const drawerWidth = 220;
 
@@ -120,30 +111,6 @@ export default function MiniDrawer({children, pageTitle, showSubheader}) {
                     pageTitle={pageTitle}
                     showSubheader={showSubheader}
                     classes={classes} />
-
-            {/*<AppBar*/}
-            {/*    position="fixed"*/}
-            {/*    className={clsx(classes.appBar, {*/}
-            {/*        [classes.appBarShift]: open,*/}
-            {/*    })}*/}
-            {/*>*/}
-            {/*    <Toolbar>*/}
-            {/*        <IconButton*/}
-            {/*            color="inherit"*/}
-            {/*            aria-label="open drawer"*/}
-            {/*            onClick={handleDrawerOpen}*/}
-            {/*            edge="start"*/}
-            {/*            className={clsx(classes.menuButton, {*/}
-            {/*                [classes.hide]: open,*/}
-            {/*            })}*/}
-            {/*        >*/}
-            {/*            <MenuIcon />*/}
-            {/*        </IconButton>*/}
-            {/*        <Typography variant="h6" noWrap>*/}
-            {/*            Mini variant drawer*/}
-            {/*        </Typography>*/}
-            {/*    </Toolbar>*/}
-            {/*</AppBar>*/}
 
             <Drawer variant="permanent"
                     className={clsx(classes.drawer, {
