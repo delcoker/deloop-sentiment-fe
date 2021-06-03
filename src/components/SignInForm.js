@@ -51,8 +51,8 @@ const SignIn = (props) => {
     const classes = useStyles()
     // const intl = useIntl()
     const {setAlertOpen, setAlertMessage, setAlertType} = useContext(AlertContextData);
-    const [username, setUsername] = useState('jude@gmail.com')
-    const [password, setPassword] = useState('123456');
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
 
     function handleSubmit(event) {
