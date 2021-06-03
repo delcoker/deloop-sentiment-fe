@@ -61,8 +61,9 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
         padding: theme.spacing(3),
     },
-    grow: {
+    spaceOut: {
         flex: '1 1 auto',
+        marginLeft: drawerWidth
     },
     formControl: {
         margin: theme.spacing(1),

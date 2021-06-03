@@ -11,7 +11,7 @@ import SubHeaderComponent from "./SubHeaderComponent";
 const Header = ({open, handleDrawerOpen, showSubheader, pageTitle}) => {
     const classes = useStyles();
     return (
-        <>
+        <React.Fragment>
             <AppBar
                 position="fixed"
                 className={clsx(classes.appBar, {
@@ -29,17 +29,17 @@ const Header = ({open, handleDrawerOpen, showSubheader, pageTitle}) => {
                         })}
                     >
                         {accountService.getUserSession()
-                        && <MenuIcon/>}
+                        && <MenuIcon />}
                     </IconButton>
                     <Typography variant="h6" color="inherit" noWrap className={classes.title}>
                         DWM Sentimento {pageTitle}
                     </Typography>
-                    <div className={classes.grow}/>
+                    <div className={classes.spaceOut} />
                     {accountService.getUserSession() && <Button
                         component="a"
                         href="https://github.com/dwm-codebase"
                         target="_blank"
-                        endIcon={<DescriptionIcon/>}
+                        endIcon={<DescriptionIcon />}
                         color="inherit"
                     >
                         Source Code : FE
@@ -47,14 +47,14 @@ const Header = ({open, handleDrawerOpen, showSubheader, pageTitle}) => {
                     <Button
                         component="a"
                         href="https://github.com/dwm-codebase/fe_final"
-                        endIcon={<GitHubIcon/>}
+                        endIcon={<GitHubIcon />}
                         color="inherit"
                         target="_blank"
                     >
                         Project
                     </Button>
                     {accountService.getUserSession() && <Button
-                        endIcon={<TimeToLeave/>}
+                        endIcon={<TimeToLeave />}
                         color="inherit"
                         onClick={accountService.logout}
                     >
@@ -62,10 +62,10 @@ const Header = ({open, handleDrawerOpen, showSubheader, pageTitle}) => {
                     </Button>}
                 </Toolbar>
 
-                {showSubheader && <SubHeaderComponent/>}
+                {showSubheader && <SubHeaderComponent />}
 
             </AppBar>
-        </>
+        </React.Fragment>
     )
 };
 

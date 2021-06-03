@@ -8,7 +8,7 @@ import memoize from "memoize-one";
 import {IconButton} from "@material-ui/core";
 import {AddCircleOutlined, EditOutlined, RemoveCircle} from "@material-ui/icons";
 import Tooltip from "@material-ui/core/Tooltip";
-import styles from "../../_helpers/use_styles/styles";
+// import styles from "../../_helpers/use_styles/styles";
 import AddEditFormDialogGroupCategory from "../AddEditFormDialogGroupCategory";
 import {AlertContextData} from "../../contexts/context.alert";
 import {AlertType} from "../../_services";
@@ -35,13 +35,13 @@ const SubHeaderComponent = () => {
         setGroupCategoryData
     } = useContext(TopicsContextData);
 
-    const [theme, setTheme] = useState("dark");
+    // const [theme, setTheme] = useState("dark");
     const [open, setOpen] = useState(false);
     const [addOrEdit, setAddOrEdit] = useState("Add");
     const [showTextField1, setShowTextField1] = useState("Group");
     const group_name = groupCategoryData.find(g => g.id === tab) && groupCategoryData.find(g => g.id === tab).group_category_name;
 
-    const classes = styles();
+    // const classes = styles();
 
     const getTopics = () => {
         if (groupCategoryData && groupCategoryData.length > 0) {
