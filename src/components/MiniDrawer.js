@@ -112,22 +112,42 @@ export default function MiniDrawer({children, pageTitle, showSubheader}) {
         <div className={classes.root}>
             <CssBaseline />
 
-            <Header open={open} handleDrawerOpen={handleDrawerOpen}
-                    pageTitle={pageTitle}
-                    showSubheader={showSubheader}
-                    classes={classes} />
+            <AppBar
+                position="fixed"
+                className={clsx(classes.appBar, {
+                    [classes.appBarShift]: open,
+                })}
+            >
+                <Toolbar>
+                    <IconButton
+                        color="inherit"
+                        aria-label="open drawer"
+                        onClick={handleDrawerOpen}
+                        edge="start"
+                        className={clsx(classes.menuButton, {
+                            [classes.hide]: open,
+                        })}
+                    >
+                        <MenuIcon />
+                    </IconButton>
+                    <Typography variant="h6" noWrap>
+                        Mini variant drawer
+                    </Typography>
+                </Toolbar>
+            </AppBar>
 
-            <Drawer variant="permanent"
-                    className={clsx(classes.drawer, {
+            <Drawer
+                variant="permanent"
+                className={clsx(classes.drawer, {
+                    [classes.drawerOpen]: open,
+                    [classes.drawerClose]: !open,
+                })}
+                classes={{
+                    paper: clsx({
                         [classes.drawerOpen]: open,
                         [classes.drawerClose]: !open,
-                    })}
-                    classes={{
-                        paper: clsx({
-                            [classes.drawerOpen]: open,
-                            [classes.drawerClose]: !open,
-                        }),
-                    }}
+                    }),
+                }}
             >
                 <div className={classes.toolbar}>
                     <IconButton onClick={handleDrawerClose}>
