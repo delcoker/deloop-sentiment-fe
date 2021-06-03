@@ -5,7 +5,7 @@ import {Button, IconButton, Toolbar, Typography} from "@material-ui/core";
 import {GitHub as GitHubIcon, Description as DescriptionIcon, Menu as MenuIcon, TimeToLeave} from '@material-ui/icons';
 import clsx from "clsx";
 import {accountService} from "../../_services";
-import useStyles from "../../_helpers/use_styles/styles";
+// import useStyles from "../../_helpers/use_styles/styles";
 import SubHeaderComponent from "./SubHeaderComponent";
 
 const Header = ({open, handleDrawerOpen, showSubheader, pageTitle, classes}) => {
