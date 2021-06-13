@@ -1,15 +1,6 @@
-import React, {useContext, useState} from "react";
-import memoize from 'memoize-one';
-import {
-    Box,
-    IconButton,
-    Card,
-    CardContent,
-    CardHeader,
-    FormControlLabel,
-    Grid,
-    Switch,
-} from "@material-ui/core";
+import React, {useCallback, useContext, useState} from "react";
+import memoize from 'memoize-one'; // https://stackoverflow.com/questions/61255053/react-usecallback-with-parameter
+import {Box, Card, CardContent, CardHeader, FormControlLabel, Grid, IconButton, Switch,} from "@material-ui/core";
 // core components
 import AddEditFormDialogTopic from "../components/AddEditFormDialogTopic";
 import DataTable from "react-data-table-component";
@@ -150,7 +141,7 @@ const TopicsPage = React.memo((props) => {
         setToggleClearSelectedRows(!toggleClearSelectedRows);
     };
 
-    const addOrEditPresets = (row, crudType, categoryType, showDropDown, showTextField1, showTextField2) => {
+    const addOrEditPresets = useCallback(memoize((row, crudType, categoryType, showDropDown, showTextField1, showTextField2) => {
         setOpen(!open);
         setAddOrEdit(crudType);
         // setDialogType(categoryType);
@@ -158,12 +149,12 @@ const TopicsPage = React.memo((props) => {
         setShowTextField1(showTextField1);
         setShowTextField2(showTextField2);
         setRowData(row);
-    };
+    }), []);
 
-    const handleOnRowClicked = (row, editCategory, showDropDown, showTextField1, showTextField2) => {
+    const handleOnRowClicked = useCallback(memoize((editCategory, showDropDown, showTextField1, showTextField2) => (row) => {
         addOrEditPresets(row, "Edit", editCategory, showDropDown, showTextField1, showTextField2);
         return setExpandOnRowClick(!expandOnRowClick);
-    };
+    }), []);
 
     return (
         <>
@@ -188,9 +179,7 @@ const TopicsPage = React.memo((props) => {
                         <AddEditFormDialogTopic
                             open={open}
                             onClose={() => setOpen(false)}
-                            title={
-                                `${addOrEdit} Category`
-                            }
+                            title={`${addOrEdit} Category`}
                             // type={categoryType}
                             addOrEdit={addOrEdit}
                             rowData={rowData}
@@ -230,9 +219,7 @@ const TopicsPage = React.memo((props) => {
                                 expandableRows
                                 contextActions={contextActions(deleteSelectedRows)}
                                 actions={actions("user")}
-                                onRowClicked={(row) =>
-                                    handleOnRowClicked(row, "don't need this anymore", false, "Category", "Keywords")
-                                }
+                                onRowClicked={handleOnRowClicked("don't need this anymore", false, "Category", "Keywords")}
                                 expandOnRowClicked={false}
                                 expandableRowsComponent={<></>}
                                 selectableRows
@@ -240,6 +227,8 @@ const TopicsPage = React.memo((props) => {
                                 onSelectedRowsChange={handleSelectedRows}
                                 customStyles={customDataTableStyles}
                                 striped
+                                paginationRowsPerPageOptions={[20, 40, 60]}
+                                paginationPerPage={20}
                                 // dense
                             />
                         </Grid>
