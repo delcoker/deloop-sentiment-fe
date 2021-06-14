@@ -21,6 +21,7 @@ export default function AddEditFormDialogScope(props) {
     const setRowData = props.setRowData;
     const rowData = props.rowData;
     const filteredData = props.filteredData;
+    const data = props.data
 
     const classes = useStyles();
     const [loading, setLoading] = React.useState(false);
@@ -31,9 +32,8 @@ export default function AddEditFormDialogScope(props) {
         const params = {
             name: e.target.Scope.value,
             index: e.target.index.value,
-            filteredData: filteredData,
+            filteredData: data
         }
-        console.log(filteredData)
 
         scopeService.create(params)
             .then(function (response) {
@@ -48,7 +48,7 @@ export default function AddEditFormDialogScope(props) {
                     newRowData.user_id = filteredData[0].user_id
                 }
 
-                if(!params.filteredData){
+                if (!params.filteredData) {
                     params.filteredData = [];
                 }
 
@@ -82,6 +82,7 @@ export default function AddEditFormDialogScope(props) {
             scope_id: e.target.id.value,
             index: e.target.index.value,
             filteredData: filteredData,
+            data: data,
         }
 
         scopeService.update(params)
@@ -90,7 +91,7 @@ export default function AddEditFormDialogScope(props) {
                 setAlertOpen(true);
                 setAlertType(AlertType.SUCCESS)
                 setAlertMessage(`${params.name} UPDATED`);
-                props.setData(response.filteredData);
+                props.setData(response.data);
                 props.setFilteredData(response.filteredData);
                 props.onClose();
             })

@@ -92,10 +92,10 @@ const ScopesComponent = (props) => {
         setSelectedRows(sel.selectedRows);
     }
 
-    const deleteSelectedRows = data => {
+    const deleteSelectedRows = () => {
         setLoading(true);
         const indices = selectedRows.map(selectedRow => parseInt(selectedRow.index));
-        const params = {filteredData, indices};
+        const params = {data, filteredData, indices};
 
         scopeService.delete(params)
             .then((response) => {
@@ -103,7 +103,7 @@ const ScopesComponent = (props) => {
                 setAlertMessage(`${response.message}`);
                 setAlertType(AlertType.WARNING);
                 setFilteredData(response.filteredData);
-                setData(response.filteredData);
+                setData(response.data);
             })
             .catch(error => {
                 setAlertOpen(true);

@@ -46,7 +46,7 @@ export default function AddEditFormDialogTopic(props) {
                 newRowData.id = response.id;
                 newRowData.name = response.category_name;
 
-                const newFilteredData = [...props.filteredData, newRowData];
+                const newFilteredData = [...props.data, newRowData];
 
                 updateGroupCategoryState(groupCategoryId, newFilteredData);
                 setAlertOpen(true);
@@ -86,7 +86,7 @@ export default function AddEditFormDialogTopic(props) {
                 newRowData.id = parseInt(params.category_id);
                 newRowData.name = params.name;
 
-                let newFilteredData = [...props.filteredData];
+                let newFilteredData = [...props.data];
 
                 for (let i = 0; i < newFilteredData.length; i++) {
                     if (newFilteredData[i].id === newRowData.id) {

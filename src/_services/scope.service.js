@@ -63,7 +63,8 @@ function create(params) {
 function update(params) {
 
     const scope_id = params.scope_id;
-    const withOutRow = params.filteredData.filter(scope => scope.index !== parseInt(params.index))
+    const filteredDataWithOutRow = params.filteredData.filter(scope => scope.index !== parseInt(params.index))
+    const dataWithOutRow = params.data.filter(scope => scope.index !== parseInt(params.index))
 
     // const scopes = withOutRow.reduce((acc, two) => {
     //
@@ -73,11 +74,22 @@ function update(params) {
     // }, "")
 
     let scopes = params.name;
-    withOutRow.forEach(scope => {
+    dataWithOutRow.forEach(scope => {
         scopes += "," + scope.name.trim();
     })
 
-    withOutRow.push({name: params.name, id: parseInt(scope_id), user_id: params.user_id, index: parseInt(params.index)})
+    filteredDataWithOutRow.push({
+        name: params.name,
+        id: parseInt(scope_id),
+        user_id: params.user_id,
+        index: parseInt(params.index)
+    })
+    dataWithOutRow.push({
+        name: params.name,
+        id: parseInt(scope_id),
+        user_id: params.user_id,
+        index: parseInt(params.index)
+    })
 
     const requestData = new FormData();
     requestData.append("token", accountService.getUserSession().token);
@@ -86,7 +98,8 @@ function update(params) {
 
     return axiosWrapper.post(`${apiRoute}/update/${params.scope_id}`, requestData)
         .then(data => {
-            data.filteredData = withOutRow;
+            data.filteredData = filteredDataWithOutRow;
+            data.data = dataWithOutRow;
             return data
         });
 }
@@ -96,8 +109,9 @@ function _delete(params) {
 
     const scope_id = params.filteredData[0].id;
     const withOutRows = params.filteredData.filter(scope => !params.indices.includes(scope.index));
+    const dataWithOutRows = params.data.filter(scope => !params.indices.includes(scope.index));
 
-    let scopes = withOutRows.reduce((acc, scope2) => (acc.trim()) + "," + (scope2.name && scope2.name.trim()), "");
+    let scopes = dataWithOutRows.reduce((acc, scope2) => (acc.trim()) + "," + (scope2.name && scope2.name.trim()), "");
     scopes = scopes.substr(1, scopes.length);
 
     const requestData = new FormData();
@@ -112,6 +126,7 @@ function _delete(params) {
     return axiosWrapper.post(`${apiRoute}/update/${scope_id}`, requestData)
         .then(data => {
             data.filteredData = withOutRows
+            data.data = dataWithOutRows
             return data;
         });
 }

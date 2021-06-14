@@ -120,9 +120,9 @@ const TopicsPage = React.memo((props) => {
 
         let newFilteredData = [];
 
-        for (let i = 0; i < filteredData.length; i++) {
-            if (!ids.includes(filteredData[i].id)) {
-                newFilteredData.push(filteredData[i]);
+        for (let i = 0; i < data.length; i++) {
+            if (!ids.includes(data[i].id)) {
+                newFilteredData.push(data[i]);
             }
         }
 
@@ -151,10 +151,10 @@ const TopicsPage = React.memo((props) => {
         setRowData(row);
     }), []);
 
-    const handleOnRowClicked = useCallback(memoize((editCategory, showDropDown, showTextField1, showTextField2) => (row) => {
+    const handleOnRowClicked = ((row, editCategory, showDropDown, showTextField1, showTextField2) => {
         addOrEditPresets(row, "Edit", editCategory, showDropDown, showTextField1, showTextField2);
         return setExpandOnRowClick(!expandOnRowClick);
-    }), []);
+    });
 
     return (
         <>
@@ -219,7 +219,7 @@ const TopicsPage = React.memo((props) => {
                                 expandableRows
                                 contextActions={contextActions(deleteSelectedRows)}
                                 actions={actions("user")}
-                                onRowClicked={handleOnRowClicked("don't need this anymore", false, "Category", "Keywords")}
+                                onRowClicked={row => handleOnRowClicked(row, "don't need this anymore", false, "Category", "Keywords")}
                                 expandOnRowClicked={false}
                                 expandableRowsComponent={<></>}
                                 selectableRows
