@@ -11,6 +11,7 @@ import {AlertType} from "../_services";
 import {TopicsContextData} from "../contexts/context.group.category";
 import {Delete} from "@material-ui/icons";
 import {AlertContextData} from "../contexts/context.alert";
+import CustomizedProgressBars from "../components/spinners/CustomizedProgressBars";
 
 const columns = [
     {
@@ -36,7 +37,7 @@ const columns = [
 
 const TopicsPage = React.memo((props) => {
     const {setAlertOpen, setAlertMessage, setAlertType} = useContext(AlertContextData);
-    const {data, setData, filteredData, setFilteredData} = useContext(TopicsContextData);
+    const {data, setData, filteredData, setFilteredData, loading, setLoading} = useContext(TopicsContextData);
     const [theme, setTheme] = useState("dark");
     const [filterText, setFilterText] = useState("");
     const [open, setOpen] = useState(false);
@@ -46,7 +47,7 @@ const TopicsPage = React.memo((props) => {
     const [showDropDown, setShowDropDown] = useState(false);
     const [showTextField1, setShowTextField1] = useState("Category");
     const [showTextField2, setShowTextField2] = useState("Keywords");
-    const [loading, setLoading] = React.useState(false);
+    // const [loading, setLoading] = React.useState(true);
 
     const [selectedRows, setSelectedRows] = useState([]);
     const [toggleClearSelectedRows, setToggleClearSelectedRows] = useState(false);
@@ -207,8 +208,13 @@ const TopicsPage = React.memo((props) => {
                                 }
                             />
 
+                            {/* fn = (a, b, c) => (row) => {}  */}
+                            {/*const useCase =  fn('a', 'bob', 'car')  */}
+
                             <DataTable
                                 title="Be on the lookout 👀"
+                                progressPending={loading}
+                                progressComponent={<CustomizedProgressBars />}
                                 defaultSortField={"name"}
                                 columns={columns}
                                 data={filteredData}

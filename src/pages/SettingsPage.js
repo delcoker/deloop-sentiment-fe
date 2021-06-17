@@ -72,7 +72,6 @@ const columnsPlatform = [
     },
 ];
 
-
 const platform_redirect = (platform) => {
     if (platform.toLowerCase() === "twitter") {
         const url = "/login/twitter";

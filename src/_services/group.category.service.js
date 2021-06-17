@@ -42,6 +42,7 @@ function getAllCategoryData(group_category_data, group_category_id) {
     });
 
     response.categories = dataSet;
+    // console.log(response);
     return response;
 }
 

@@ -15,8 +15,8 @@ import memoize from "memoize-one";
 import IconButton from "@material-ui/core/IconButton";
 import {Delete} from "@material-ui/icons";
 import {AlertType} from "../_services";
-import {categoryService} from "../_services/category.service";
 import {AlertContextData} from "../contexts/context.alert";
+import CircularSpinner from "./spinners/CircularSpinner";
 
 const columns = [
     {
@@ -36,7 +36,7 @@ const columns = [
 
 const ScopesComponent = (props) => {
     const {setAlertOpen, setAlertMessage, setAlertType} = useContext(AlertContextData);
-    const [loading, setLoading] = React.useState(false);
+    const [loading, setLoading] = React.useState(true);
     const [filterText, setFilterText] = useState("");
     const [data, setData] = useState([]);
     const [filteredData, setFilteredData] = useState([{}]);
@@ -99,6 +99,7 @@ const ScopesComponent = (props) => {
 
         scopeService.delete(params)
             .then((response) => {
+                setLoading(false)
                 setAlertOpen(true);
                 setAlertMessage(`${response.message}`);
                 setAlertType(AlertType.WARNING);
@@ -106,6 +107,7 @@ const ScopesComponent = (props) => {
                 setData(response.data);
             })
             .catch(error => {
+                setLoading(false)
                 setAlertOpen(true);
                 setAlertMessage(`${error.message}`);
                 setAlertType(AlertType.ERROR);
@@ -129,8 +131,10 @@ const ScopesComponent = (props) => {
     };
 
     useEffect(() => {
+        // setLoading(true)
         scopeService.getAll()
             .then(data => {
+                setLoading(false)
                 setData(data);
                 setFilteredData(data);
             });
@@ -161,6 +165,8 @@ const ScopesComponent = (props) => {
 
                     <DataTable
                         title="Let's listen 👂🏿"
+                        progressPending={loading}
+                        progressComponent={<CircularSpinner />}
                         defaultSortField={"name"}
                         keyField={"datatable"}
                         columns={columns}

@@ -9,7 +9,8 @@ export const TopicsContext = props => {
     const [filteredData, setFilteredData] = useState([]);
     const [groupCategoryData, setGroupCategoryData] = useState([]);
     const [groupCategoryDataEdits, setGroupCategoryDataEdits] = useState([]);
-    const [tab, setTab] = useState();
+    const [tab, setTab] = useState(0);
+    const [loading, setLoading] = React.useState(true);
 
     useEffect(() => {
         groupCategoryService.getAll()
@@ -21,8 +22,12 @@ export const TopicsContext = props => {
                     setGroupCategoryDataEdits(response.all);
                     setData(categoryData);
                     setFilteredData(categoryData);
+                    setLoading(false);
                 }
-            });
+            }).catch(error => {
+            console.log(error)
+            setLoading(false);
+        });
     }, []);
 
     return (
@@ -37,7 +42,9 @@ export const TopicsContext = props => {
                 groupCategoryData,
                 setGroupCategoryData,
                 groupCategoryDataEdits,
-                setGroupCategoryDataEdits
+                setGroupCategoryDataEdits,
+                loading,
+                setLoading
             }} // value of your context
         >
             {props.children}
