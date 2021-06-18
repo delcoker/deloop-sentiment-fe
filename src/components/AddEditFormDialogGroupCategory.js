@@ -11,10 +11,10 @@ import useStyles from "../_helpers/use_styles/styles";
 import {AlertType} from "../_services";
 import {TopicsContextData} from "../contexts/context.group.category";
 import {groupCategoryService} from "../_services/group.category.service";
-import {AlertContextData} from "../contexts/context.alert";
+import {AlertContext} from "../contexts/context.alert";
 
 export default function AddEditFormDialogGroupCategory(props) {
-    const {setAlertOpen, setAlertMessage, setAlertType} = useContext(AlertContextData);
+    const {setAlertOpen, setAlertMessage, setAlertType} = useContext(AlertContext);
     const {
         tab,
         groupCategoryData,

@@ -10,7 +10,7 @@ import {AddCircleOutlined, EditOutlined, RemoveCircle} from "@material-ui/icons"
 import Tooltip from "@material-ui/core/Tooltip";
 // import styles from "../../_helpers/use_styles/styles";
 import AddEditFormDialogGroupCategory from "../AddEditFormDialogGroupCategory";
-import {AlertContextData} from "../../contexts/context.alert";
+import {AlertContext} from "../../contexts/context.alert";
 import {AlertType} from "../../_services";
 // import { useIntl } from 'react-intl'
 
@@ -24,7 +24,7 @@ const SubHeaderComponent = () => {
         // setAlertConfirmMessage,
         // setAlertConfirmed,
         // setAlertActionHandler
-    } = useContext(AlertContextData);
+    } = useContext(AlertContext);
 
     const {
         tab,

@@ -43,6 +43,7 @@ const AppRouter = memo(props => {
                 <Route path="/login" component={() => <SignIn {...props} />} />
                 {/*<Route path="/signup" component={SignUp}/>*/}
                 <Redirect from="*" to="/home" />
+
             </Switch>
         </div>
     )

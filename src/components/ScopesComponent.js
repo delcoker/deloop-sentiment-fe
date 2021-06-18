@@ -15,7 +15,7 @@ import memoize from "memoize-one";
 import IconButton from "@material-ui/core/IconButton";
 import {Delete} from "@material-ui/icons";
 import {AlertType} from "../_services";
-import {AlertContextData} from "../contexts/context.alert";
+import {AlertContext} from "../contexts/context.alert";
 import CircularSpinner from "./spinners/CircularSpinner";
 
 const columns = [
@@ -35,7 +35,7 @@ const columns = [
 
 
 const ScopesComponent = (props) => {
-    const {setAlertOpen, setAlertMessage, setAlertType} = useContext(AlertContextData);
+    const {setAlertOpen, setAlertMessage, setAlertType} = useContext(AlertContext);
     const [loading, setLoading] = React.useState(true);
     const [filterText, setFilterText] = useState("");
     const [data, setData] = useState([]);

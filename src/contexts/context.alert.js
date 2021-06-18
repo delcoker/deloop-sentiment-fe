@@ -3,9 +3,9 @@ import {AlertType} from "../_services";
 import AlertPopUp from "../components/snackbars/AlertPopUp";
 
 // https://stackoverflow.com/questions/61106127/react-context-api-create-context-from-axios-response
-export const AlertContextData = React.createContext({});
+export const AlertContext = React.createContext({});
 
-export const AlertContext = props => {
+export const AlertContextWrapper = props => {
     const [alertOpen, setAlertOpen] = useState(false);
     const [alertMessage, setAlertMessage] = useState("Welcome");
     const [alertType, setAlertType] = useState(AlertType.INFO);
@@ -15,7 +15,7 @@ export const AlertContext = props => {
     // const [alertActionHandler, setAlertActionHandler] = useState('() => {}');
 
     return (
-        <AlertContextData.Provider
+        <AlertContext.Provider
             value={{
                 setAlertOpen,
                 setAlertMessage,
@@ -39,6 +39,6 @@ export const AlertContext = props => {
                         // alertActionHandler={alertActionHandler}
             />
             {props.children}
-        </AlertContextData.Provider>
+        </AlertContext.Provider>
     );
 }

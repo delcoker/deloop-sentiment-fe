@@ -1,10 +1,13 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {groupCategoryService} from "../_services/group.category.service";
+import {UserContext} from "./context.user";
 
 // https://stackoverflow.com/questions/61106127/react-context-api-create-context-from-axios-response
 export const TopicsContextData = React.createContext({});
 
-export const TopicsContext = props => {
+export const TopicsContextWrapper = props => {
+    const {user} = useContext(UserContext);
+
     const [data, setData] = useState([]);
     const [filteredData, setFilteredData] = useState([]);
     const [groupCategoryData, setGroupCategoryData] = useState([]);
@@ -13,22 +16,25 @@ export const TopicsContext = props => {
     const [loading, setLoading] = React.useState(true);
 
     useEffect(() => {
-        groupCategoryService.getAll()
-            .then(response => {
-                if (response.all[0]) {
-                    const categoryData = groupCategoryService.getAllCategoryData(response.all, response.all[0].id).categories;
-                    setTab(response.all[0].id);
-                    setGroupCategoryData(response.all);
-                    setGroupCategoryDataEdits(response.all);
-                    setData(categoryData);
-                    setFilteredData(categoryData);
-                    setLoading(false);
-                }
-            }).catch(error => {
-            console.log(error)
-            setLoading(false);
-        });
-    }, []);
+        if (user !== undefined) {
+            console.log("⚡️⚡️⚡️⚡⚡️⚡️⚡️");
+            groupCategoryService.getAll()
+                .then(response => {
+                    if (response.all[0]) {
+                        const categoryData = groupCategoryService.getAllCategoryData(response.all, response.all[0].id).categories;
+                        setTab(response.all[0].id);
+                        setGroupCategoryData(response.all);
+                        setGroupCategoryDataEdits(response.all);
+                        setData(categoryData);
+                        setFilteredData(categoryData);
+                        setLoading(false);
+                    }
+                }).catch(error => {
+                console.log(error)
+                setLoading(false);
+            });
+        }
+    }, [user]);
 
     return (
         <TopicsContextData.Provider

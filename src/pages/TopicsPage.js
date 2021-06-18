@@ -10,7 +10,7 @@ import {customDataTableStyles} from "../_helpers/use_styles/styles";
 import {AlertType} from "../_services";
 import {TopicsContextData} from "../contexts/context.group.category";
 import {Delete} from "@material-ui/icons";
-import {AlertContextData} from "../contexts/context.alert";
+import {AlertContext} from "../contexts/context.alert";
 import CustomizedProgressBars from "../components/spinners/CustomizedProgressBars";
 
 const columns = [
@@ -36,7 +36,7 @@ const columns = [
 ];
 
 const TopicsPage = React.memo((props) => {
-    const {setAlertOpen, setAlertMessage, setAlertType} = useContext(AlertContextData);
+    const {setAlertOpen, setAlertMessage, setAlertType} = useContext(AlertContext);
     const {data, setData, filteredData, setFilteredData, loading, setLoading} = useContext(TopicsContextData);
     const [theme, setTheme] = useState("dark");
     const [filterText, setFilterText] = useState("");

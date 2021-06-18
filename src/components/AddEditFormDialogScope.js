@@ -14,10 +14,10 @@ import Select from "@material-ui/core/Select";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import {scopeService} from "../_services/scope.service";
 import {AlertType} from "../_services";
-import {AlertContextData} from "../contexts/context.alert";
+import {AlertContext} from "../contexts/context.alert";
 
 export default function AddEditFormDialogScope(props) {
-    const {setAlertOpen, setAlertMessage, setAlertType} = useContext(AlertContextData);
+    const {setAlertOpen, setAlertMessage, setAlertType} = useContext(AlertContext);
     const setRowData = props.setRowData;
     const rowData = props.rowData;
     const filteredData = props.filteredData;

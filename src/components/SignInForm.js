@@ -8,7 +8,8 @@ import {makeStyles} from '@material-ui/core/styles'
 import {accountService, AlertType} from "../_services";
 import {history} from '../_helpers';
 import {Backdrop} from "@material-ui/core";
-import {AlertContextData} from "../contexts/context.alert";
+import {AlertContext} from "../contexts/context.alert";
+import {UserContext} from "../contexts/context.user";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -47,10 +48,12 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-const SignIn = (props) => {
+
+const SignIn = () => {
+    const {setUser} = useContext(UserContext);
     const classes = useStyles()
     // const intl = useIntl()
-    const {setAlertOpen, setAlertMessage, setAlertType} = useContext(AlertContextData);
+    const {setAlertOpen, setAlertMessage, setAlertType} = useContext(AlertContext);
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
@@ -67,14 +70,15 @@ const SignIn = (props) => {
                 let _location = history.location
                 let _route = '/home'
                 if (user) {
+                    setUser(user);
+                    setLoading(false);
+                    setAlertOpen(true);
+                    setAlertMessage(("Woé zɔ  •  Akwaba  •  Atuu"));
+                    setAlertType(AlertType.INFO);
                     history.push(_route)
                 } else {
                     history.push(_location)
                 }
-                setLoading(false);
-                setAlertOpen(true);
-                setAlertMessage(("Woé zɔ  •  Akwaba  •  Atuu"));
-                setAlertType(AlertType.INFO);
             }).catch(error => {
             setLoading(false);
             setAlertOpen(true);
@@ -127,6 +131,7 @@ const SignIn = (props) => {
                         variant="contained"
                         color="primary"
                         className={classes.submit}
+                        disabled={username.length < 3 || password.length < 3}
                     >
                         Sign In
                         {/*{intl.formatMessage({ id: 'sign_in' })}*/}
