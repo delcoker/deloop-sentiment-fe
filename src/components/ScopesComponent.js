@@ -105,6 +105,7 @@ const ScopesComponent = (props) => {
                 setAlertType(AlertType.WARNING);
                 setFilteredData(response.filteredData);
                 setData(response.data);
+                setToggleClearSelectedRows(!toggleClearSelectedRows);
             })
             .catch(error => {
                 setLoading(false)
@@ -112,7 +113,6 @@ const ScopesComponent = (props) => {
                 setAlertMessage(`${error.message}`);
                 setAlertType(AlertType.ERROR);
             })
-        setToggleClearSelectedRows(!toggleClearSelectedRows);
     };
 
     const addOrEditPresets = (row, crudType, categoryType, showDropDown, showTextField1, showTextField2) => {

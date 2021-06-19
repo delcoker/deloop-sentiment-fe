@@ -125,13 +125,6 @@ export default function MiniDrawer({children, pageTitle, showSubheader}) {
     return (
         <div className={classes.root}>
             <CssBaseline />
-
-            {/*<Header open={open} handleDrawerOpen={handleDrawerOpen}*/}
-            {/*        pageTitle={pageTitle}*/}
-            {/*        showSubheader={showSubheader}*/}
-            {/*        classes={classes} />*/}
-
-
             <AppBar
                 position="fixed"
                 className={clsx(classes.appBar, {
@@ -148,12 +141,10 @@ export default function MiniDrawer({children, pageTitle, showSubheader}) {
                             [classes.hide]: open,
                         })}
                     >
-                        {/*{accountService.getUserSession()*/}
-                        {/*&& */}
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" color="inherit" noWrap className={classes.title}>
-                        DWM Sentimento {pageTitle}
+                        DWM Sentimento {pageTitle} : {accountService.getUserSession().first_name}
                     </Typography>
                     <div className={classes.spaceOut} />
                     {accountService.getUserSession() && <Button

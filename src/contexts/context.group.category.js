@@ -3,7 +3,7 @@ import {groupCategoryService} from "../_services/group.category.service";
 import {UserContext} from "./context.user";
 
 // https://stackoverflow.com/questions/61106127/react-context-api-create-context-from-axios-response
-export const TopicsContextData = React.createContext({});
+export const TopicsContext = React.createContext({});
 
 export const TopicsContextWrapper = props => {
     const {user} = useContext(UserContext);
@@ -37,7 +37,7 @@ export const TopicsContextWrapper = props => {
     }, [user]);
 
     return (
-        <TopicsContextData.Provider
+        <TopicsContext.Provider
             value={{
                 data,
                 setData,
@@ -54,6 +54,6 @@ export const TopicsContextWrapper = props => {
             }} // value of your context
         >
             {props.children}
-        </TopicsContextData.Provider>
+        </TopicsContext.Provider>
     );
 }
