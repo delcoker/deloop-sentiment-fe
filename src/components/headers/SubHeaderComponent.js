@@ -2,7 +2,7 @@ import AppBar from '@material-ui/core/AppBar'
 import React, {useContext, useState} from 'react'
 import Tab from '@material-ui/core/Tab'
 import Tabs from '@material-ui/core/Tabs'
-import {TopicsContextData} from "../../contexts/context.group.category";
+import {TopicsContext} from "../../contexts/context.group.category";
 import {groupCategoryService} from "../../_services/group.category.service";
 import memoize from "memoize-one";
 import {IconButton} from "@material-ui/core";
@@ -33,7 +33,7 @@ const SubHeaderComponent = () => {
         setData,
         setFilteredData,
         setGroupCategoryData
-    } = useContext(TopicsContextData);
+    } = useContext(TopicsContext);
 
     // const [theme, setTheme] = useState("dark");
     const [open, setOpen] = useState(false);

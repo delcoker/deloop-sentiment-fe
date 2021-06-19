@@ -14,11 +14,11 @@ import Select from "@material-ui/core/Select";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import {categoryService} from "../_services/category.service";
 import {AlertType} from "../_services";
-import {TopicsContextData} from "../contexts/context.group.category";
+import {TopicsContext} from "../contexts/context.group.category";
 
 export default function AddEditFormDialogTopic(props) {
     const {setAlertOpen, setAlertMessage, setAlertType} = props;
-    const {tab, groupCategoryData, setGroupCategoryData} = useContext(TopicsContextData);
+    const {tab, groupCategoryData, setGroupCategoryData} = useContext(TopicsContext);
     const groupCategoryId = tab;
     const setRowData = props.setRowData;
     const rowData = props.rowData;

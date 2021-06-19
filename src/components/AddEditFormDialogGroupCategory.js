@@ -9,7 +9,7 @@ import {Grid} from "@material-ui/core";
 import {AddCircleOutline as AddIcon, Edit as EditIcon,} from "@material-ui/icons";
 import useStyles from "../_helpers/use_styles/styles";
 import {AlertType} from "../_services";
-import {TopicsContextData} from "../contexts/context.group.category";
+import {TopicsContext} from "../contexts/context.group.category";
 import {groupCategoryService} from "../_services/group.category.service";
 import {AlertContext} from "../contexts/context.alert";
 
@@ -21,7 +21,7 @@ export default function AddEditFormDialogGroupCategory(props) {
         setGroupCategoryData,
         groupCategoryDataEdits,
         setGroupCategoryDataEdits,
-    } = useContext(TopicsContextData);
+    } = useContext(TopicsContext);
     const group = (groupCategoryData.find(g => g.id === tab));
     const rowData = group && {name: group.group_category_name, id: group.id};
     const f_group = (groupCategoryDataEdits.find(g => g.id === tab));
