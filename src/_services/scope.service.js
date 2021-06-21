@@ -1,5 +1,4 @@
 import {axiosWrapper} from '../_helpers';
-import {accountService} from "./account.service";
 
 export const scopeService = {
     getAll,
@@ -39,8 +38,6 @@ function getById(scope_id) {
 
 function create(params) {
     const requestData = new FormData();
-
-    requestData.append("token", accountService.getUserSession().token);
 
     if (params.filteredData && params.filteredData[0]) {
         const scope_id = params.filteredData[0].id;
@@ -92,7 +89,7 @@ function update(params) {
     })
 
     const requestData = new FormData();
-    requestData.append("token", accountService.getUserSession().token);
+    // requestData.append("token", accountService.getUserSession().token);
     requestData.append("scope_id", scope_id);
     requestData.append("scope", scopes.trim());
 
@@ -115,7 +112,7 @@ function _delete(params) {
     scopes = scopes.substr(1, scopes.length);
 
     const requestData = new FormData();
-    requestData.append("token", accountService.getUserSession().token);
+    // requestData.append("token", accountService.getUserSession().token);
     requestData.append("scope_id", scope_id);
     requestData.append("scope", scopes.trim());
 

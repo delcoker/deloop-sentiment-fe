@@ -11,11 +11,12 @@ import {
     Web as WebIcon
 } from "@material-ui/icons";
 import ProfilePage from "../pages/ProfilePage";
+import DatePickerWrapper from "../components/DatePickerWrapper";
 
 const routes = [
     {
         path: "/home",
-        // parentPage: ReportPage,
+        parentComponent: DatePickerWrapper,
         page: DashboardPage,
         title: "Dashboard",
         icon: <DashboardIcon />,
@@ -24,14 +25,13 @@ const routes = [
     },
     {
         path: "/topics",
-        // parentPage: ReportPage,
+        // parentComponent: DatePickerWrapper,
         page: TopicsPage,
         title: "Topics",
         icon: <WebIcon />,
         visible: true,
         subheader: true,
         children: [
-
             [{
                 id: 1,
                 kcg: {
@@ -57,7 +57,7 @@ const routes = [
     },
     {
         path: "/profile",
-        // parentPage: ReportPage,
+        // parentComponent: DatePickerWrapper,
         page: ProfilePage,
         title: "Profile",
         icon: <VerifiedUserIcon />,
@@ -66,7 +66,7 @@ const routes = [
     },
     {
         path: "/settings",
-        // parentPage: ReportPage,
+        // parentComponent: DatePickerWrapper,
         page: SettingsPage,
         title: "Settings",
         icon: <SettingsIcon />,
@@ -76,7 +76,7 @@ const routes = [
     },
     // {
     // 		path: "/wow",
-    // 		// parentPage: ReportPage,
+    // 		// parentComponent: DatePickerWrapper,
     // 		page: Page404,
     // 		title: "Error Page",
     // 		icon: <SettingsIcon/>,
@@ -84,7 +84,7 @@ const routes = [
     // },
     // {
     //     path: "/location",
-    //     // parentPage: ReportPage,
+    //     // parentComponent: DatePickerWrapper,
     //     page: ProfilePage,
     //     title: "Location",
     //     icon: <LocationOnOutlinedIcon />,

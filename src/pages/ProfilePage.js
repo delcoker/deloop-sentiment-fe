@@ -121,7 +121,7 @@ const ProfilePage = ({withTime,  ...props}) => {
 
 
     return (
-        <>
+        <React.Fragment>
             <Card>
                 <CardHeader
                     title={props.pageTitle}
@@ -145,7 +145,7 @@ const ProfilePage = ({withTime,  ...props}) => {
                 </Grid>
             </Container>
 
-        </>
+        </React.Fragment>
     );
 };
 

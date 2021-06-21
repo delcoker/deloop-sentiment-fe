@@ -1,27 +1,39 @@
 import {axiosWrapper} from '../_helpers';
-import {accountService} from "./account.service";
 
-export const categoryService = {
+export const chartService = {
     getAll,
-    getById,
+    getWordCloud,
+    getChartById,
     create,
     update,
     delete: _delete
 };
 
-const apiRoute = `/categories`;
+// total daily collected conversations,
+// total daily sentiment by positive or negative count
+// total daily sentiment by positive or negative percentage
 
-function getAll() {
-    return axiosWrapper.get(`${apiRoute}`);
+const apiRoute = `/charts`;
+
+function getAll(params) { // start_date, end_date, granularity,
+    let requestData = new FormData();
+    requestData.append("start_date", params.start_date);
+    requestData.append("end_date", params.end_date);
+    requestData.append("granularity", params.granularity);
+    return axiosWrapper.get(`${apiRoute}/highlights`, requestData);
 }
 
-function getById(category_id) {
-    return axiosWrapper.post(`${apiRoute}`, category_id);
+function getWordCloud(params) {
+    let requestData = new FormData();
+    return axiosWrapper.get(`${apiRoute}/wordcloud`, requestData);
+}
+
+function getChartById(chart_id) {
+    return axiosWrapper.post(`${apiRoute}`, chart_id);
 }
 
 function create(params) {
     let requestData = new FormData();
-    // requestData.append("token", accountService.getUserSession().token);
     requestData.append("category_name", params.name.trim());
     requestData.append("group_category_id", params.group_category_id);
     requestData.append("keywords", params.keywords.trim());
@@ -31,7 +43,6 @@ function create(params) {
 
 function update(params) {
     let requestData = new FormData();
-    // requestData.append("token", accountService.getUserSession().token);
     requestData.append("category_name", params.name.trim());
     requestData.append("group_category_id", params.group_category_id);
     requestData.append("keywords", params.keywords.trim());

@@ -61,12 +61,12 @@ class AbstractChart extends React.Component {
         const switch_options = Object.values(ChartTypes).filter(obj => obj.value <= this.MAX_CHART_TYPES);
         if (switch_options.length > 0) {
             return switch_options.map((option, i) =>
-                <Button value={ option.string }
-                        key={ option.string }
-                        onClick={ (e) => {
+                <Button value={option.string}
+                        key={option.string}
+                        onClick={(e) => {
                             return this.props.handleChartChange(e, chart_id)
-                        } }>
-                    { option.display.toUpperCase() }
+                        }}>
+                    {option.display.toUpperCase()}
                 </Button>)
         }
     }
@@ -75,14 +75,15 @@ class AbstractChart extends React.Component {
         if (this.props.chartOptions && this.props.chartOptions.charts && this.props.chartOptions.charts.length > 0) {
             return this.props.chartOptions.charts.map((chart, i) => {
                 return (
-                    <Grid item lg={ 6 } md={ 8 } xs={ 12 } key={ "chart_" + chart.id }>
+                    <Grid item lg={6} md={8} xs={12} key={"chart_" + chart.id}>
                         <Card>
                             <CardContent>
-                                <HighchartsReact highcharts={ Highcharts }
-                                                 options={ chart }
-                                                 key={ chart.id }
+                                <HighchartsReact
+                                    highcharts={Highcharts}
+                                    options={chart}
+                                    key={chart.id}
                                 />
-                                { this.getChartSwitches(chart.id) }
+                                {this.getChartSwitches(chart.id)}
                             </CardContent>
                         </Card>
                     </Grid>
@@ -93,22 +94,22 @@ class AbstractChart extends React.Component {
 
     render() {
         return (
-            <>
+            <React.Fragment>
                 <Card>
                     <CardHeader
                         title="Dashboard"
-                        titleTypographyProps={ {
+                        titleTypographyProps={{
                             component: Box,
                             marginBottom: "0!important",
                             variant: "h5",
-                        } }
+                        }}
                     />
                 </Card>
-                <br/>
-                <Grid container spacing={ 3 } justify="space-between">
-                    { this.displayCharts() }
+                <br />
+                <Grid container spacing={3} justify="space-between">
+                    {this.displayCharts()}
                 </Grid>
-            </>
+            </React.Fragment>
         )
     }
 }

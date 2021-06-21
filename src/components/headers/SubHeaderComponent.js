@@ -164,7 +164,7 @@ const SubHeaderComponent = () => {
     ];
 
     return (
-        <>
+        <React.Fragment>
             <AppBar position="static">
                 <Tabs
                     value={tab}
@@ -191,7 +191,7 @@ const SubHeaderComponent = () => {
             </AppBar>
 
 
-        </>
+        </React.Fragment>
     )
 };
 export default SubHeaderComponent

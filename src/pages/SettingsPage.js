@@ -102,7 +102,7 @@ const SettingsPage = (props) => {
     };
 
     return (
-        <>
+        <React.Fragment>
             <Card>
                 <CardHeader
                     title={props.pageTitle}
@@ -138,7 +138,7 @@ const SettingsPage = (props) => {
                                 // selectableRows
                                 expandableRows
                                 expandOnRowClicked={false}
-                                expandableRowsComponent={<></>}
+                                expandableRowsComponent={<React.Fragment></React.Fragment>}
                                 customStyles={customDataTableStyles}
                                 striped
                             />
@@ -156,7 +156,7 @@ const SettingsPage = (props) => {
                     </Grid>
                 </CardContent>
             </Card>
-        </>
+        </React.Fragment>
     );
 };
 export default SettingsPage;

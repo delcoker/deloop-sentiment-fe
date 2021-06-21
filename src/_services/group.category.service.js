@@ -48,7 +48,7 @@ function getAllCategoryData(group_category_data, group_category_id) {
 
 function create(params) {
     let requestData = new FormData();
-    requestData.append("token", accountService.getUserSession().token);
+    // requestData.append("token", accountService.getUserSession().token);
     requestData.append("group_category_name", params.name.trim());
 
     return axiosWrapper.post(`${apiRoute}/category/create/`, requestData);
@@ -56,7 +56,7 @@ function create(params) {
 
 function update(params) {
     let requestData = new FormData();
-    requestData.append("token", accountService.getUserSession().token);
+    // requestData.append("token", accountService.getUserSession().token);
     requestData.append("group_category_name", params.name.trim());
     requestData.append("group_category_id", params.group_category_id);
 

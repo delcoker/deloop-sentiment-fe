@@ -6,9 +6,10 @@ import SignIn from "../pages/SignIn";
 import PrivateRoute from "./PrivateRoute";
 import StickyFooter from "../components/StickyFooter";
 
-const AppLayout = ({children, showSubheader, pageTitle}) => <MiniDrawer showSubheader={showSubheader}
-                                                                        children={children}
-                                                                        pageTitle={pageTitle} />;
+const AppLayout = ({children, showSubheader, pageTitle, child}) => <MiniDrawer showSubheader={showSubheader}
+                                                                               children={children}
+                                                                               pageTitle={pageTitle}
+                                                                               child={child} />;
 
 const AppRouter = memo(props => {
     return (
@@ -18,20 +19,18 @@ const AppRouter = memo(props => {
                     <PrivateRoute
                         key={`private_route_${i}`}
                         path={route.path}
-                        // render={
-                        // 		() => <AppLayout>
-                        // 				<route.page/>
-                        // 		</AppLayout>
-                        // }
                         component={() =>
                             <AppLayout
                                 showSubheader={route.subheader}
                                 pageTitle={route.title}
                             >
-                                <route.page
-                                    pageTitle={route.title}
-                                    {...props}
-                                />
+                                {route.parentComponent ? (
+                                        <route.parentComponent
+                                            childComponent={<route.page pageTitle={route.title} {...props} />} />
+                                    ) :
+                                    (
+                                        <route.page pageTitle={route.title} {...props} />
+                                    )}
                                 <StickyFooter />
                             </AppLayout>
                         }

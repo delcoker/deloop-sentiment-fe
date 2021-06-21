@@ -1,10 +1,9 @@
 import AbstractChart from "./AbstractChart";
 import {ChartTypes} from "../enums/ChartTypes";
 
-export default class BarChart extends AbstractChart {
+export default class BaseChart extends AbstractChart {
     constructor(props) {
         super(props);
-        console.log(props)
         this.state.chartOptions =
             {
                 charts: [
