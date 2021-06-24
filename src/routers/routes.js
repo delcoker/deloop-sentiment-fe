@@ -5,13 +5,14 @@ import DashboardPage from "../pages/DashboardPage";
 import {blue} from "@material-ui/core/colors";
 import {
     // AlternateEmail as AlternateEmailIcon,
-    Dashboard as DashboardIcon,
+    Dashboard as DashboardIcon, LocationOn,
     Settings as SettingsIcon,
     VerifiedUser as VerifiedUserIcon,
     Web as WebIcon
 } from "@material-ui/icons";
 import ProfilePage from "../pages/ProfilePage";
 import DatePickerWrapper from "../components/DatePickerWrapper";
+import LocationPage from "../pages/LocationPage";
 
 const routes = [
     {
@@ -54,6 +55,15 @@ const routes = [
             //   { path: 'settings', element: <SettingsView /> },
             //   { path: '*', element: <Navigate to="/404" /> }
         ],
+    },
+    {
+        path: "/locations",
+        // parentComponent: DatePickerWrapper,
+        page: LocationPage,
+        title: "Locations",
+        icon: <LocationOn />,
+        visible: true,
+        subheader: false,
     },
     {
         path: "/profile",

@@ -132,7 +132,8 @@ const DatePickerWrapper = ({childComponent: Component}) => {
                 />
             </Grid>
             <Grid item xs={12}>
-                {Component}
+                    {Component}
+
             </Grid>
 
 

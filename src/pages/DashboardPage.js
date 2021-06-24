@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import ChartFactory from "../classes/sentimentchart/ChartFactory";
+import {chartService} from "../_services/chart.service";
 
 class DashboardPage extends Component {
 
@@ -31,46 +32,63 @@ class DashboardPage extends Component {
         this.chart = new ChartFactory(this.handleChartChange); // not really using handleChartChange yet here
     }
 
+    fetchData() {
+        let startDate = new Date();
+        startDate.setMonth(startDate.getMonth() - 3);
+        console.log(startDate.toDateString());
+
+        const params = {
+            start_date: startDate,
+            end_date: new Date(),
+        }
+
+        chartService.getAll(params).then(response => {
+            console.log(response)
+            const charts = response.data;
+
+            this.setState({charts});
+        }).catch(error => {
+            this.setState({
+                chartOptions: {
+                    charts:
+                        [
+                            {
+                                id: "one",
+                                chart: {
+                                    type: 'line'
+                                },
+                                title: {
+                                    text: 'Homepage chart A'
+                                },
+                                series: [
+                                    {
+                                        data: [100, 20, 10, 40, 30, 60]
+                                    }
+                                ]
+                            },
+                            {
+                                id: "two",
+                                chart: {
+                                    type: 'line'
+                                },
+                                title: {
+                                    text: 'Homepage chart'
+                                },
+                                series: [
+                                    {
+                                        data: [100, 200, 10, 400, 30, 600]
+                                    }
+                                ]
+                            }
+                        ]
+                }
+            });
+        });
+    }
+
     componentDidMount() {
         // get data from be/middle layer
-
-
-
-        this.setState({
-            chartOptions: {
-                charts:
-                    [
-                        {
-                            id: "one",
-                            chart: {
-                                type: 'line'
-                            },
-                            title: {
-                                text: 'Homepage chart A'
-                            },
-                            series: [
-                                {
-                                    data: [100, 20, 10, 40, 30, 60]
-                                }
-                            ]
-                        },
-                        {
-                            id: "two",
-                            chart: {
-                                type: 'line'
-                            },
-                            title: {
-                                text: 'Homepage chart'
-                            },
-                            series: [
-                                {
-                                    data: [100, 200, 10, 400, 30, 600]
-                                }
-                            ]
-                        }
-                    ]
-            }
-        });
+        this.fetchData();
     }
 
     findChartAndChange = (oldChartList, id, chartType) => {

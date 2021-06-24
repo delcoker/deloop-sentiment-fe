@@ -20,6 +20,7 @@ function getAll(params) { // start_date, end_date, granularity,
     requestData.append("start_date", params.start_date);
     requestData.append("end_date", params.end_date);
     requestData.append("granularity", params.granularity);
+  
     return axiosWrapper.get(`${apiRoute}/highlights`, requestData);
 }
 
