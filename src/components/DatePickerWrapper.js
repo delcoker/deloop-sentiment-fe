@@ -5,7 +5,6 @@ import moment from "moment";
 
 import DateRangePickerComponent from "./DateRangePickerComponent"
 import SegmentsDialog from "../components/SegmentsDialog";
-import DashboardPage from "../pages/DashboardPage";
 
 // import {getUserPreference, setUserPreference} from "../utils.js";
 
@@ -121,7 +120,7 @@ const DatePickerWrapper = ({childComponent: Component}) => {
                 />
             </Grid>
 
-            <Grid item xs={3}>
+            <Grid item xs={2}>
                 <DateRangePickerComponent
                     value={[beginDate, endDate]}
                     placeholder="Select a date range"
@@ -131,12 +130,11 @@ const DatePickerWrapper = ({childComponent: Component}) => {
                     }}
                 />
             </Grid>
+
+
             <Grid item xs={12}>
-                    {Component}
-
+                {Component}
             </Grid>
-
-
         </Grid>
     );
 };

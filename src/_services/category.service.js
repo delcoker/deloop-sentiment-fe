@@ -1,5 +1,4 @@
 import {axiosWrapper} from '../_helpers';
-import {accountService} from "./account.service";
 
 export const categoryService = {
     getAll,

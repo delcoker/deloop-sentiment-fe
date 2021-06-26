@@ -7,15 +7,18 @@ import AppRouter from "./routers/AppRouter";
 import {AlertContextWrapper} from "./contexts/context.alert";
 import {TopicsContextWrapper} from "./contexts/context.group.category";
 import {UserContextWrapper} from "./contexts/context.user";
+import {ChartsContextWrapper} from "./contexts/context.charts";
 
 function App() {
     return (
         <Router history={history}>
             <UserContextWrapper>
                 <AlertContextWrapper>
-                    <TopicsContextWrapper>
-                        <AppRouter />
-                    </TopicsContextWrapper>
+                    <ChartsContextWrapper>
+                        <TopicsContextWrapper>
+                            <AppRouter />
+                        </TopicsContextWrapper>
+                    </ChartsContextWrapper>
                 </AlertContextWrapper>
             </UserContextWrapper>
         </Router>
