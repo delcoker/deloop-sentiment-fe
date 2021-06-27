@@ -1,12 +1,12 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 
-const Dashboard = ({children}) => (
+const DashboardItemWrapper = ({children}) => (
     <Grid
         container
         spacing={3}
         style={{
-            padding: 24,
+            padding: 0,
         }}
         justify="space-around"
         alignItems="flex-start"
@@ -15,4 +15,4 @@ const Dashboard = ({children}) => (
     </Grid>
 );
 
-export default Dashboard;
+export default DashboardItemWrapper;

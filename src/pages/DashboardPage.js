@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import ChartFactory from "../classes/sentimentchart/ChartFactory";
 import {ChartsContext} from "../contexts/context.charts";
+import DashboardItem from "../components/DashboardItem";
+import HightLightsComponent from "../components/HightLightsComponent";
+import {Box, Card, CardHeader} from "@material-ui/core";
 
 class DashboardPage extends Component {
     static contextType = ChartsContext;
@@ -33,6 +36,19 @@ class DashboardPage extends Component {
     render() {
         return (
             <React.Fragment>
+                <Card>
+                    <CardHeader
+                        title="Dashboard"
+                        titleTypographyProps={{
+                            component: Box,
+                            marginBottom: "0!important",
+                            variant: "h5",
+                        }}
+                    />
+                </Card>
+                <br />
+                <HightLightsComponent />
+                <br />
                 {this.chart.getChart(this.context.chartOptions, this.handleChartChange)}
             </React.Fragment>
         );

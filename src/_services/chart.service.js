@@ -2,27 +2,35 @@ import {axiosWrapper} from '../_helpers';
 
 export const chartService = {
     getAll,
+    getHighLights,
     getWordCloud,
     getChartById,
     create,
     update,
-    delete: _delete
+    delete: _delete,
 };
 
 // total daily collected conversations,
 // total daily sentiment by positive or negative count
 // total daily sentiment by positive or negative percentage
 
-const apiRoute = `/auth/graphs`;
+const apiRoute = `/graphs`;
 
-function getAll(params) { // start_date, end_date, granularity,
-    // console.log(params);
+function getAll(params) {
     let requestData = new FormData();
     requestData.append("start_date", params.start_date);
     requestData.append("end_date", params.end_date);
     requestData.append("granularity", params.granularity);
-  
+
     return axiosWrapper.post(`${apiRoute}`, requestData);
+}
+
+function getHighLights(params) {
+    let requestData = new FormData();
+    requestData.append("start_date", params.start_date);
+    requestData.append("end_date", params.end_date);
+
+    return axiosWrapper.post(`${apiRoute}/highlights`, requestData);
 }
 
 function getWordCloud(params) {

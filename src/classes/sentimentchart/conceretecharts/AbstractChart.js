@@ -8,12 +8,14 @@ import CardContent from "@material-ui/core/CardContent";
 import Grid from "@material-ui/core/Grid";
 import {ChartTypes} from "../enums/ChartTypes";
 
+require('highcharts/modules/exporting')(Highcharts);
+
 // Example 1: Creating a new class (declaration-form)
 // ===============================================================
 
 // A base class is defined using the new reserved 'class' keyword
 class AbstractChart extends React.Component {
-    MAX_CHART_TYPES = 4;
+    MAX_CHART_TYPES = 5;
     // ..and an (optional) custom class constructor. If one is
     // not supplied, a default constructor is used instead:
     constructor(props) {
@@ -95,17 +97,6 @@ class AbstractChart extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <Card>
-                    <CardHeader
-                        title="Dashboard"
-                        titleTypographyProps={{
-                            component: Box,
-                            marginBottom: "0!important",
-                            variant: "h5",
-                        }}
-                    />
-                </Card>
-                <br />
                 <Grid container spacing={3} justify="space-between">
                     {this.displayCharts()}
                 </Grid>
