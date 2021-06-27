@@ -88,14 +88,14 @@ const DatePickerWrapper = ({childComponent: Component}) => {
         // getUserPreference("segment") || segments[0]
     );
     const [segmentsDialogOpen, setSegmentsDialogOpen] = useState(false);
-    const withTime = (vizState) => {
-        // return withTimeFunc(vizState, beginDate, endDate, segment.key);
-    };
+    // const withTime = (vizState) => {
+    //     // return withTimeFunc(vizState, beginDate, endDate, segment.key);
+    // };
 
-    useEffect(() => {
-        // setUserPreference("daterange", [beginDate, endDate]);
-        // setUserPreference("segment", segment);
-    }, [beginDate, endDate, segment]);
+    // useEffect(() => {
+    //     // setUserPreference("daterange", [beginDate, endDate]);
+    //     // setUserPreference("segment", segment);
+    // }, [beginDate, endDate, segment]);
 
     return (
 
@@ -131,10 +131,10 @@ const DatePickerWrapper = ({childComponent: Component}) => {
                 />
             </Grid>
 
-
             <Grid item xs={12}>
                 {Component}
             </Grid>
+
         </Grid>
     );
 };

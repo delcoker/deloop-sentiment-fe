@@ -1,6 +1,6 @@
 import {makeStyles} from "@material-ui/core/styles";
 
-const drawerWidth = 220;
+// const drawerWidth = 220;
 const useStyles = makeStyles((theme) => ({
     formControl: {
         margin: theme.spacing(1),

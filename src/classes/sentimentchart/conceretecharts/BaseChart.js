@@ -13,7 +13,7 @@ export default class BaseChart extends AbstractChart {
                             type: ChartTypes.BAR.string
                         },
                         title: {
-                            text: 'Bar chart'
+                            text: 'DUMMY chart'
                         },
                         series: [
                             {
@@ -27,7 +27,7 @@ export default class BaseChart extends AbstractChart {
                             type: ChartTypes.BAR.string
                         },
                         title: {
-                            text: 'bar chart'
+                            text: 'TEST CHART'
                         },
                         series: [
                             {

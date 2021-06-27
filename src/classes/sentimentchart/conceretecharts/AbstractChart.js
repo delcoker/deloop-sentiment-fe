@@ -3,7 +3,7 @@
 import React from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
-import {Box, Button, Card, CardHeader} from "@material-ui/core";
+import {Button, Card} from "@material-ui/core";
 import CardContent from "@material-ui/core/CardContent";
 import Grid from "@material-ui/core/Grid";
 import {ChartTypes} from "../enums/ChartTypes";
@@ -20,9 +20,11 @@ class AbstractChart extends React.Component {
     // not supplied, a default constructor is used instead:
     constructor(props) {
         super(props);
+
         if (new.target === AbstractChart) {
             throw new TypeError("Cannot construct abstract instances directly");
         }
+
         this.state = {
             chartOptions: {
                 charts: [

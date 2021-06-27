@@ -3,6 +3,8 @@ import {axiosWrapper} from '../_helpers';
 export const chartService = {
     getCollectedConversations,
     getCollectedSentimentTypes,
+    getIssueImportance,
+    getIssueSeverity,
     getHighLights,
     getWordCloud,
     getChartById,
@@ -26,6 +28,22 @@ function getCollectedConversations(params) {
     return axiosWrapper.post(`${apiRoute}/collected_conversations`, requestData);
 }
 
+function getIssueSeverity(params) {
+    let requestData = new FormData();
+    requestData.append("start_date", params.start_date);
+    requestData.append("end_date", params.end_date);
+    requestData.append("granularity", params.granularity);
+
+    return axiosWrapper.post(`${apiRoute}/issue_severity`, requestData);
+}
+
+function getIssueImportance(params) {
+    let requestData = new FormData();
+    requestData.append("start_date", params.start_date);
+    requestData.append("end_date", params.end_date);
+
+    return axiosWrapper.post(`${apiRoute}/issue_importance`, requestData);
+}
 
 function getCollectedSentimentTypes(params) {
     let requestData = new FormData();

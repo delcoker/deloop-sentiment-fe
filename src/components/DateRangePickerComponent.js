@@ -6,6 +6,7 @@ export default function DateRangePickerComponent() {
     const {startDate, endDate, setStartDate, setEndDate} = useContext(ChartsContext);
 
     const onChange = (e) => {
+        if (!e) return;
         setStartDate(e[0]);
         setEndDate(e[1]);
     }

@@ -16,6 +16,8 @@ export const ChartsContextWrapper = props => {
     const [granularity, setGranularity] = useState("day");
     const [chartOne, setChartOne] = useState({});
     const [chartOptions, setChartOptions] = useState({});
+    const [issueImportance, setIssueImportance] = useState({});
+    const [chartOptions2, setChartOptions2] = useState({});
     const [highLights, setHighLights] = useState({});
     const [loading, setLoading] = React.useState(true);
 
@@ -59,16 +61,56 @@ export const ChartsContextWrapper = props => {
             chartService.getCollectedSentimentTypes(params)
                 .then(response => {
                     const charts = {charts: [...chartOne.charts, response.charts[0]]};
-                    // console.log(charts)
                     setChartOptions(charts);
                     setLoading(false);
                 })
                 .catch(error => {
-                    console.log("error getting all charts")
+                    console.log("error getting collected sentiments charts")
                     setLoading(false);
                 });
         }
     }, [chartOne.charts]);
+
+    useEffect(() => {
+        if (user !== undefined) {
+            const start_date = moment(startDate).format(dateFormat);
+            const end_date = moment(endDate).format(dateFormat);
+
+            const params = {start_date: start_date, end_date: end_date, granularity: granularity};
+
+            chartService.getIssueImportance(params)
+                .then(response => {
+                    setIssueImportance(response);
+                    setChartOptions2(response)
+                    setLoading(false);
+                })
+                .catch(error => {
+                    console.log("error getting issue importance")
+                    setLoading(false);
+                });
+        }
+    }, [chartOne.charts]);
+
+    useEffect(() => {
+        if (user !== undefined) {
+            const start_date = moment(startDate).format(dateFormat);
+            const end_date = moment(endDate).format(dateFormat);
+
+            const params = {start_date: start_date, end_date: end_date, granularity: granularity};
+
+            chartService.getIssueSeverity(params)
+                .then(response => {
+                    // console.log(response)
+                    const charts = {charts: [...issueImportance.charts, response.charts[0]]};
+                    setChartOptions2(charts);
+                    setLoading(false);
+                })
+                .catch(error => {
+                    console.log("error getting Issue severity")
+                    setLoading(false);
+                });
+        }
+    }, [issueImportance.charts]);
 
     return (
         <ChartsContext.Provider
@@ -78,7 +120,8 @@ export const ChartsContextWrapper = props => {
                 granularity, setGranularity,
                 chartOptions, setChartOptions,
                 loading, setLoading,
-                highLights
+                highLights,
+                chartOptions2, setChartOptions2,
             }} // value of your context
         >
             {props.children}

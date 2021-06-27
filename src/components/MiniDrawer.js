@@ -23,7 +23,7 @@ import {
 import {Link, useLocation} from "react-router-dom";
 
 import routes from "../routers/routes";
-import Header from "./headers/Header";
+// import Header from "./headers/Header";
 import AppBar from "@material-ui/core/AppBar";
 import {accountService} from "../_services";
 import SubHeaderComponent from "./headers/SubHeaderComponent";

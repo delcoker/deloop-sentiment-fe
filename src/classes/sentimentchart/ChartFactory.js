@@ -8,24 +8,23 @@ import BaseChart from "./conceretecharts/BaseChart";
 
 export default class ChartFactory {
 
-    chartOption = null;
-    handleChartChange = null;
     chartMap = new Map();
 
-    constructor(handleChartChange) {
+    constructor() {
 
-        this.chartMap.set(ChartTypes.BAR.string, <BarChart handleChartChange={handleChartChange} />);
-        this.chartMap.set(ChartTypes.COLUMN.string, <ColumnChart handleChartChange={handleChartChange} />);
-        this.chartMap.set("default", <BaseChart handleChartChange={handleChartChange} />);
-        this.chartMap.set(ChartTypes.LINE.string, <LineChart handleChartChange={handleChartChange} />);
-        this.chartMap.set(ChartTypes.PIE.string, <PieChart handleChartChange={handleChartChange} />);
+        this.chartMap.set(ChartTypes.BAR.string, <BarChart />);
+        this.chartMap.set(ChartTypes.COLUMN.string, <ColumnChart />);
+        this.chartMap.set("default", <BaseChart />);
+        this.chartMap.set(ChartTypes.LINE.string, <LineChart />);
+        this.chartMap.set(ChartTypes.PIE.string, <PieChart />);
         // this.chartMap.set(ChartTypes.Table, new Table());
     }
 
-    getChart = (chartOptions, handleChartChange) => {
+    getChartsRow1 = (chartOptions, handleChartChange) => {
+        return React.cloneElement(this.chartMap.get("default"), {chartOptions, handleChartChange});
+    }
 
-        return React.cloneElement(this.chartMap.get("default"), {chartOptions}
-        )
-            ;
+    getChartsRow2 = (chartOptions, handleChartChange) => {
+        return React.cloneElement(this.chartMap.get("default"), {chartOptions, handleChartChange});
     }
 }
