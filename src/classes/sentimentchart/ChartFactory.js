@@ -24,6 +24,8 @@ export default class ChartFactory {
 
     getChart = (chartOptions, handleChartChange) => {
 
-        return React.cloneElement(this.chartMap.get("default"), chartOptions = {chartOptions});
+        return React.cloneElement(this.chartMap.get("default"), {chartOptions}
+        )
+            ;
     }
 }

@@ -1,7 +1,8 @@
 import {axiosWrapper} from '../_helpers';
 
 export const chartService = {
-    getAll,
+    getCollectedConversations,
+    getCollectedSentimentTypes,
     getHighLights,
     getWordCloud,
     getChartById,
@@ -16,13 +17,23 @@ export const chartService = {
 
 const apiRoute = `/graphs`;
 
-function getAll(params) {
+function getCollectedConversations(params) {
     let requestData = new FormData();
     requestData.append("start_date", params.start_date);
     requestData.append("end_date", params.end_date);
     requestData.append("granularity", params.granularity);
 
-    return axiosWrapper.post(`${apiRoute}`, requestData);
+    return axiosWrapper.post(`${apiRoute}/collected_conversations`, requestData);
+}
+
+
+function getCollectedSentimentTypes(params) {
+    let requestData = new FormData();
+    requestData.append("start_date", params.start_date);
+    requestData.append("end_date", params.end_date);
+    requestData.append("granularity", params.granularity);
+
+    return axiosWrapper.post(`${apiRoute}/collected_sentiment_types`, requestData);
 }
 
 function getHighLights(params) {

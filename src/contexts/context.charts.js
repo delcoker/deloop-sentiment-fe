@@ -14,6 +14,7 @@ export const ChartsContextWrapper = props => {
     const [startDate, setStartDate] = useState(new Date(Date.now() - 30 * 24 * 60 * 60 * 1000));
     const [endDate, setEndDate] = useState(new Date(Date.now()));
     const [granularity, setGranularity] = useState("day");
+    const [chartOne, setChartOne] = useState({});
     const [chartOptions, setChartOptions] = useState({});
     const [highLights, setHighLights] = useState({});
     const [loading, setLoading] = React.useState(true);
@@ -25,9 +26,9 @@ export const ChartsContextWrapper = props => {
 
             const params = {start_date: start_date, end_date: end_date, granularity: granularity};
             // console.log(params);
-            chartService.getAll(params)
+            chartService.getCollectedConversations(params)
                 .then(response => {
-                    setChartOptions(response);
+                    setChartOne(response);
                     setLoading(false);
                 })
                 .catch(error => {
@@ -46,6 +47,27 @@ export const ChartsContextWrapper = props => {
                 });
         }
     }, [user, startDate, endDate, granularity]);
+
+    useEffect(() => {
+        if (user !== undefined) {
+            const start_date = moment(startDate).format(dateFormat);
+            const end_date = moment(endDate).format(dateFormat);
+
+            const params = {start_date: start_date, end_date: end_date, granularity: granularity};
+
+            chartService.getCollectedSentimentTypes(params)
+                .then(response => {
+                    const charts = {charts: [...chartOne.charts, response.charts[0]]};
+                    // console.log(charts)
+                    setChartOptions(charts);
+                    setLoading(false);
+                })
+                .catch(error => {
+                    console.log("error getting all charts")
+                    setLoading(false);
+                });
+        }
+    }, [chartOne.charts]);
 
     return (
         <ChartsContext.Provider
