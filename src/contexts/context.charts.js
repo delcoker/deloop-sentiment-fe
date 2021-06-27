@@ -29,6 +29,7 @@ export const ChartsContextWrapper = props => {
             chartService.getCollectedConversations(params)
                 .then(response => {
                     setChartOne(response);
+                    setChartOptions(response);
                     setLoading(false);
                 })
                 .catch(error => {
