@@ -1,9 +1,10 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import {makeStyles} from '@material-ui/core/styles';
-import {alertService, AlertType} from "../../_services";
+// import Button from "@material-ui/core/Button";
+// import {groupCategoryService} from "../../_services/group.category.service";
+// import {AlertType} from "../../_services";
 
 function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -24,10 +25,34 @@ export default function AlertPopUp(props) {
     const setAlertOpen = props.setAlertOpen;
     const alertMessage = props.alertMessage;
     const alertType = props.alertType;
+    // const alertConfirm = props.alertConfirm;
+    // const confirmMessage = props.alertConfirmMessage;
+    // const setAlertConfirmed = props.setAlertConfirmed;
+    // const setAlertConfirm = props.setAlertConfirm;
+    // const alertActionHandler = props.alertActionHandler;
 
-    const handleClick = () => {
-        setAlertOpen(true);
-    };
+    // console.log(alertActionHandler)
+    //
+    // const alertActionHandler = (params) => {
+    //     groupCategoryService.delete(params)
+    //         .then((response) => {
+    //             // updateGroupCategoryState(params);
+    //             // setAlertOpen(true);
+    //             // setAlertMessage(`${response.message}`);
+    //             // setAlertType(AlertType.WARNING);
+    //
+    //             // setAlertConfirmed(false);
+    //             // setAlertConfirm(false);
+    //             // setAlertConfirmMessage();
+    //         })
+    //         .catch(error => {
+    //
+    //         })
+    // }
+
+    // const handleClick = () => {
+    //     setAlertOpen(true);
+    // };
 
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
@@ -36,11 +61,15 @@ export default function AlertPopUp(props) {
         setAlertOpen(false);
     };
 
+    // const deleteGroup = (e) => {
+    //
+    //     // setAlertConfirm(false);
+    //     // setAlertConfirmed(true);
+    //     setAlertOpen(false);
+    // }
+
     return (
         <div className={classes.root}>
-            {/*<Button variant="outlined" onClick={handleClick}>*/}
-            {/*    alertMessage*/}
-            {/*</Button>*/}
 
             <Snackbar open={alertOpen}
                       anchorOrigin={{vertical: "top", horizontal: "center"}}
@@ -49,6 +78,9 @@ export default function AlertPopUp(props) {
             >
                 <Alert onClose={handleClose} severity={alertType}>
                     {alertMessage}
+                    {/*{alertConfirm && <Button color="inherit" size="small" onClick={() => deleteGroup}>*/}
+                    {/*    {confirmMessage}*/}
+                    {/*</Button>}*/}
                 </Alert>
             </Snackbar>
 

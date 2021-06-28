@@ -15,8 +15,8 @@ import memoize from "memoize-one";
 import IconButton from "@material-ui/core/IconButton";
 import {Delete} from "@material-ui/icons";
 import {AlertType} from "../_services";
-import {categoryService} from "../_services/category.service";
-// import {AlertContextData} from "../contexts/context.alert";
+import {AlertContext} from "../contexts/context.alert";
+import CircularSpinner from "./spinners/CircularSpinner";
 
 const columns = [
     {
@@ -35,8 +35,8 @@ const columns = [
 
 
 const ScopesComponent = (props) => {
-    // const {setAlertOpen, setAlertMessage, setAlertType} = useContext(AlertContextData);
-    const [loading, setLoading] = React.useState(false);
+    const {setAlertOpen, setAlertMessage, setAlertType} = useContext(AlertContext);
+    const [loading, setLoading] = React.useState(true);
     const [filterText, setFilterText] = useState("");
     const [data, setData] = useState([]);
     const [filteredData, setFilteredData] = useState([{}]);
@@ -92,25 +92,27 @@ const ScopesComponent = (props) => {
         setSelectedRows(sel.selectedRows);
     }
 
-    const deleteSelectedRows = data => {
+    const deleteSelectedRows = () => {
         setLoading(true);
         const indices = selectedRows.map(selectedRow => parseInt(selectedRow.index));
-        const params = {filteredData, indices};
+        const params = {data, filteredData, indices};
 
         scopeService.delete(params)
             .then((response) => {
-                props.setAlertOpen(true);
-                props.setAlertMessage(`${response.message}`);
-                props.setAlertType(AlertType.WARNING);
+                setLoading(false)
+                setAlertOpen(true);
+                setAlertMessage(`${response.message}`);
+                setAlertType(AlertType.WARNING);
                 setFilteredData(response.filteredData);
-                setData(response.filteredData);
+                setData(response.data);
+                setToggleClearSelectedRows(!toggleClearSelectedRows);
             })
             .catch(error => {
-                props.setAlertOpen(true);
-                props.setAlertMessage(`${error.message}`);
-                props.setAlertType(AlertType.ERROR);
+                setLoading(false)
+                setAlertOpen(true);
+                setAlertMessage(`${error.message}`);
+                setAlertType(AlertType.ERROR);
             })
-        setToggleClearSelectedRows(!toggleClearSelectedRows);
     };
 
     const addOrEditPresets = (row, crudType, categoryType, showDropDown, showTextField1, showTextField2) => {
@@ -129,8 +131,10 @@ const ScopesComponent = (props) => {
     };
 
     useEffect(() => {
+        // setLoading(true)
         scopeService.getAll()
             .then(data => {
+                setLoading(false)
                 setData(data);
                 setFilteredData(data);
             });
@@ -161,6 +165,8 @@ const ScopesComponent = (props) => {
 
                     <DataTable
                         title="Let's listen 👂🏿"
+                        progressPending={loading}
+                        progressComponent={<CircularSpinner />}
                         defaultSortField={"name"}
                         keyField={"datatable"}
                         columns={columns}
@@ -169,7 +175,7 @@ const ScopesComponent = (props) => {
                         highlightOnHover
                         pointerOnHover
                         pagination
-                        // selectableRows
+                        selectableRows
                         clearSelectedRows={toggleClearSelectedRows}
                         expandableRows
                         actions={actions(null)}

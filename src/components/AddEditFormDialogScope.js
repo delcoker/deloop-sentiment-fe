@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext} from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
@@ -14,11 +14,14 @@ import Select from "@material-ui/core/Select";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import {scopeService} from "../_services/scope.service";
 import {AlertType} from "../_services";
+import {AlertContext} from "../contexts/context.alert";
 
 export default function AddEditFormDialogScope(props) {
+    const {setAlertOpen, setAlertMessage, setAlertType} = useContext(AlertContext);
     const setRowData = props.setRowData;
     const rowData = props.rowData;
     const filteredData = props.filteredData;
+    const data = props.data
 
     const classes = useStyles();
     const [loading, setLoading] = React.useState(false);
@@ -29,31 +32,43 @@ export default function AddEditFormDialogScope(props) {
         const params = {
             name: e.target.Scope.value,
             index: e.target.index.value,
-            filteredData: filteredData,
+            filteredData: data
         }
 
         scopeService.create(params)
             .then(function (response) {
-                let newRowData = {};
-                newRowData.name = params.name;
-                newRowData.id = filteredData[0] ? filteredData[0].id : response.id;
-                newRowData.user_id = filteredData[0] ? filteredData[0].user_id : response.user_id
-                newRowData.index = filteredData[0] ? filteredData.length + 1 : 1;
+                setLoading(false);
 
-                const newFilteredData = [...filteredData, newRowData];
+                let newRowData = response;
+                newRowData.name = response.scope
+
+                if (response.message) {
+                    newRowData.name = params.name;
+                    newRowData.id = filteredData[0].id;
+                    newRowData.user_id = filteredData[0].user_id
+                }
+
+                if (!params.filteredData) {
+                    params.filteredData = [];
+                }
+
+                newRowData.index = params.filteredData.length + 1;
+
+                const newFilteredData = [...params.filteredData, newRowData];
 
                 setLoading(false);
-                // props.setAlertOpen(true);
-                // props.setAlertType(AlertType.SUCCESS)
-                alert(`${params.name} updated`);
+                setAlertOpen(true);
+                setAlertType(AlertType.SUCCESS)
+                console.log(params)
+                setAlertMessage(`${params.name} ADDED`);
                 props.setData(newFilteredData);
                 props.setFilteredData(newFilteredData);
                 props.onClose();
             })
             .catch(function (error) {
-                // props.setAlertOpen(true);
-                // props.setAlertType(AlertType.ERROR)
-                // props.setAlertMessage(`UPDATE FAIL: ${params.name}`);
+                setAlertOpen(true);
+                setAlertType(AlertType.ERROR)
+                setAlertMessage(`ADD FAIL: ${params.name}`);
                 setLoading(false);
                 console.log(error);
             });
@@ -67,26 +82,23 @@ export default function AddEditFormDialogScope(props) {
             scope_id: e.target.id.value,
             index: e.target.index.value,
             filteredData: filteredData,
+            data: data,
         }
 
         scopeService.update(params)
             .then(function (response) {
                 setLoading(false);
-                // alert(`${params.name} updated`);
-
-                console.log(response.filteredData)
-
-                // props.setAlertOpen(true);
-                // props.setAlertType(AlertType.SUCCESS)
-                alert(`${params.name} updated`);
-                props.setData(response.filteredData);
+                setAlertOpen(true);
+                setAlertType(AlertType.SUCCESS)
+                setAlertMessage(`${params.name} UPDATED`);
+                props.setData(response.data);
                 props.setFilteredData(response.filteredData);
                 props.onClose();
             })
             .catch(function (error) {
-                props.setAlertOpen(true);
-                props.setAlertType(AlertType.ERROR)
-                props.setAlertMessage(`UPDATE FAIL: ${params.name}`);
+                setAlertOpen(true);
+                setAlertType(AlertType.ERROR)
+                setAlertMessage(`UPDATE FAIL: ${params.name}`);
                 setLoading(false);
                 console.log(error);
             });

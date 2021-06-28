@@ -1,12 +1,15 @@
 import Button from '@material-ui/core/Button'
 import Paper from '@material-ui/core/Paper'
-import React, {useMemo, useState} from 'react'
+import React, {useContext, useState} from 'react'
 import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
 import {Link} from 'react-router-dom'
 import {makeStyles} from '@material-ui/core/styles'
 import {accountService, AlertType} from "../_services";
 import {history} from '../_helpers';
+import {Backdrop} from "@material-ui/core";
+import {AlertContext} from "../contexts/context.alert";
+import {UserContext} from "../contexts/context.user";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -45,13 +48,15 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-const SignIn = (props) => {
+
+const SignIn = () => {
+    const {setUser} = useContext(UserContext);
     const classes = useStyles()
     // const intl = useIntl()
+    const {setAlertOpen, setAlertMessage, setAlertType} = useContext(AlertContext);
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('');
-
-    // useMemo(setUsername,[username]);
+    const [loading, setLoading] = useState(false);
 
     function handleSubmit(event) {
         event.preventDefault();
@@ -59,24 +64,33 @@ const SignIn = (props) => {
     }
 
     const authenticate = () => {
-        accountService.login(username, password).then(user => {
-            let _location = history.location
-            let _route = '/home'
-            if (user) {
-                history.push(_route)
-            } else {
-                history.push(_location)
-            }
-        }).catch(error => {
-            props.setAlertOpen(true);
-            error.response && props.setAlertMessage(`${error.response.data.detail}`);
-            props.setAlertType(AlertType.ERROR);
+        setLoading(true);
+        accountService.login(username, password)
+            .then(user => {
+                let _location = history.location
+                let _route = '/home'
+                if (user) {
+                    setUser(user);
+                    setLoading(false);
+                    setAlertOpen(true);
+                    setAlertMessage(("Woé zɔ  •  Akwaba  •  Atuu"));
+                    setAlertType(AlertType.INFO);
+                    history.push(_route)
+                } else {
+                    history.push(_location)
+                }
+            }).catch(error => {
+            setLoading(false);
+            setAlertOpen(true);
+            error.response && setAlertMessage(`${error.response.data.detail}`);
+            setAlertType(AlertType.ERROR);
         });
     }
 
     return (
         // <Page pageTitle={intl.formatMessage({ id: 'sign_in' })}>
         <Paper className={classes.paper} elevation={6}>
+            <Backdrop open={loading} />
             <div className={classes.container}>
                 <Typography component="h1" variant="h5">
                     {/*{intl.formatMessage({ id: 'sign_in' })}*/}
@@ -117,6 +131,7 @@ const SignIn = (props) => {
                         variant="contained"
                         color="primary"
                         className={classes.submit}
+                        disabled={username.length < 3 || password.length < 3}
                     >
                         Sign In
                         {/*{intl.formatMessage({ id: 'sign_in' })}*/}
