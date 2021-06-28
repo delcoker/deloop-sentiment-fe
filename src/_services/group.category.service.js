@@ -47,7 +47,6 @@ function getAllCategoryData(group_category_data, group_category_id) {
 
 function create(params) {
     let requestData = new FormData();
-    // requestData.append("token", accountService.getUserSession().token);
     requestData.append("group_category_name", params.name.trim());
 
     return axiosWrapper.post(`${apiRoute}/category/create/`, requestData);
@@ -64,5 +63,11 @@ function update(params) {
 
 // prefixed with underscore because 'delete' is a reserved word in javascript
 function _delete(id) {
-    return axiosWrapper.post(`${apiRoute}/category/delete/${id}`);
+    return axiosWrapper.get(`${apiRoute}/categories`)
+        .then(response => {
+            if (response.length < 2) {
+                throw Error("At least one group is mandatory");
+            }
+            return axiosWrapper.post(`${apiRoute}/category/delete/${id}`);
+        })
 }

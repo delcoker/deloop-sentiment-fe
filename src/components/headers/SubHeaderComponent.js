@@ -71,7 +71,9 @@ const SubHeaderComponent = () => {
                 // setAlertConfirmMessage();
             })
             .catch(error => {
-
+                setAlertOpen(true);
+                setAlertMessage(`The group ${group_name} could not be DELETED. ${error.message}`);
+                setAlertType(AlertType.ERROR);
             })
     }
 
