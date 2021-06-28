@@ -10,7 +10,7 @@ import Grid from "@material-ui/core/Grid";
 export default class BarChart extends AbstractChart {
     constructor(props) {
         super(props);
-        console.log(props)
+        console.log('bar', props);
         this.state.chartOptions =
             {
                 charts: [
