@@ -20,11 +20,19 @@ export default class ChartFactory {
         // this.chartMap.set(ChartTypes.Table, new Table());
     }
 
-    getChartsRow1 = (chartOptions, handleChartChange) => {
-        return React.cloneElement(this.chartMap.get("default"), {chartOptions, handleChartChange});
+    getChartsRow1 = (chartOptions, handleChartChange, handlePropertyChange) => {
+        return React.cloneElement(this.chartMap.get("default"), {
+            chartOptions,
+            handleChartChange,
+            handlePropertyChange
+        });
     }
 
-    getChartsRow2 = (chartOptions, handleChartChange) => {
-        return React.cloneElement(this.chartMap.get("default"), {chartOptions, handleChartChange});
+    getChartsRow2 = (chartOptions, handleChartChange, handlePropertyChange) => {
+        return React.cloneElement(this.chartMap.get("default"), {
+            chartOptions,
+            handleChartChange,
+            handlePropertyChange
+        });
     }
 }

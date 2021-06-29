@@ -7,6 +7,7 @@ import {Button, Card} from "@material-ui/core";
 import CardContent from "@material-ui/core/CardContent";
 import Grid from "@material-ui/core/Grid";
 import {ChartTypes} from "../enums/ChartTypes";
+import {PropertyTypes} from "../enums/PropertyTypes";
 
 require('highcharts/modules/exporting')(Highcharts);
 
@@ -75,6 +76,20 @@ class AbstractChart extends React.Component {
         }
     }
 
+    getPropertyToggles = (chart_id) => {
+        const switch_options = Object.values(PropertyTypes);//.filter(obj => obj.value <= this.MAX_CHART_TYPES);
+        if (switch_options.length > 0) {
+            return switch_options.map((option, i) =>
+                <Button value={option.value}
+                        key={option.value}
+                        onClick={(e) => {
+                            return this.props.handlePropertyChange(e, chart_id)
+                        }}>
+                    {option.display.toUpperCase()}
+                </Button>)
+        }
+    }
+
     displayCharts = () => {
         if (this.props.chartOptions && this.props.chartOptions.charts && this.props.chartOptions.charts.length > 0) {
             return this.props.chartOptions.charts.map((chart, i) => {
@@ -88,6 +103,10 @@ class AbstractChart extends React.Component {
                                     key={chart.id}
                                 />
                                 {this.getChartSwitches(chart.id)}
+                                {/*<br />*/}
+                                {/*{this.getChartSwitches(chart.id)} add stacked switches here*/}
+                                <br />
+                                {this.getPropertyToggles(chart.id)}
                             </CardContent>
                         </Card>
                     </Grid>
