@@ -7,7 +7,6 @@ import ReactWordcloud from "react-wordcloud";
 import {Grid} from "@material-ui/core";
 import {ChartsContext} from "../contexts/context.charts";
 import {CSS_COLOR_NAMES} from "../classes/sentimentchart/enums/PropertyTypes";
-import DashboardItemWrapper from "./DashboardItemWrapper";
 import DashboardItem from "./DashboardItem";
 // import memoize from "memoize-one";
 
@@ -120,9 +119,7 @@ const WordCloudComponent = () => {
         words={wordClouds.cloud || words}
     />
 
-    const dashboardCloud = <DashboardItem children={cloud} title={"Word Cloud"} />
-
-    return <DashboardItemWrapper children={dashboardCloud} />
+    return <DashboardItem children={cloud} title={"Word Cloud"} />
 };
 
 // const WordCloudComponent = React.memo(WordCloudComponent);
