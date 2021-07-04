@@ -131,7 +131,7 @@ export const ChartsContextWrapper = props => {
                     setLoading(false);
                 });
         }
-    }, [user, startDate, endDate, granularity]);
+    }, [user, startDate, endDate]);
 
     return (
         <ChartsContext.Provider

@@ -104,7 +104,8 @@ class DashboardPage extends Component {
                 <br />
                 {this.chart.getChartsRow2(this.context.chartOptions2, this.handleChartChange, this.handlePropertyChange)}
                 <br />
-                {<WordCloudComponent />}
+                {/*{<WordCloudComponent />}*/}
+                {console.log("jjhk")}
             </React.Fragment>
         );
     }

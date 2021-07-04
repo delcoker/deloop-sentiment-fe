@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React, {useContext, useMemo} from "react";
 import ReactWordcloud from "react-wordcloud";
 // import * as d3 from 'd3';
 // import {select} from 'd3-selection';
@@ -6,19 +6,23 @@ import ReactWordcloud from "react-wordcloud";
 // import sw from "stopword";
 import {Grid} from "@material-ui/core";
 import {ChartsContext} from "../contexts/context.charts";
+import {CSS_COLOR_NAMES} from "../classes/sentimentchart/enums/PropertyTypes";
+import DashboardItemWrapper from "./DashboardItemWrapper";
+import DashboardItem from "./DashboardItem";
+// import memoize from "memoize-one";
 
 // import stopwords from "../pages/stopwords.json";
 
 // word cloud start //
-// const callbacks = {
-//     // getWordColor: (word) => word.value > 5000 ? "green" : "red",
-//     // onWordClick: console.log,
-//     // onWordMouseOver: console.log,
-//     getWordTooltip: (word) =>
-//         `${word.text} (${word.value}) [${word.value > 5000 ? "good" : "bad"}]`,
-// };
+const callbacks = {
+    // getWordColor: (word) => word.value > 5000 ? "green" : "red",
+    // onWordClick: console.log,
+    // onWordMouseOver: console.log,
+    getWordTooltip: (word) =>
+        `${word.text} (${word.value}) [${word.value > 5000 ? "good" : "bad"}]`,
+};
 const options = {
-    colors: ["#1f77b4", "#d62728", "gold", "#ff7f0e", "#2ca02c", "#9467bd", "#8c564b",],
+    colors: CSS_COLOR_NAMES,
     enableTooltip: true,
     deterministic: false,
     fontFamily: "impact",
@@ -30,7 +34,7 @@ const options = {
     rotationAngles: [-25, 25],
     scale: "sqrt",
     spiral: "archimedean",
-    transitionDuration: 4000,
+    transitionDuration: 2000,
 };
 
 let words = [
@@ -56,11 +60,11 @@ let words = [
     },
 ];
 
-
-export default function WordCloudComponent() {
+const WordCloudComponent = () => {
 
     const {wordClouds} = useContext(ChartsContext);
-    // console.log(wordClouds.cloud);
+    // console.log('wordClouds.cloud');
+
 
     // wordcloud: ({ resultSet }) => {
     // console.log(Object.keys(resultSet.loadResponses[0].annotation.measures)[0] );
@@ -109,24 +113,18 @@ export default function WordCloudComponent() {
     //         };
     //     });
 
-    return (
-        <Grid
-            container
-            spacing={3}
-            style={{
-                padding: 0,
-            }}
-            justify="space-around"
-            alignItems="flex-start"
-        >
-            <Grid item xs={8}>
-                <ReactWordcloud
-                    // callbacks={callbacks}
-                    options={options}
-                    words={wordClouds.cloud || words}
-                />
-            </Grid>
-        </Grid>
+    const cloud = <ReactWordcloud
+        // callbacks={callbacks}
+        size={[1400, 540]}
+        options={options}
+        words={wordClouds.cloud || words}
+    />
 
-    );
-}
+    const dashboardCloud = <DashboardItem children={cloud} title={"Word Cloud"} />
+
+    return <DashboardItemWrapper children={dashboardCloud} />
+};
+
+// const WordCloudComponent = React.memo(WordCloudComponent);
+
+export default WordCloudComponent;

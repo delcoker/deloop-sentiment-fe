@@ -4,6 +4,7 @@ import SettingsPage from "../pages/SettingsPage";
 import DashboardPage from "../pages/DashboardPage";
 import {blue} from "@material-ui/core/colors";
 import {
+    Cloud,
     // AlternateEmail as AlternateEmailIcon,
     Dashboard as DashboardIcon, LocationOn,
     Settings as SettingsIcon,
@@ -13,6 +14,7 @@ import {
 import ProfilePage from "../pages/ProfilePage";
 import DatePickerWrapper from "../components/DatePickerWrapper";
 import LocationPage from "../pages/LocationPage";
+import WordCloudPage from "../pages/WordCloudPage";
 
 const routes = [
     {
@@ -23,6 +25,30 @@ const routes = [
         icon: <DashboardIcon />,
         visible: true,
         subheader: false,
+        children: [
+            {
+                id: 1,
+                title: "Word Clould",
+                icon: <DashboardIcon />,
+                kcg: {path: "word", element: <WordCloudPage />},
+            }, {
+                id: 2,
+                kcg: {
+                    keywords: ["apple", "pine"]
+                },
+                category: "fruit",
+                group_category: "food"
+            }
+        ]
+    },
+    {
+        path: "/word_cloud",
+        parentComponent: DatePickerWrapper,
+        page: WordCloudPage,
+        title: "Word Cloud",
+        icon: <Cloud />,
+        visible: true,
+        subheader: false
     },
     {
         path: "/topics",
@@ -33,13 +59,9 @@ const routes = [
         visible: true,
         subheader: true,
         children: [
-            [{
+            {
                 id: 1,
-                kcg: {
-                    keywords: ["apple", "pine"]
-                },
-                category: "fruit",
-                group_category: "food",
+                kcg: {path: "word", element: <WordCloudPage />},
             }, {
                 id: 2,
                 kcg: {
@@ -47,14 +69,14 @@ const routes = [
                 },
                 category: "fruit",
                 group_category: "food"
-            }],
+            }
             // { path: "account", element: <IssuesPage /> },
             // { path: "settings", element: <IssuesPage /> },
             //   { path: 'dashboard', element: <DashboardView /> },
             //   { path: 'products', element: <ProductListView /> },
             //   { path: 'settings', element: <SettingsView /> },
             //   { path: '*', element: <Navigate to="/404" /> }
-        ],
+        ]
     },
     {
         path: "/locations",
