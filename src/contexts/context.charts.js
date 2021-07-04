@@ -19,6 +19,7 @@ export const ChartsContextWrapper = props => {
     const [issueImportance, setIssueImportance] = useState({});
     const [chartOptions2, setChartOptions2] = useState({});
     const [highLights, setHighLights] = useState({});
+    const [wordClouds, setWordClouds] = useState({cloud: []});
     const [loading, setLoading] = React.useState(true);
 
     useEffect(() => {
@@ -112,6 +113,26 @@ export const ChartsContextWrapper = props => {
         }
     }, [issueImportance.charts]);
 
+    useEffect(() => {
+        if (user !== undefined) {
+            const start_date = moment(startDate).format(dateFormat);
+            const end_date = moment(endDate).format(dateFormat);
+
+            const params = {start_date: start_date, end_date: end_date};
+
+            chartService.getWordCloudTweets(params)
+                .then(response => {
+                    const charts = {cloud: response};
+                    setWordClouds(charts);
+                    setLoading(false);
+                })
+                .catch(error => {
+                    console.log("error getting world cloud for tweets")
+                    setLoading(false);
+                });
+        }
+    }, [user, startDate, endDate, granularity]);
+
     return (
         <ChartsContext.Provider
             value={{
@@ -122,6 +143,7 @@ export const ChartsContextWrapper = props => {
                 loading, setLoading,
                 highLights,
                 chartOptions2, setChartOptions2,
+                wordClouds, setWordClouds
             }} // value of your context
         >
             {props.children}

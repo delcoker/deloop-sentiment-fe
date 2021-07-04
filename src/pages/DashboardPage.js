@@ -4,6 +4,7 @@ import {ChartsContext} from "../contexts/context.charts";
 import HighLightsComponent from "../components/HighLightsComponent";
 import {Box, Card, CardHeader} from "@material-ui/core";
 import {CSS_COLOR_NAMES, PropertyTypes} from "../classes/sentimentchart/enums/PropertyTypes";
+import WordCloudComponent from "../components/WordCloudComponent";
 
 
 class DashboardPage extends Component {
@@ -30,7 +31,7 @@ class DashboardPage extends Component {
             if (chartOption.id === id) {
                 chartOption.series.map(eachSeries => {
                     if (chartProperty === PropertyTypes.COLOUR.value) {
-                        eachSeries[chartProperty] = CSS_COLOR_NAMES[Math.floor(Math.random() * CSS_COLOR_NAMES.length)];
+                        return eachSeries[chartProperty] = CSS_COLOR_NAMES[Math.floor(Math.random() * CSS_COLOR_NAMES.length)];
                     } else {
 
                         // console.log(chartOption.plotOptions)
@@ -45,7 +46,7 @@ class DashboardPage extends Component {
                         //     console.log('chartProperty', a)
                         //     eachSeries[chartProperty] = a
                         // } else
-                        eachSeries[chartProperty] = {enabled: eachSeries[chartProperty] ? !eachSeries[chartProperty].enabled : true};
+                        return eachSeries[chartProperty] = {enabled: eachSeries[chartProperty] ? !eachSeries[chartProperty].enabled : true};
                     }
                 });
                 // console.log(chartOption)
@@ -83,7 +84,6 @@ class DashboardPage extends Component {
         this.context.setChartOptions2(newChartOptions2);
     }
 
-
     render() {
         return (
             <React.Fragment>
@@ -103,6 +103,8 @@ class DashboardPage extends Component {
                 {this.chart.getChartsRow1(this.context.chartOptions, this.handleChartChange, this.handlePropertyChange)}
                 <br />
                 {this.chart.getChartsRow2(this.context.chartOptions2, this.handleChartChange, this.handlePropertyChange)}
+                <br />
+                {<WordCloudComponent />}
             </React.Fragment>
         );
     }
