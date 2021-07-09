@@ -80,6 +80,7 @@ class DashboardPage extends Component {
         const changedCharts2 = this.findChartAndChangeType(oldChartOptions2.charts, id, newChartType);
         const newChartOptions2 = {charts: JSON.parse(JSON.stringify(changedCharts2))};
 
+        console.log("hererererererererererere")
         this.context.setChartOptions(newChartOptions);
         this.context.setChartOptions2(newChartOptions2);
     }

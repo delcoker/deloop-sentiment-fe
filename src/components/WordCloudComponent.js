@@ -1,16 +1,35 @@
-import React, {useContext, useMemo} from "react";
+import React, {createRef, useContext, useMemo} from "react";
 import ReactWordcloud from "react-wordcloud";
-// import * as d3 from 'd3';
-// import {select} from 'd3-selection';
-// import {transition} from 'd3-transition';
 // import sw from "stopword";
 import {Grid} from "@material-ui/core";
 import {ChartsContext} from "../contexts/context.charts";
 import {CSS_COLOR_NAMES} from "../classes/sentimentchart/enums/PropertyTypes";
 import DashboardItem from "./DashboardItem";
+import saveSvgAsPng from 'save-svg-as-png';
+
+import "tippy.js/dist/tippy.css";
+import "tippy.js/animations/scale.css";
+
 // import memoize from "memoize-one";
 
 // import stopwords from "../pages/stopwords.json";
+
+// function getCallback(callback) {
+//     console.log('here ------------------- => ->')
+//     return function (word, event) {
+//         const isActive = callback !== "onWordMouseOut";
+//         const element = event.target;
+//         const text = select(element);
+//         text.on("click", () => {
+//             if (isActive) {
+//                 window.open(`https://duckduckgo.com/?q=${word.text}`, "_blank");
+//             }
+//         })
+//             .attr("background", "white")
+//             .attr("font-size", isActive ? "300%" : "100%")
+//             .attr("text-decoration", isActive ? "underline" : "none");
+//     };
+// }
 
 // word cloud start //
 const callbacks = {
@@ -112,12 +131,27 @@ const WordCloudComponent = () => {
     //         };
     //     });
 
-    const cloud = <ReactWordcloud
-        // callbacks={callbacks}
-        size={[1400, 540]}
-        options={options}
-        words={wordClouds.cloud || words}
-    />
+    const wordcloudRef = createRef();
+//   const words = //your words object;
+
+
+    const handleSave = () => {
+        const svgElement = wordcloudRef.current.querySelector('svg');
+        saveSvgAsPng(svgElement, 'wordcloud.png');
+    };
+
+
+    const cloud = <>
+          <span ref={wordcloudRef}> <ReactWordcloud
+              // callbacks={callbacks}
+              size={[1400, 540]}
+              options={options}
+              words={wordClouds.cloud || words}
+          />
+               </span>
+        {/*<Button onClick={handleSave} variant="contained" color="primary">Save</Button>*/}
+    </>
+
 
     return <DashboardItem children={cloud} title={"Word Cloud"} />
 };

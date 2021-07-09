@@ -66,13 +66,18 @@ class AbstractChart extends React.Component {
         const switch_options = Object.values(ChartTypes).filter(obj => obj.value <= this.MAX_CHART_TYPES);
         if (switch_options.length > 0) {
             return switch_options.map((option, i) =>
-                <Button value={option.string}
-                        key={option.string}
-                        onClick={(e) => {
-                            return this.props.handleChartChange(e, chart_id)
-                        }}>
-                    {option.display.toUpperCase()}
-                </Button>)
+                <>
+                    <Button value={option.string}
+                            key={option.string}
+                            size="small"
+                            onClick={(e) => {
+                                return this.props.handleChartChange(e, chart_id)
+                            }}
+                            // variant="outlined"
+                            color="primary"
+                    >
+                        {option.display.toUpperCase()}
+                    </Button>&nbsp;</>)
         }
     }
 
@@ -80,13 +85,18 @@ class AbstractChart extends React.Component {
         const switch_options = Object.values(PropertyTypes);//.filter(obj => obj.value <= this.MAX_CHART_TYPES);
         if (switch_options.length > 0) {
             return switch_options.map((option, i) =>
-                <Button value={option.value}
-                        key={option.value}
-                        onClick={(e) => {
-                            return this.props.handlePropertyChange(e, chart_id)
-                        }}>
-                    {option.display.toUpperCase()}
-                </Button>)
+                <>
+                    <Button value={option.value}
+                            key={option.value}
+                            size="small"
+                            onClick={(e) => {
+                                return this.props.handlePropertyChange(e, chart_id)
+                            }}
+                            // variant="contained"
+                            color="primary"
+                    >
+                        {option.display.toUpperCase()}
+                    </Button>&nbsp;</>)
         }
     }
 

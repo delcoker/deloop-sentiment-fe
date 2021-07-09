@@ -59,7 +59,7 @@ export default function AddEditFormDialogScope(props) {
                 setLoading(false);
                 setAlertOpen(true);
                 setAlertType(AlertType.SUCCESS)
-                console.log(params)
+                // console.log(params)
                 setAlertMessage(`${params.name} ADDED`);
                 props.setData(newFilteredData);
                 props.setFilteredData(newFilteredData);
