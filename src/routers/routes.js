@@ -42,7 +42,7 @@ const routes = [
         ]
     },
     {
-        path: "/word_cloud",
+        path: "/wordclouds",
         parentComponent: DatePickerWrapper,
         page: WordCloudPage,
         title: "Word Cloud",

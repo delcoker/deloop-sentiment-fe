@@ -4,7 +4,8 @@ import {ChartsContext} from "../contexts/context.charts";
 import HighLightsComponent from "../components/HighLightsComponent";
 import {Box, Card, CardHeader} from "@material-ui/core";
 import {CSS_COLOR_NAMES, PropertyTypes} from "../classes/sentimentchart/enums/PropertyTypes";
-import WordCloudComponent from "../components/WordCloudComponent";
+
+// import WordCloudComponent from "../components/WordCloudComponent";
 
 
 class DashboardPage extends Component {
@@ -80,7 +81,7 @@ class DashboardPage extends Component {
         const changedCharts2 = this.findChartAndChangeType(oldChartOptions2.charts, id, newChartType);
         const newChartOptions2 = {charts: JSON.parse(JSON.stringify(changedCharts2))};
 
-        console.log("hererererererererererere")
+        // console.log("hererererererererererere");
         this.context.setChartOptions(newChartOptions);
         this.context.setChartOptions2(newChartOptions2);
     }
@@ -91,11 +92,7 @@ class DashboardPage extends Component {
                 <Card>
                     <CardHeader
                         title="Dashboard"
-                        titleTypographyProps={{
-                            component: Box,
-                            marginBottom: "0!important",
-                            variant: "h5",
-                        }}
+                        titleTypographyProps={{component: Box, marginBottom: "0!important", variant: "h5"}}
                     />
                 </Card>
                 <br />
@@ -106,7 +103,7 @@ class DashboardPage extends Component {
                 {this.chart.getChartsRow2(this.context.chartOptions2, this.handleChartChange, this.handlePropertyChange)}
                 <br />
                 {/*{<WordCloudComponent />}*/}
-                {console.log("jjhk")}
+                {/*{console.log("jhk")}*/}
             </React.Fragment>
         );
     }

@@ -78,9 +78,9 @@ let words = [
     },
 ];
 
-const WordCloudComponent = () => {
+const WordCloudComponent = ({wordCloud}) => {
+    console.log(wordCloud)
 
-    const {wordClouds} = useContext(ChartsContext);
     // console.log('wordClouds.cloud');
 
 
@@ -142,18 +142,25 @@ const WordCloudComponent = () => {
 
 
     const cloud = <>
-          <span ref={wordcloudRef}> <ReactWordcloud
-              // callbacks={callbacks}
-              size={[1400, 540]}
-              options={options}
-              words={wordClouds.cloud || words}
-          />
+          <span ref={wordcloudRef}>
+              <ReactWordcloud
+                  // callbacks={callbacks}
+                  size={[1400, 540]}
+                  options={options}
+                  words={wordCloud.cloud || words}
+              />
                </span>
         {/*<Button onClick={handleSave} variant="contained" color="primary">Save</Button>*/}
     </>
 
 
-    return <DashboardItem children={cloud} title={"Word Cloud"} />
+    return (
+        <Grid container spacing={3} justify="space-between">
+            <Grid item xs={12}>
+                <DashboardItem children={cloud} title={"Word Cloud"} />
+            </Grid>
+        </Grid>
+    )
 };
 
 // const WordCloudComponent = React.memo(WordCloudComponent);

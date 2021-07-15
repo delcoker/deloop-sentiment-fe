@@ -47,17 +47,17 @@ const DatePickerWrapper = ({childComponent: Component}) => {
 
         <Grid container spacing={3} justify="space-between">
             <Grid item xs={3}>
-                    <ButtonGroup size="small" color="primary" aria-label="outlined primary button group">
-                        {[/**'hour',**/ 'day', 'week', 'month', 'year'].map(granOption => (
-                            <Button
-                                variant={granularity === granOption ? 'contained' : ''}
-                                key={granOption}
-                                onClick={() => setGranularity(granOption)}
-                            >
-                                {granOption.toUpperCase()}
-                            </Button>
-                        ))}
-                    </ButtonGroup>
+                <ButtonGroup size="small" color="primary" aria-label="outlined primary button group">
+                    {[/**'hour',**/ 'day', 'week', 'month', 'year'].map(granOption => (
+                        <Button
+                            variant={granularity === granOption ? 'contained' : ''}
+                            key={"granularity_" + granOption}
+                            onClick={() => setGranularity(granOption)}
+                        >
+                            {granOption.toUpperCase()}
+                        </Button>
+                    ))}
+                </ButtonGroup>
                 {/*<Button*/}
                 {/*    variant="outlined"*/}
                 {/*    color="primary"*/}

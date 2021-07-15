@@ -19,7 +19,8 @@ export const ChartsContextWrapper = props => {
     const [issueImportance, setIssueImportance] = useState({});
     const [chartOptions2, setChartOptions2] = useState({});
     const [highLights, setHighLights] = useState({});
-    const [wordClouds, setWordClouds] = useState({cloud: []});
+    const [wordCloudTweets, setWordCloudTweets] = useState({cloud: []});
+    const [wordCloudLocations, setWordCloudLocations] = useState({cloud: []});
     const [loading, setLoading] = React.useState(true);
 
     useEffect(() => {
@@ -123,11 +124,31 @@ export const ChartsContextWrapper = props => {
             chartService.getWordCloudTweets(params)
                 .then(response => {
                     const charts = {cloud: response};
-                    setWordClouds(charts);
+                    setWordCloudTweets(charts);
                     setLoading(false);
                 })
                 .catch(error => {
                     console.log("error getting world cloud for tweets")
+                    setLoading(false);
+                });
+        }
+    }, [user, startDate, endDate]);
+
+    useEffect(() => {
+        if (user !== undefined) {
+            const start_date = moment(startDate).format(dateFormat);
+            const end_date = moment(endDate).format(dateFormat);
+
+            const params = {start_date: start_date, end_date: end_date};
+
+            chartService.getWordCloudLocations(params)
+                .then(response => {
+                    const charts = {cloud: response};
+                    setWordCloudLocations(charts);
+                    setLoading(false);
+                })
+                .catch(error => {
+                    console.log("error getting world cloud for location")
                     setLoading(false);
                 });
         }
@@ -143,7 +164,8 @@ export const ChartsContextWrapper = props => {
                 loading, setLoading,
                 highLights,
                 chartOptions2, setChartOptions2,
-                wordClouds, setWordClouds
+                wordCloudTweets, setWordCloudTweets,
+                wordCloudLocations, setWordCloudLocations,
             }} // value of your context
         >
             {props.children}

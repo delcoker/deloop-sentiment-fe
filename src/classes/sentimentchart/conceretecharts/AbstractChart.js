@@ -66,18 +66,19 @@ class AbstractChart extends React.Component {
         const switch_options = Object.values(ChartTypes).filter(obj => obj.value <= this.MAX_CHART_TYPES);
         if (switch_options.length > 0) {
             return switch_options.map((option, i) =>
-                <>
+                <React.Fragment key={"chartTypes_fragment_" + option.string + i}>
                     <Button value={option.string}
-                            key={option.string}
+                            key={"chartTypes_" + option.string + i}
                             size="small"
                             onClick={(e) => {
                                 return this.props.handleChartChange(e, chart_id)
                             }}
-                            // variant="outlined"
+                        // variant="outlined"
                             color="primary"
                     >
                         {option.display.toUpperCase()}
-                    </Button>&nbsp;</>)
+                    </Button>&nbsp;
+                </React.Fragment>)
         }
     }
 
@@ -85,18 +86,18 @@ class AbstractChart extends React.Component {
         const switch_options = Object.values(PropertyTypes);//.filter(obj => obj.value <= this.MAX_CHART_TYPES);
         if (switch_options.length > 0) {
             return switch_options.map((option, i) =>
-                <>
+                <React.Fragment  key={"propertyTypes_fragments" + option.value + i}>
                     <Button value={option.value}
-                            key={option.value}
+                            // key={"propertyTypes_" + option.value + i}
                             size="small"
                             onClick={(e) => {
                                 return this.props.handlePropertyChange(e, chart_id)
                             }}
-                            // variant="contained"
+                        // variant="contained"
                             color="primary"
                     >
                         {option.display.toUpperCase()}
-                    </Button>&nbsp;</>)
+                    </Button>&nbsp;</React.Fragment>)
         }
     }
 
@@ -105,12 +106,12 @@ class AbstractChart extends React.Component {
             return this.props.chartOptions.charts.map((chart, i) => {
                 return (
                     <Grid item lg={6} md={8} xs={12} key={"chart_" + chart.id}>
-                        <Card>
-                            <CardContent>
+                        <Card key={"chart_card_" + chart.id}>
+                            <CardContent key={"chart_card_content_" + chart.id}>
                                 <HighchartsReact
                                     highcharts={Highcharts}
                                     options={chart}
-                                    key={chart.id}
+                                    key={"high_charts_" + chart.id}
                                 />
                                 {this.getChartSwitches(chart.id)}
                                 {/*<br />*/}
