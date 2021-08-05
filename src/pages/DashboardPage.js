@@ -5,6 +5,8 @@ import HighLightsComponent from "../components/HighLightsComponent";
 import {Box, Card, CardHeader} from "@material-ui/core";
 import {CSS_COLOR_NAMES, PropertyTypes} from "../classes/sentimentchart/enums/PropertyTypes";
 
+// import WordCloudComponent from "../components/WordCloudComponent";
+
 
 class DashboardPage extends Component {
     static contextType = ChartsContext;
@@ -30,7 +32,7 @@ class DashboardPage extends Component {
             if (chartOption.id === id) {
                 chartOption.series.map(eachSeries => {
                     if (chartProperty === PropertyTypes.COLOUR.value) {
-                        eachSeries[chartProperty] = CSS_COLOR_NAMES[Math.floor(Math.random() * CSS_COLOR_NAMES.length)];
+                        return eachSeries[chartProperty] = CSS_COLOR_NAMES[Math.floor(Math.random() * CSS_COLOR_NAMES.length)];
                     } else {
 
                         // console.log(chartOption.plotOptions)
@@ -45,7 +47,7 @@ class DashboardPage extends Component {
                         //     console.log('chartProperty', a)
                         //     eachSeries[chartProperty] = a
                         // } else
-                        eachSeries[chartProperty] = {enabled: eachSeries[chartProperty] ? !eachSeries[chartProperty].enabled : true};
+                        return eachSeries[chartProperty] = {enabled: eachSeries[chartProperty] ? !eachSeries[chartProperty].enabled : true};
                     }
                 });
                 // console.log(chartOption)
@@ -79,10 +81,10 @@ class DashboardPage extends Component {
         const changedCharts2 = this.findChartAndChangeType(oldChartOptions2.charts, id, newChartType);
         const newChartOptions2 = {charts: JSON.parse(JSON.stringify(changedCharts2))};
 
+        // console.log("hererererererererererere");
         this.context.setChartOptions(newChartOptions);
         this.context.setChartOptions2(newChartOptions2);
     }
-
 
     render() {
         return (
@@ -90,11 +92,7 @@ class DashboardPage extends Component {
                 <Card>
                     <CardHeader
                         title="Dashboard"
-                        titleTypographyProps={{
-                            component: Box,
-                            marginBottom: "0!important",
-                            variant: "h5",
-                        }}
+                        titleTypographyProps={{component: Box, marginBottom: "0!important", variant: "h5"}}
                     />
                 </Card>
                 <br />
@@ -103,6 +101,9 @@ class DashboardPage extends Component {
                 {this.chart.getChartsRow1(this.context.chartOptions, this.handleChartChange, this.handlePropertyChange)}
                 <br />
                 {this.chart.getChartsRow2(this.context.chartOptions2, this.handleChartChange, this.handlePropertyChange)}
+                <br />
+                {/*{<WordCloudComponent />}*/}
+                {/*{console.log("jhk")}*/}
             </React.Fragment>
         );
     }

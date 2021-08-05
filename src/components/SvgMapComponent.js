@@ -149,246 +149,246 @@ function SvgMap(props) {
     };
 
     return (
-        <>
-            <Grid item xs={12}>
-                <CardContent>
-                    <Card>
-                        <Grid container spacing={3} justify="space-between">
-                            <Grid item xs={7}>
-                                <Grid
-                                    container
-                                    spacing={3}
-                                    justify="space-around"
-                                >
-                                    <Grid item xs={3}>
-                                        <Typography
-                                            variant="h6"
-                                            // component="h2"
-                                            gutterBottom
-                                        >
-                                            {highlightedStateName}
-                                        </Typography>
-                                        {highlightedDetails && "Sentiments:"}
-                                        <br />
-                                        {highlightedDetails}
-                                    </Grid>
-                                    <Grid item xs={9}>
-                                        {/* <ResponsiveContainer width="100%"> */}
-                                        <SvgIcon
-                                            // <svg
-                                            // fontSize='large'
-                                            // fill="#fff"
-                                            // height="1458"
-                                            stroke="#fff"
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth={5}
-                                            // preserveAspectRatio="xMidYMin"
-                                            // preserveAspectRatio="xMinYMin meet"
-                                            // width="1000"
-                                            viewBox="0 0 1000 1458"
-                                            style={props.style}
-                                        >
-                                            <g color={props.color} transform="translate(-150 0) scale(1.00)">
-                                                <title>Ghana</title>
-                                                {props.map &&
-                                                props.map.paths.map(
-                                                    (path, i) => {
-                                                        states.push({
-                                                            id:
-                                                            path
-                                                                .attributes
-                                                                .id,
-                                                            key:
-                                                            path
-                                                                .attributes
-                                                                .id,
-                                                            state:
-                                                            path
-                                                                .attributes
-                                                                .name,
-                                                            positive:
-                                                                regionSentimentScore.get(
-                                                                    path
-                                                                        .attributes
-                                                                        .name
-                                                                ) &&
-                                                                regionSentimentScore.get(
-                                                                    path
-                                                                        .attributes
-                                                                        .name
-                                                                ).positive,
-                                                            negative:
-                                                                regionSentimentScore.get(
-                                                                    path
-                                                                        .attributes
-                                                                        .name
-                                                                ) &&
-                                                                regionSentimentScore.get(
-                                                                    path
-                                                                        .attributes
-                                                                        .name
-                                                                ).negative,
-                                                        });
 
-                                                        if (
-                                                            elRefs.current
-                                                                .length !==
-                                                            props.map.paths
+        <Grid item xs={12}>
+            <CardContent>
+                <Card>
+                    <Grid container spacing={3} justify="space-between">
+                        <Grid item xs={7}>
+                            <Grid
+                                container
+                                spacing={3}
+                                justify="space-around"
+                            >
+                                <Grid item xs={3}>
+                                    <Typography
+                                        variant="h6"
+                                        // component="h2"
+                                        gutterBottom
+                                    >
+                                        {highlightedStateName}
+                                    </Typography>
+                                    {highlightedDetails && "Sentiments:"}
+                                    <br />
+                                    {highlightedDetails}
+                                </Grid>
+                                <Grid item xs={9}>
+                                    {/* <ResponsiveContainer width="100%"> */}
+                                    <SvgIcon
+                                        // <svg
+                                        // fontSize='large'
+                                        // fill="#fff"
+                                        // height="1458"
+                                        stroke="#fff"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={5}
+                                        // preserveAspectRatio="xMidYMin"
+                                        // preserveAspectRatio="xMinYMin meet"
+                                        // width="1000"
+                                        viewBox="0 0 1000 1458"
+                                        style={props.style}
+                                    >
+                                        <g color={props.color} transform="translate(-150 0) scale(1.00)">
+                                            <title>Ghana</title>
+                                            {props.map &&
+                                            props.map.paths.map(
+                                                (path, i) => {
+                                                    states.push({
+                                                        id:
+                                                        path
+                                                            .attributes
+                                                            .id,
+                                                        key:
+                                                        path
+                                                            .attributes
+                                                            .id,
+                                                        state:
+                                                        path
+                                                            .attributes
+                                                            .name,
+                                                        positive:
+                                                            regionSentimentScore.get(
+                                                                path
+                                                                    .attributes
+                                                                    .name
+                                                            ) &&
+                                                            regionSentimentScore.get(
+                                                                path
+                                                                    .attributes
+                                                                    .name
+                                                            ).positive,
+                                                        negative:
+                                                            regionSentimentScore.get(
+                                                                path
+                                                                    .attributes
+                                                                    .name
+                                                            ) &&
+                                                            regionSentimentScore.get(
+                                                                path
+                                                                    .attributes
+                                                                    .name
+                                                            ).negative,
+                                                    });
+
+                                                    if (
+                                                        elRefs.current
+                                                            .length !==
+                                                        props.map.paths
+                                                            .length
+                                                    ) {
+                                                        // add or remove refs
+                                                        elRefs.current = Array(
+                                                            props.map
+                                                                .paths
                                                                 .length
-                                                        ) {
-                                                            // add or remove refs
-                                                            elRefs.current = Array(
-                                                                props.map
-                                                                    .paths
-                                                                    .length
-                                                            )
-                                                                .fill()
-                                                                .map(
-                                                                    (_) =>
-                                                                        elRefs
-                                                                            .current[
-                                                                            i
-                                                                            ] ||
-                                                                        createRef()
-                                                                );
-                                                        }
-                                                        return (
-                                                            <>
-                                                                <path
-                                                                    ref={
-                                                                        elRefs
-                                                                            .current[
-                                                                            i
-                                                                            ]
-                                                                    }
-                                                                    d={
-                                                                        path
-                                                                            .attributes
-                                                                            .d
-                                                                    }
-                                                                    id={
-                                                                        path
-                                                                            .attributes
-                                                                            .id
-                                                                    }
-                                                                    name={
-                                                                        path
-                                                                            .attributes
-                                                                            .name
-                                                                    }
-                                                                    key={
-                                                                        path
-                                                                            .attributes
-                                                                            .id
-                                                                    }
-                                                                    color={getColor(
-                                                                        path
-                                                                            .attributes
-                                                                            .name
-                                                                    )}
-                                                                    // ref={b}
-                                                                    // onLoad={} // doesn't work
-                                                                    opacity={getOpacity(
-                                                                        path
-                                                                            .attributes
-                                                                            .id
-                                                                    )}
-                                                                    onMouseOver={(
-                                                                        e
-                                                                    ) => {
-                                                                        e.target.setAttribute(
-                                                                            "opacity",
-                                                                            1
-                                                                        );
-                                                                        setHighlightedStateName(
-                                                                            `${e.target.getAttribute(
-                                                                                "name"
-                                                                            )}  Region`
-                                                                        );
-                                                                        setHighlightedDetails(
-                                                                            regionSentimentScore.get(
-                                                                                path
-                                                                                    .attributes
-                                                                                    .name
-                                                                            ) && (
-                                                                                <p>
-                                                                                    Positive:
-                                                                                    {
-                                                                                        regionSentimentScore.get(
-                                                                                            path
-                                                                                                .attributes
-                                                                                                .name
-                                                                                        )
-                                                                                            .positive
-                                                                                    }
-                                                                                    <br />
-                                                                                    Negative:
-                                                                                    {
-                                                                                        regionSentimentScore.get(
-                                                                                            path
-                                                                                                .attributes
-                                                                                                .name
-                                                                                        )
-                                                                                            .negative
-                                                                                    }
-                                                                                </p>
-                                                                            )
-                                                                        );
-                                                                    }}
-                                                                    onMouseOut={(
-                                                                        e
-                                                                    ) => {
-                                                                        e.target.setAttribute(
-                                                                            "opacity",
-                                                                            0.8
-                                                                        );
-                                                                        setHighlightedStateName(
-                                                                            defaultText
-                                                                        );
-                                                                        setHighlightedDetails();
-                                                                    }}
-                                                                />
-                                                            </>
-                                                        );
+                                                        )
+                                                            .fill()
+                                                            .map(
+                                                                (_) =>
+                                                                    elRefs
+                                                                        .current[
+                                                                        i
+                                                                        ] ||
+                                                                    createRef()
+                                                            );
                                                     }
-                                                )}
-                                                {props.map &&
-                                                props.map.circles.map(
-                                                    (circle) => (
-                                                        <circle
-                                                            d={
-                                                                circle
-                                                                    .attributes
-                                                                    .cx
-                                                            }
-                                                            id={
-                                                                circle
-                                                                    .attributes
-                                                                    .cy
-                                                            }
-                                                            name={
-                                                                circle
-                                                                    .attributes
-                                                                    .id
-                                                            }
-                                                            key={
-                                                                circle
-                                                                    .attributes
-                                                                    .id
-                                                            }
-                                                        ></circle>
-                                                    )
-                                                )}
-                                                <circle
-                                                    r="25"
-                                                    cx="500"
-                                                    cy="500"
-                                                    stroke="white"
-                                                    fill="black"
-                                                    strokeWidth="5"
-                                                />
-                                                {/* 
+                                                    return (
+                                                        <>
+                                                            <path
+                                                                ref={
+                                                                    elRefs
+                                                                        .current[
+                                                                        i
+                                                                        ]
+                                                                }
+                                                                d={
+                                                                    path
+                                                                        .attributes
+                                                                        .d
+                                                                }
+                                                                id={
+                                                                    path
+                                                                        .attributes
+                                                                        .id
+                                                                }
+                                                                name={
+                                                                    path
+                                                                        .attributes
+                                                                        .name
+                                                                }
+                                                                key={
+                                                                    path
+                                                                        .attributes
+                                                                        .id
+                                                                }
+                                                                color={getColor(
+                                                                    path
+                                                                        .attributes
+                                                                        .name
+                                                                )}
+                                                                // ref={b}
+                                                                // onLoad={} // doesn't work
+                                                                opacity={getOpacity(
+                                                                    path
+                                                                        .attributes
+                                                                        .id
+                                                                )}
+                                                                onMouseOver={(
+                                                                    e
+                                                                ) => {
+                                                                    e.target.setAttribute(
+                                                                        "opacity",
+                                                                        1
+                                                                    );
+                                                                    setHighlightedStateName(
+                                                                        `${e.target.getAttribute(
+                                                                            "name"
+                                                                        )}  Region`
+                                                                    );
+                                                                    setHighlightedDetails(
+                                                                        regionSentimentScore.get(
+                                                                            path
+                                                                                .attributes
+                                                                                .name
+                                                                        ) && (
+                                                                            <p>
+                                                                                Positive:
+                                                                                {
+                                                                                    regionSentimentScore.get(
+                                                                                        path
+                                                                                            .attributes
+                                                                                            .name
+                                                                                    )
+                                                                                        .positive
+                                                                                }
+                                                                                <br />
+                                                                                Negative:
+                                                                                {
+                                                                                    regionSentimentScore.get(
+                                                                                        path
+                                                                                            .attributes
+                                                                                            .name
+                                                                                    )
+                                                                                        .negative
+                                                                                }
+                                                                            </p>
+                                                                        )
+                                                                    );
+                                                                }}
+                                                                onMouseOut={(
+                                                                    e
+                                                                ) => {
+                                                                    e.target.setAttribute(
+                                                                        "opacity",
+                                                                        0.8
+                                                                    );
+                                                                    setHighlightedStateName(
+                                                                        defaultText
+                                                                    );
+                                                                    setHighlightedDetails();
+                                                                }}
+                                                            />
+                                                        </>
+                                                    );
+                                                }
+                                            )}
+                                            {props.map &&
+                                            props.map.circles.map(
+                                                (circle) => (
+                                                    <circle
+                                                        d={
+                                                            circle
+                                                                .attributes
+                                                                .cx
+                                                        }
+                                                        id={
+                                                            circle
+                                                                .attributes
+                                                                .cy
+                                                        }
+                                                        name={
+                                                            circle
+                                                                .attributes
+                                                                .id
+                                                        }
+                                                        key={
+                                                            circle
+                                                                .attributes
+                                                                .id
+                                                        }
+                                                    ></circle>
+                                                )
+                                            )}
+                                            <circle
+                                                r="25"
+                                                cx="500"
+                                                cy="500"
+                                                stroke="white"
+                                                fill="black"
+                                                strokeWidth="5"
+                                            />
+                                            {/*
                                                 <rect
                                                     id="rect1"
                                                     x="25"
@@ -426,34 +426,33 @@ function SvgMap(props) {
                                                 >
                                                     pppppppppppppppppppppppppppppppppp
                                                 </text> */}
-                                            </g>
-                                        </SvgIcon>
-                                        {/* </ResponsiveContainer> */}
-                                    </Grid>
+                                        </g>
+                                    </SvgIcon>
+                                    {/* </ResponsiveContainer> */}
                                 </Grid>
                             </Grid>
-                            <Grid item xs={5}>
-                                <CountryListComponent
-                                    states={states}
-                                    columns={[...Array(numColumns).keys()]}
-                                    rows={numRows}
-                                    setHighlightedStateId={
-                                        setHighlightedStateId
-                                    }
-                                    setHighlightedStateName={
-                                        setHighlightedStateName
-                                    }
-                                    setHighlightedDetails={
-                                        setHighlightedDetails
-                                    }
-                                    defaultText={defaultText}
-                                />
-                            </Grid>
                         </Grid>
-                    </Card>
-                </CardContent>
-            </Grid>
-        </>
+                        <Grid item xs={5}>
+                            <CountryListComponent
+                                states={states}
+                                columns={[...Array(numColumns).keys()]}
+                                rows={numRows}
+                                setHighlightedStateId={
+                                    setHighlightedStateId
+                                }
+                                setHighlightedStateName={
+                                    setHighlightedStateName
+                                }
+                                setHighlightedDetails={
+                                    setHighlightedDetails
+                                }
+                                defaultText={defaultText}
+                            />
+                        </Grid>
+                    </Grid>
+                </Card>
+            </CardContent>
+        </Grid>
     );
 }
 

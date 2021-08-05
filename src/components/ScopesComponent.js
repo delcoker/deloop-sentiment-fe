@@ -141,7 +141,7 @@ const ScopesComponent = (props) => {
     }, []);
 
     return (
-        <>
+        <React.Fragment>
             <Grid container spacing={3} justify="space-between">
                 <AddEditFormDialogScope
                     open={open}
@@ -183,7 +183,7 @@ const ScopesComponent = (props) => {
                             handleOnRowClicked(row, "Category", false, "Scope", false)
                         }
                         expandOnRowClicked={false}
-                        expandableRowsComponent={<></>}
+                        expandableRowsComponent={<React.Fragment></React.Fragment>}
                         // dense
                         customStyles={props.customStyles}
                         contextActions={contextActions(deleteSelectedRows)}
@@ -192,7 +192,7 @@ const ScopesComponent = (props) => {
                     />
                 </Grid>
             </Grid>
-        </>
+        </React.Fragment>
     );
 }
 

@@ -21,6 +21,10 @@ export default class ChartFactory {
     }
 
     getChartsRow1 = (chartOptions, handleChartChange, handlePropertyChange) => {
+        // console.log('chartOptionssssssssssssssssssssss', chartOptions)
+        // return <BaseChart chartOptions={chartOptions} handleChartChange={handleChartChange}
+        //                   handlePropertyChange={handlePropertyChange} />
+
         return React.cloneElement(this.chartMap.get("default"), {
             chartOptions,
             handleChartChange,

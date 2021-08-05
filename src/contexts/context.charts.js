@@ -19,6 +19,8 @@ export const ChartsContextWrapper = props => {
     const [issueImportance, setIssueImportance] = useState({});
     const [chartOptions2, setChartOptions2] = useState({});
     const [highLights, setHighLights] = useState({});
+    const [wordCloudTweets, setWordCloudTweets] = useState({cloud: []});
+    const [wordCloudLocations, setWordCloudLocations] = useState({cloud: []});
     const [loading, setLoading] = React.useState(true);
 
     useEffect(() => {
@@ -100,7 +102,6 @@ export const ChartsContextWrapper = props => {
 
             chartService.getIssueSeverity(params)
                 .then(response => {
-                    // console.log(response)
                     const charts = {charts: [...issueImportance.charts, response.charts[0]]};
                     setChartOptions2(charts);
                     setLoading(false);
@@ -112,6 +113,46 @@ export const ChartsContextWrapper = props => {
         }
     }, [issueImportance.charts]);
 
+    useEffect(() => {
+        if (user !== undefined) {
+            const start_date = moment(startDate).format(dateFormat);
+            const end_date = moment(endDate).format(dateFormat);
+
+            const params = {start_date: start_date, end_date: end_date};
+
+            chartService.getWordCloudTweets(params)
+                .then(response => {
+                    const charts = {cloud: response};
+                    setWordCloudTweets(charts);
+                    setLoading(false);
+                })
+                .catch(error => {
+                    console.log("error getting world cloud for tweets")
+                    setLoading(false);
+                });
+        }
+    }, [user, startDate, endDate]);
+
+    useEffect(() => {
+        if (user !== undefined) {
+            const start_date = moment(startDate).format(dateFormat);
+            const end_date = moment(endDate).format(dateFormat);
+
+            const params = {start_date: start_date, end_date: end_date};
+
+            chartService.getWordCloudLocations(params)
+                .then(response => {
+                    const charts = {cloud: response};
+                    setWordCloudLocations(charts);
+                    setLoading(false);
+                })
+                .catch(error => {
+                    console.log("error getting world cloud for location")
+                    setLoading(false);
+                });
+        }
+    }, [user, startDate, endDate]);
+
     return (
         <ChartsContext.Provider
             value={{
@@ -122,6 +163,8 @@ export const ChartsContextWrapper = props => {
                 loading, setLoading,
                 highLights,
                 chartOptions2, setChartOptions2,
+                wordCloudTweets, setWordCloudTweets,
+                wordCloudLocations, setWordCloudLocations,
             }} // value of your context
         >
             {props.children}
