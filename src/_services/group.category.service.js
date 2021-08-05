@@ -1,25 +1,19 @@
-// import { BehaviorSubject } from 'rxjs';
-//
-// import config from 'config';
 import {axiosWrapper} from '../_helpers';
-//
-// const userSubject = new BehaviorSubject(null);
-// // const baseUrl = `${config.apiUrl}/accounts`;
-// const baseUrl = `${config.apiUrl}`;
-//
+
+const apiRoute = `/group`;
+
 export const groupCategoryService = {
     getAll,
     getAllCategoryData,
     // getById,
-    // create,
-    // update,
-    // delete: _delete,
-    // user: userSubject.asObservable(),
+    create,
+    update,
+    delete: _delete,
 };
 
 function getAll() {
-    return axiosWrapper.get(`/group/categories`)
-        .then(data => getAllCategoryData(data, data[0].id));
+    return axiosWrapper.get(`${apiRoute}/categories`)
+        .then(data => getAllCategoryData(data, data[0] && data[0].id));
 }
 
 function getAllCategoryData(group_category_data, group_category_id) {
@@ -30,17 +24,15 @@ function getAllCategoryData(group_category_data, group_category_id) {
     const group = group_category_data.find(group_category => group_category.id === group_category_id);
     let dataSet = group_category_data && group_category_data.length > 0 ? group.categories : group_category_data;
 
+    // console.log(dataSet);
+
     dataSet.forEach(category => {
         category.name = category.category_name;
         if (category.keywords) {
             if (category.keywords.length > 0) {
                 category.keywordz = category && category["keywords"]
-                    .reduce((acc, two) => {
-                        if (two.keywords === null) {
-                            return "👀";
-                        }
-                        return ((acc && acc.keywords) + " " + two.keywords);
-                    }, "");
+                    .reduce((acc, two) =>
+                        ((acc && acc.keywords) + " " + two.keywords && two.keywords ? two.keywords : "👀"), "");
                 return category;
             }
             category.keywordz = "👀";
@@ -48,95 +40,34 @@ function getAllCategoryData(group_category_data, group_category_id) {
         return category;
     });
 
-    // dataSet = dataSet.map(data => {
-    //     data.keywords = data.keywordz;
-    //     return data;
-    // })
-
-    // console.log("dataSet", dataSet)
-
     response.categories = dataSet;
+    // console.log(response);
     return response;
 }
 
-// function getGroupCategories(group_category_id) {
-// 		// revoke token, stop refresh timer, publish null to user subscribers and redirect to login page
-// 		// fetchWrapper.post(`${baseUrl}/revoke-token`, {});
-// 		// stopRefreshTokenTimer();
-// 		removeUserSession();
-// 		history.push('/login');
-// }
+function create(params) {
+    let requestData = new FormData();
+    requestData.append("group_category_name", params.name.trim());
 
-//
-// // function refreshToken() {
-// //
-// // 		const user = getUserSession();
-// // 		userSubject.next(user);
-// //
-// // 		return user;
-// //
-// // 		// return fetchWrapper.post(`${baseUrl}/refresh-token`, {})
-// // 		// 	.then(user => {
-// // 		// 			// publish user to subscribers and start timer to refresh token
-// // 		// 			userSubject.next(user);
-// // 		// 			startRefreshTokenTimer();
-// // 		// 			return user;
-// // 		// 	});
-// // }
-//
-// function register(params) {
-// 		return fetchWrapper.post(`${baseUrl}/register`, params);
-// }
-//
-// function verifyEmail(token) {
-// 		return fetchWrapper.post(`${baseUrl}/verify-email`, {token});
-// }
-//
-// function forgotPassword(email) {
-// 		return fetchWrapper.post(`${baseUrl}/forgot-password`, {email});
-// }
-//
-// function validateResetToken(token) {
-// 		return fetchWrapper.post(`${baseUrl}/validate-reset-token`, {token});
-// }
-//
-// function resetPassword({token, password, confirmPassword}) {
-// 		return fetchWrapper.post(`${baseUrl}/reset-password`, {token, password, confirmPassword});
-// }
-//
-// function getAll() {
-// 		return fetchWrapper.get(baseUrl);
-// }
-//
-// function getById(id) {
-// 		return fetchWrapper.get(`${baseUrl}/${id}`);
-// }
-//
-// function create(params) {
-// 		return fetchWrapper.post(baseUrl, params);
-// }
-//
-// function update(id, params) {
-// 		return fetchWrapper.put(`${baseUrl}/${id}`, params)
-// 			.then(user => {
-// 					// update stored user if the logged in user updated their own record
-// 					if (user.id === userSubject.value.id) {
-// 							// publish updated user to subscribers
-// 							user = {...userSubject.value, ...user};
-// 							userSubject.next(user);
-// 					}
-// 					return user;
-// 			});
-// }
-//
-// // prefixed with underscore because 'delete' is a reserved word in javascript
-// function _delete(id) {
-// 		return fetchWrapper.delete(`${baseUrl}/${id}`)
-// 			.then(x => {
-// 					// auto logout if the logged in user deleted their own record
-// 					if (id === userSubject.value.id) {
-// 							logout();
-// 					}
-// 					return x;
-// 			});
-// }
+    return axiosWrapper.post(`${apiRoute}/category/create/`, requestData);
+}
+
+function update(params) {
+    let requestData = new FormData();
+    // requestData.append("token", accountService.getUserSession().token);
+    requestData.append("group_category_name", params.name.trim());
+    requestData.append("group_category_id", params.group_category_id);
+
+    return axiosWrapper.post(`${apiRoute}/category/update/${params.group_category_id}`, requestData);
+}
+
+// prefixed with underscore because 'delete' is a reserved word in javascript
+function _delete(id) {
+    return axiosWrapper.get(`${apiRoute}/categories`)
+        .then(response => {
+            if (response.length < 2) {
+                throw Error("At least one group is mandatory");
+            }
+            return axiosWrapper.post(`${apiRoute}/category/delete/${id}`);
+        })
+}

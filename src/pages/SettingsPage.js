@@ -72,7 +72,6 @@ const columnsPlatform = [
     },
 ];
 
-
 const platform_redirect = (platform) => {
     if (platform.toLowerCase() === "twitter") {
         const url = "/login/twitter";
@@ -103,17 +102,19 @@ const SettingsPage = (props) => {
     };
 
     return (
-        <>
-            <br/>
+        <React.Fragment>
             <Card>
                 <CardHeader
-                    title="Settings"
+                    title={props.pageTitle}
                     titleTypographyProps={{
                         component: Box,
                         marginBottom: "0!important",
                         variant: "h5",
                     }}
                 />
+            </Card>
+            <br />
+            <Card>
                 <CardContent>
                     <Grid container spacing={3} justify="space-between">
 
@@ -137,7 +138,7 @@ const SettingsPage = (props) => {
                                 // selectableRows
                                 expandableRows
                                 expandOnRowClicked={false}
-                                expandableRowsComponent={<></>}
+                                expandableRowsComponent={<React.Fragment></React.Fragment>}
                                 customStyles={customDataTableStyles}
                                 striped
                             />
@@ -155,7 +156,7 @@ const SettingsPage = (props) => {
                     </Grid>
                 </CardContent>
             </Card>
-        </>
+        </React.Fragment>
     );
 };
 export default SettingsPage;
