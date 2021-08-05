@@ -152,7 +152,7 @@ const WordCloudComponent = ({wordCloud}) => {
     return (
         <Grid container spacing={3} justify="space-between">
             <Grid item xs={12}>
-                <DashboardItem children={cloud} title={wordCloud.cloud.title.toUpperCase()} />
+                <DashboardItem children={cloud} title={wordCloud.cloud.title && wordCloud.cloud.title.toUpperCase()} />
             </Grid>
         </Grid>
     )
