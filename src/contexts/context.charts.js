@@ -102,7 +102,6 @@ export const ChartsContextWrapper = props => {
 
             chartService.getIssueSeverity(params)
                 .then(response => {
-                    // console.log(response)
                     const charts = {charts: [...issueImportance.charts, response.charts[0]]};
                     setChartOptions2(charts);
                     setLoading(false);

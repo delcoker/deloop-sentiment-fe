@@ -79,11 +79,6 @@ let words = [
 ];
 
 const WordCloudComponent = ({wordCloud}) => {
-    console.log(wordCloud)
-
-    // console.log('wordClouds.cloud');
-
-
     // wordcloud: ({ resultSet }) => {
     // console.log(Object.keys(resultSet.loadResponses[0].annotation.measures)[0] );
     // if (resultSet) {
@@ -147,7 +142,7 @@ const WordCloudComponent = ({wordCloud}) => {
                   // callbacks={callbacks}
                   size={[1400, 540]}
                   options={options}
-                  words={wordCloud.cloud || words}
+                  words={wordCloud.cloud.value || words}
               />
                </span>
         {/*<Button onClick={handleSave} variant="contained" color="primary">Save</Button>*/}
@@ -157,7 +152,7 @@ const WordCloudComponent = ({wordCloud}) => {
     return (
         <Grid container spacing={3} justify="space-between">
             <Grid item xs={12}>
-                <DashboardItem children={cloud} title={"Word Cloud"} />
+                <DashboardItem children={cloud} title={wordCloud.cloud.title.toUpperCase()} />
             </Grid>
         </Grid>
     )

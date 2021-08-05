@@ -84,7 +84,7 @@ const routes = [
         page: LocationPage,
         title: "Locations",
         icon: <LocationOn />,
-        visible: false,
+        visible: true,
         subheader: false,
     },
     {
