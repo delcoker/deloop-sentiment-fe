@@ -140,7 +140,7 @@ const WordCloudComponent = ({wordCloud}) => {
           <span ref={wordcloudRef}>
               <ReactWordcloud
                   // callbacks={callbacks}
-                  size={[1300, 540]}
+                  size={[1350, 540]}
                   options={options}
                   words={wordCloud.cloud.value || words}
               />
