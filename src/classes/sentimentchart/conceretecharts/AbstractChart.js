@@ -86,9 +86,9 @@ class AbstractChart extends React.Component {
         const switch_options = Object.values(PropertyTypes);//.filter(obj => obj.value <= this.MAX_CHART_TYPES);
         if (switch_options.length > 0) {
             return switch_options.map((option, i) =>
-                <React.Fragment  key={"propertyTypes_fragments" + option.value + i}>
+                <React.Fragment key={"propertyTypes_fragments" + option.value + i}>
                     <Button value={option.value}
-                            // key={"propertyTypes_" + option.value + i}
+                        // key={"propertyTypes_" + option.value + i}
                             size="small"
                             onClick={(e) => {
                                 return this.props.handlePropertyChange(e, chart_id)
@@ -105,7 +105,7 @@ class AbstractChart extends React.Component {
         if (this.props.chartOptions && this.props.chartOptions.charts && this.props.chartOptions.charts.length > 0) {
             return this.props.chartOptions.charts.map((chart, i) => {
                 return (
-                    <Grid item lg={6} md={8} xs={12} key={"chart_" + chart.id}>
+                    <Grid item lg={12} md={8} xs={12} key={"chart_" + chart.id}>
                         <Card key={"chart_card_" + chart.id}>
                             <CardContent key={"chart_card_content_" + chart.id}>
                                 <HighchartsReact

@@ -77,7 +77,7 @@ const DatePickerWrapper = ({childComponent: Component}) => {
                 {/*/>*/}
             </Grid>
 
-            <Grid item xs={2}>
+            <Grid item xs={3}>
                 <DateRangePickerComponent
                     // value={[beginDate, endDate]}
                     // placeholder="Select a date range"
