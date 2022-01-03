@@ -41,9 +41,10 @@ const TopicsExpandableComponent = (props) => {
     return (<Fragment>
         <br />
         <Grid container spacing={3}
+              item
               xs={12}
               direction="row"
-              justify="center"
+              justifyContent="center"
               alignItems="flex-start">
 
             <Grid item xs={9}>

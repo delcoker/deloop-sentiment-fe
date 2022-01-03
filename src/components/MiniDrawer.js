@@ -152,7 +152,7 @@ export default function MiniDrawer({children, pageTitle, showSubheader}) {
                     <div className={classes.spaceOut} />
                     {accountService.getUserSession() && <Button
                         component="a"
-                        href="https://github.com/dwm-codebase"
+                        href="https://github.com/delcoker/deloop-sentiment-fe"
                         target="_blank"
                         endIcon={<DescriptionIcon />}
                         color="inherit"
@@ -161,7 +161,7 @@ export default function MiniDrawer({children, pageTitle, showSubheader}) {
                     </Button>}
                     <Button
                         component="a"
-                        href="https://github.com/dwm-codebase/fe_final"
+                        href="https://github.com/delcoker/deloop-sentiment-be-api"
                         endIcon={<GitHubIcon />}
                         color="inherit"
                         target="_blank"

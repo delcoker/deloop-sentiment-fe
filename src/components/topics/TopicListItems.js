@@ -32,7 +32,7 @@ export default function TopicListItems(props) {
 
 
     const handleClick = (e, item_id) => {
-        console.log(e.currentTarget)
+        // console.log(e.currentTarget)
         setOpen(!open);
     };
 
