@@ -1,10 +1,11 @@
-import React, {useCallback, useContext, useState} from "react";
+import React, {Fragment, useCallback, useContext, useState} from "react";
 import memoize from 'memoize-one'; // https://stackoverflow.com/questions/61255053/react-usecallback-with-parameter
 import {Box, Card, CardContent, CardHeader, FormControlLabel, Grid, IconButton, Switch,} from "@material-ui/core";
 // core components
 import AddEditFormDialogTopic from "../components/AddEditFormDialogTopic";
 import DataTable from "react-data-table-component";
 import ActionComponent from "../components/ActionComponent";
+import TopicsExpandableComponent from "../components/topics/TopicsExpandableComponent"
 import {categoryService} from "../_services/category.service";
 import {customDataTableStyles} from "../_helpers/use_styles/styles";
 import {AlertType} from "../_services";
@@ -157,8 +158,7 @@ const TopicsPage = React.memo((props) => {
         return setExpandOnRowClick(!expandOnRowClick);
     });
 
-    return (
-        <>
+    return (<Fragment>
             <br />
             <br />
             <Card>
@@ -227,7 +227,7 @@ const TopicsPage = React.memo((props) => {
                                 actions={actions("user")}
                                 onRowClicked={row => handleOnRowClicked(row, "don't need this anymore", false, "Category", "Keywords")}
                                 expandOnRowClicked={false}
-                                expandableRowsComponent={<></>}
+                                expandableRowsComponent={<TopicsExpandableComponent />}
                                 selectableRows
                                 clearSelectedRows={toggleClearSelectedRows}
                                 onSelectedRowsChange={handleSelectedRows}
@@ -241,7 +241,7 @@ const TopicsPage = React.memo((props) => {
                     </Grid>
                 </CardContent>
             </Card>
-        </>
+        </Fragment>
     );
 });
 

@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useContext, useEffect, useState, Fragment} from "react";
 // react component that copies the given text inside your clipboard
 // @material-ui/core components
 // import Box from "@material-ui/core/Box";
@@ -141,7 +141,7 @@ const ScopesComponent = (props) => {
     }, []);
 
     return (
-        <React.Fragment>
+        <Fragment>
             <Grid container spacing={3} justify="space-between">
                 <AddEditFormDialogScope
                     open={open}
@@ -192,7 +192,7 @@ const ScopesComponent = (props) => {
                     />
                 </Grid>
             </Grid>
-        </React.Fragment>
+        </Fragment>
     );
 }
 

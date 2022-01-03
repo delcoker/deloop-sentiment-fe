@@ -158,7 +158,7 @@ export default function AddEditFormDialogGroupCategory(props) {
                                             ? f_rowData["name"] : ""
                                     }
                                     onChange={(e) => {
-                                        const attribute =  f_rowData && f_rowData["name"]
+                                        const attribute = f_rowData && f_rowData["name"]
                                             ? {"name": e.target.value,}
                                             : {"name": e.target.value,};
                                         const newRowData = ({...f_rowData, ...attribute,});

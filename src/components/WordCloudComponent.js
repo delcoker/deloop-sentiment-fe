@@ -1,8 +1,8 @@
-import React, {createRef, useContext, useMemo} from "react";
+import React, {createRef, Fragment} from "react";
 import ReactWordcloud from "react-wordcloud";
 // import sw from "stopword";
 import {Grid} from "@material-ui/core";
-import {ChartsContext} from "../contexts/context.charts";
+// import {ChartsContext} from "../contexts/context.charts";
 import {CSS_COLOR_NAMES} from "../classes/sentimentchart/enums/PropertyTypes";
 import DashboardItem from "./DashboardItem";
 import saveSvgAsPng from 'save-svg-as-png';
@@ -87,9 +87,9 @@ const WordCloudComponent = ({wordCloud}) => {
     //         "(?:https?)://[\nS]+|\bw{1,4}\b|rt|[0-9a-zA-z]*(@)[0-9a-zA-z]*|#[0-9a-zA-z]*|[^a-zA-z0-9]",
     //         "ig"
     //     );
-
+    //
     // console.log(resultSet.loadResponses[0].data);
-
+    //
     // parse text into word array
     // resultSet.loadResponses[0].data.forEach((sentence) => {
     //     const post_word = sw.removeStopwords(
@@ -116,7 +116,7 @@ const WordCloudComponent = ({wordCloud}) => {
     //     });
     // }
     // );
-
+    //
     // words = [...word_map.entries()]
     //     // .filter(([text, value]) => value > max / 20)
     //     .map(([text, value]) => {
@@ -136,7 +136,7 @@ const WordCloudComponent = ({wordCloud}) => {
     };
 
 
-    const cloud = <>
+    const cloud = <Fragment>
           <span ref={wordcloudRef}>
               <ReactWordcloud
                   // callbacks={callbacks}
@@ -146,13 +146,15 @@ const WordCloudComponent = ({wordCloud}) => {
               />
                </span>
         {/*<Button onClick={handleSave} variant="contained" color="primary">Save</Button>*/}
-    </>
-
+    </Fragment>
 
     return (
         <Grid container spacing={3} justify="space-between">
             <Grid item xs={12}>
-                <DashboardItem children={cloud} title={wordCloud.cloud.title && wordCloud.cloud.title.toUpperCase()} />
+                <DashboardItem
+                    children={cloud}
+                    title={wordCloud.cloud.title && wordCloud.cloud.title.toUpperCase()}
+                />
             </Grid>
         </Grid>
     )
