@@ -1,5 +1,5 @@
 import AppBar from '@material-ui/core/AppBar'
-import React, {useContext, useState} from 'react'
+import React, {useContext, useState, Fragment} from 'react'
 import Tab from '@material-ui/core/Tab'
 import Tabs from '@material-ui/core/Tabs'
 import {TopicsContext} from "../../contexts/context.group.category";
@@ -166,7 +166,7 @@ const SubHeaderComponent = () => {
     ];
 
     return (
-        <React.Fragment>
+        <Fragment>
             <AppBar position="static">
                 <Tabs
                     value={tab}
@@ -193,7 +193,7 @@ const SubHeaderComponent = () => {
             </AppBar>
 
 
-        </React.Fragment>
+        </Fragment>
     )
 };
 export default SubHeaderComponent

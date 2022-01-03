@@ -5,7 +5,8 @@ export const categoryService = {
     getById,
     create,
     update,
-    delete: _delete
+    delete: _delete,
+    getCategoryPosts
 };
 
 const apiRoute = `/categories`;
@@ -45,4 +46,8 @@ function _delete(ids) {
     if (deleted.length === ids.length) {
         return deleted;
     }
+}
+
+function getCategoryPosts(category_id) {
+    return axiosWrapper.post(`${apiRoute}/posts/${category_id}`);
 }

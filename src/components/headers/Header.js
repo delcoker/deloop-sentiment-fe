@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Fragment} from "react";
 import {withRouter} from "react-router";
 // import AppBar from "@material-ui/core/AppBar";
 // import {Button, IconButton, Toolbar, Typography} from "@material-ui/core";
@@ -11,7 +11,7 @@ import {withRouter} from "react-router";
 const Header = ({open, handleDrawerOpen, showSubheader, pageTitle, classes}) => {
     // const classes = useStyles();
     return (
-        <React.Fragment>
+        <Fragment>
             {/*<AppBar*/}
             {/*    position="fixed"*/}
             {/*    className={clsx(classes.appBar, {*/}
@@ -66,7 +66,7 @@ const Header = ({open, handleDrawerOpen, showSubheader, pageTitle, classes}) => 
             {/*    {showSubheader && <SubHeaderComponent />}*/}
 
             {/*</AppBar>*/}
-        </React.Fragment>
+        </Fragment>
     )
 };
 

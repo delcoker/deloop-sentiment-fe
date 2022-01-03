@@ -12,13 +12,16 @@ import {
     ListItem,
     ListItemIcon,
     ListItemText,
-    Toolbar, Typography
+    Toolbar,
+    Typography
 } from '@material-ui/core';
 import {
     ChevronLeft as ChevronLeftIcon,
     ChevronRight as ChevronRightIcon,
-    Description as DescriptionIcon, GitHub as GitHubIcon,
-    Menu as MenuIcon, TimeToLeave,
+    Description as DescriptionIcon,
+    GitHub as GitHubIcon,
+    Menu as MenuIcon,
+    TimeToLeave,
 } from '@material-ui/icons';
 import {Link, useLocation} from "react-router-dom";
 
@@ -144,7 +147,7 @@ export default function MiniDrawer({children, pageTitle, showSubheader}) {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" color="inherit" noWrap className={classes.title}>
-                        DWM Sentimento {pageTitle} : {accountService.getUserSession().first_name}
+                        {process.env.REACT_APP_COMPANY_NAME} - {pageTitle} : {accountService.getUserSession().first_name}
                     </Typography>
                     <div className={classes.spaceOut} />
                     {accountService.getUserSession() && <Button
