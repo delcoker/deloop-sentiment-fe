@@ -18,10 +18,14 @@ function openPage(pageUrl) {
     window.open(pageUrl, "_blank") //to open new page
 }
 
-function isPositive() {
-    const rand = Math.floor(Math.random() * 10);
-    return rand > 5 ? "POSITIVE" : "NEGATIVE"
-
+function isPositive(sentiment) {
+    if (sentiment === "POSITIVE") {
+        return {backgroundColor: "green"};
+    }
+    if (sentiment === "NEGATIVE") {
+        return {backgroundColor: "green"};
+    }
+    return {backgroundColor: "gray"};
 }
 
 export default function TopicListItems(props) {
@@ -45,12 +49,7 @@ export default function TopicListItems(props) {
                             <ListItemAvatar>
                                 <Avatar alt={item.data_user_name}
                                         src="/static/images/avatar/1.jpg"
-                                        style={isPositive() === "POSITIVE" ?
-                                            {backgroundColor: "green"} :
-                                            {backgroundColor: "red"}}
-                                    // style={item.sentiment === isPositive ?
-                                    //     {backgroundColor: "green"} :
-                                    //     {backgroundColor: "red"}}
+                                        style={isPositive(item.sentiment)}
                                 />
                             </ListItemAvatar>
                             <ListItemText
