@@ -23,7 +23,7 @@ function isPositive(sentiment) {
         return {backgroundColor: "green"};
     }
     if (sentiment === "NEGATIVE") {
-        return {backgroundColor: "green"};
+        return {backgroundColor: "red"};
     }
     return {backgroundColor: "gray"};
 }
