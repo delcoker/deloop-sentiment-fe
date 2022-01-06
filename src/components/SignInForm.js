@@ -96,6 +96,11 @@ const SignIn = () => {
                     {/*{intl.formatMessage({ id: 'sign_in' })}*/}
                     Sign In
                 </Typography>
+                <Typography component="h3" variant="h8">
+                    {/*{intl.formatMessage({ id: 'sign_in' })}*/}
+                    user: test@user.com <br />
+                    password: 123
+                </Typography>
                 <form className={classes.form} onSubmit={handleSubmit} noValidate>
                     <TextField
                         value={username}

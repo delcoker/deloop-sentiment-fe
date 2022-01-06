@@ -8,15 +8,9 @@ function Copyright() {
     return (
         <Typography variant="body2" color="textSecondary">
             {'Copyright © '}
-            <Link color="inherit" href="https://www.linkedin.com/in/kingstoncoker/">
-                K
-            </Link>
-            <Link color="inherit" href="https://www.linkedin.com/in/judenorvor/">
-                J
-            </Link>
-            <Link color="inherit" href="https://www.linkedin.com/in/shamiradjaku/">
-                S
-            </Link>{' '}
+            <Link color="inherit" href="https://www.linkedin.com/in/kingstoncoker/" target="_blank">K</Link>
+            <Link color="inherit" href="https://www.linkedin.com/in/judenorvor/" target="_blank">J</Link>
+            <Link color="inherit" href="https://www.linkedin.com/in/shamiradjaku/" target="_blank">S</Link>{' '}
             {new Date().getFullYear()}
             {'.'}
         </Typography>
