@@ -48,9 +48,8 @@ function getAllCategoryData(group_category_data, group_category_id) {
 function create(params) {
     let requestData = new FormData();
     requestData.append("group_category_name", params.name.trim());
-    console.log(params)
 
-    return axiosWrapper.post(`${apiRoute}/category/create/`, requestData);
+    return axiosWrapper.post(`${apiRoute}/category/create`, requestData);
 }
 
 function update(params) {
