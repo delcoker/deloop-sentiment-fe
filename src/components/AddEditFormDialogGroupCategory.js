@@ -43,6 +43,7 @@ export default function AddEditFormDialogGroupCategory(props) {
                 setLoading(false);
 
                 let newGroupCategoryData = [...groupCategoryData, response];
+                console.log(newGroupCategoryData);
                 setGroupCategoryData(newGroupCategoryData);
 
                 setAlertOpen(true);
